@@ -1,0 +1,25 @@
+@use "tailwindcss";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: monospace, "Helvetica Neue", sans-serif; }
+
+.custom-rounded {
+    border-radius: 0.5rem 2rem 2rem 0.5rem;
+  }
+  
+  
+.custom-rounded2 {
+    border-radius: 2rem 0.5rem 0.5rem 2rem;
+  }
+  
+  .custom-rounded3 {
+    border-radius: 0rem 0rem 2rem 2rem;
+  }
+
+  .custom-rounded4 {
+    border-radius: 0.5rem 0.5rem 0.5rem 2rem;
+  }
+
+  .custom-rounded5 {
+    border-radius: 0.5rem 0.5rem 2rem 0.5rem;
+  }
