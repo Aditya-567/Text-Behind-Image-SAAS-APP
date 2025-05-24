@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { BottomBarService } from '../../shared/header/bottom-bar.service';
+import { AuthService } from '../../login/auth-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,9 +28,9 @@ export class DashboardComponent {
   @Output() barToggle = new EventEmitter<boolean>();
   isCollapsed: boolean = false; 
 
- constructor(private bottomBarService: BottomBarService) {
-
- }
+ constructor(private bottomBarService: BottomBarService,
+  private authservice: AuthService,
+ ) {}
 
  openTBI() {
   this.isCollapsed = !this.isCollapsed;

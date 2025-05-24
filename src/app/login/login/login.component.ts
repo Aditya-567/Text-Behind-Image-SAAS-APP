@@ -1,6 +1,7 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth-service.service';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-login',
@@ -8,12 +9,19 @@ import { AuthService } from '../auth-service.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements AfterViewInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   email: string = '';
   password: string = '';
   displayName: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
+  ngOnInit() {
+    this.authService.currentUser$.subscribe((user) => {
+      if (user) {
+        this.router.navigate(['/home']);
+      }
+    });
+  }
 
   // Sign In with Email & Password
   signInWithEmail(event: Event) {
@@ -21,8 +29,8 @@ export class LoginComponent implements AfterViewInit {
     this.authService
       .signIn(this.email, this.password)
       .then((res) => {
-        console.log('Logged in Successfully!', res);
-        this.router.navigate(['/dashboard']);
+        console.log('Login Success:', res);
+        this.router.navigate(['/home']);
       })
       .catch((err) => console.error('Login Error:', err));
   }
@@ -37,7 +45,7 @@ export class LoginComponent implements AfterViewInit {
           displayName: this.displayName,
         });
         console.log('Account Created Successfully!', res);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/home']);
       })
       .catch((err) => console.error('Signup Error:', err));
   }
@@ -48,8 +56,13 @@ export class LoginComponent implements AfterViewInit {
     this.authService
       .googleSignIn()
       .then((res) => {
+        this.authService.getCurrentUser().subscribe((user) => {
+          if (user) {
+            this.authService.setCurrentUser(user as unknown as User);
+          }
+        });
         console.log('Google Sign-In Success:', res);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/home']);
       })
       .catch((err) => console.error('Google Sign-In Error:', err));
   }
@@ -61,7 +74,7 @@ export class LoginComponent implements AfterViewInit {
       .facebookSignIn()
       .then((res) => {
         console.log('Facebook Sign-In Success:', res);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/home']);
       })
       .catch((err) => console.error('Facebook Sign-In Error:', err));
   }

@@ -1,23 +1,75 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
+import { AuthService } from '../../login/auth-service.service';
 import { BottomBarService } from './bottom-bar.service';
 
 @Component({
   selector: 'app-header',
-  standalone:false,
+  standalone: false,
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
+  animations: [
+    trigger('expandCollapse', [
+      state('expanded', style({ height: '*', opacity: 1 })),
+      state('collapsed', style({ height: '0px', opacity: 0 })),
+      transition('expanded <=> collapsed', animate('2000ms ease-in-out')),
+    ]),
+  ],
 })
-export class HeaderComponent {
-
+export class HeaderComponent implements OnInit {
   selectedTab: string = 'home';
+  isCollapsed: boolean = false;
+  userImg = '';
+  userName = '';
+  userEmail = '';
+  lastSignInTime = '';
+  creationTime = '';
+  profileOpen = signal(false);
+  profilePopUpOpen = signal(false);
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
 
-  constructor( private route: Router ,private bottomBarService: BottomBarService){
-    
+  constructor(
+    private route: Router,
+    private bottomBarService: BottomBarService,
+    public authService: AuthService
+  ) {
+    this.authService.currentUser$.subscribe((user) => {
+      if (user) {
+        this.userImg = user.photoURL || '';
+        this.userName = user.displayName || '';
+        this.userEmail = user.email || '';
+        const date = new Date(user.metadata.lastSignInTime || '');
+        this.lastSignInTime = date.toDateString();
+        const creationdate = new Date(user.metadata.creationTime || '');
+        this.creationTime = creationdate.toDateString();
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.bottomBarService.isCollapsed$.subscribe((state) => {
+      this.isCollapsed = state;
+      console.log('Received Sidebar State in Header:', state);
+    });
   }
   goToHome() {
     this.route.navigate(['/home']);
@@ -27,13 +79,61 @@ export class HeaderComponent {
     this.route.navigate(['/login']);
   }
 
-  isCollapsed: boolean = false;
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
 
-
-  ngOnInit() {
-    this.bottomBarService.isCollapsed$.subscribe((state) => {
-      this.isCollapsed = state;
-      console.log("Received Sidebar State in Header:", state);
+  logout() {
+    this.authService.signOut().then(() => {
+      this.openProfile();
+      this.route.navigate(['/login']);
     });
+  }
+
+  openProfile() {
+    this.profileOpen.set(!this.profileOpen());
+    this.profilePopUpOpen.set(false);
+  }
+
+  openProfilePopUp() {
+    this.profilePopUpOpen.set(!this.profilePopUpOpen());
+  }
+
+  triggerImageUpload() {
+    this.fileInput.nativeElement.click();
+  }
+
+  onImageSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const storage = getStorage();
+      const fileRef = ref(storage, `profile-images/${uuidv4()}`);
+
+      uploadBytes(fileRef, file)
+        .then(() => getDownloadURL(fileRef))
+        .then((url) => {
+          this.userImg = url;
+          console.log('✅ Image uploaded:', url);
+        })
+        .catch((err) => {
+          console.error('❌ Image upload failed:', err);
+        });
+    }
+  }
+
+  updateProfile() {
+    this.authService
+      .updateUserProfile(this.userName, this.userImg)
+      .then(() => {
+        console.log('✅ Profile updated successfully');
+        this.openProfilePopUp(); // close popup if needed
+      })
+      .catch((err) => {
+        console.error('❌ Failed to update profile:', err);
+      });
+  }
+
+  saveProfile() {
+    this.updateProfile();
   }
 }

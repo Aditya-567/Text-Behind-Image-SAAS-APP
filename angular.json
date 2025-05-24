@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "nest-app": {
+    "TBI-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/nest-app",
+            "outputPath": "dist/TBI-app",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "nest-app:build:production"
+              "buildTarget": "TBI-app:build:production"
             },
             "development": {
-              "buildTarget": "nest-app:build:development"
+              "buildTarget": "TBI-app:build:development"
             }
           },
           "defaultConfiguration": "development"

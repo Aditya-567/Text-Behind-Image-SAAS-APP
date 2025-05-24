@@ -43,15 +43,17 @@
       <button
         (click)="selectTab('About')"
         [ngClass]="{
-          'bg-purple-800 ': selectedTab === 'About',
+          'bg-purple-800': selectedTab === 'About',
           'bg-gradient-to-r from-blue-600 to-purple-600':
-            selectedTab !== 'About'
+            selectedTab !== 'About',
+          'custom-rounded': isLoggedIn()
         }"
         class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
       >
         About
       </button>
 
+      @if(!isLoggedIn()){
       <button
         (click)="goToLogin()"
         (click)="selectTab('login')"
@@ -63,21 +65,174 @@
       >
         Sign Up
       </button>
+      }@else{
+      <button
+        (click)="openProfile()"
+        class="flex items-center p-1 bg-purple-700 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.09] cursor-pointer"
+      >
+        <img
+          src="{{ userImg }}"
+          alt="User"
+          class="h-8 w-8 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+        />
+      </button>
+      }
     </div>
-  }
+    }
   </div>
-
 </div>
 @if(isCollapsed){
 <div class="flex items-center justify-center mx-20 w-full">
-  <div class="mb-4 w-auto flex gap-2 rounded-full p-2 bg-white border border-gray-200 shadow-sm absolute top-3 right-30 animate-slide-right-to-left">
-    <button  class="text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700  custom-rounded2 transition-all" >く</button>
-    <button  class="text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700  rounded-md transition-all" > TBI </button>
-    <button  class="text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700  rounded-md transition-all" > Object Removal </button>
-    <button  class="text-white text-md px-6 py-3 cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-800 hover:to-purple-800 rounded-md transition-all" > Image Restore </button>
-    <button  class="text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:bg-purple-700  rounded-md transition-all" > Generative Fill </button>
-    <button  class="text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:bg-purple-700  custom-rounded transition-all" > Object Recolor </button>
-    <button  class="text-white text-md px-5 py-3 cursor-pointer bg-purple-600 hover:bg-purple-700  rounded-full transition-all" > p </button>
+  <div
+    class="mb-4 w-auto flex gap-2 rounded-full p-2 bg-white border border-gray-200 shadow-sm absolute top-3 right-30 animate-slide-right-to-left"
+  >
+    <button
+      class="text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700 custom-rounded2 transition-all"
+    >
+      く
+    </button>
+    <button
+      class="text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700 rounded-md transition-all"
+    >
+      TBI
+    </button>
+    <button
+      class="text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700 rounded-md transition-all"
+    >
+      Object Removal
+    </button>
+    <button
+      class="text-white text-md px-6 py-3 cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-800 hover:to-purple-800 rounded-md transition-all"
+    >
+      Image Restore
+    </button>
+    <button
+      class="text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:bg-purple-700 rounded-md transition-all"
+    >
+      Generative Fill
+    </button>
+    <button
+      class="text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:bg-purple-700 custom-rounded transition-all"
+    >
+      Object Recolor
+    </button>
+    <button
+      (click)="openProfile()"
+      class="flex items-center p-1 bg-purple-700 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.09] cursor-pointer"
+    >
+      <img
+        src="{{ userImg }}"
+        alt="User"
+        class="h-10 w-10 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+      />
+    </button>
+  </div>
+</div>
+} @if(profileOpen()){
+<div
+  [ngClass]="{
+    'animate-slide-right-to-left': profileOpen(),
+    'animate-slide-left-to-right': !profileOpen(),
+    'top-21 right-38': !isCollapsed,
+    'top-22 right-30': isCollapsed
+  }"
+  class="absolute w-auto bg-white shadow-lg border border-gray-200 rounded-lg p-4"
+>
+  <!-- profile edi open -->
+  @if(profilePopUpOpen()){
+  <div
+    [@expandCollapse]="profilePopUpOpen() ? 'expanded' : 'collapsed'"
+    class="flex flex-col p-1 min-w-[600px]"
+  >
+    <div class="flex items-center mb-6 w-full">
+      <div class="p-1 bg-purple-200 rounded-full mr-5 cursor-pointer">
+        <img src="{{ userImg }}" alt="User" class="h-30 w-30 rounded-full" />
+      </div>
+
+      <div class="flex flex-col">
+        <div class="">
+          <input
+            matInput
+            [(ngModel)]="userName"
+            class="w-[470px] p-2 px-4 border border-gray-400 rounded-md mb-3 custom-bold tracking-tight text-[24px] focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-300"
+          />
+
+          <img
+            src="edit.svg"
+            alt="Edit"
+            class="h-8 w-auto bg-white rounded-full absolute top-8 right-7"
+          />
+
+        </div>
+
+        <div class="">
+          <h1
+            class="w-[470px] p-3.5 px-4 bg-gray-100 border border-gray-400 rounded-md mb-3 custom-bold tracking-tight text-[14px] focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-300"
+          >{{userEmail}}</h1>
+        </div>
+      </div>
+
+    </div>
+    <div class="flex flex-col ml-37 mb-10">
+      <p class="custom-light text-[13.5px]">Joined : {{ creationTime }}</p>
+      <p class="custom-light text-[13.5px] ">
+        Last Login : {{ lastSignInTime }}
+      </p>
+    </div>
+    <div
+      class="flex items-center justify-between p-2 min-w-[600px] border border-gray-300 bg-gray-50 rounded-lg"
+    >
+      <button
+        (click)="openProfilePopUp()"
+        class="cursor-pointer border border-gray-500 hover:border-gray-600 text-[#555] px-5 py-1.5 rounded-md hover:bg-gray-300 text-sm transition-all"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="saveProfile()"
+        class="cursor-pointer border border-gray-500 hover:border-green-600 text-[#555] hover:text-white px-6 py-1.5 rounded-md hover:bg-green-400 text-sm transition-all"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+  }
+  <!-- profile edit close -->
+
+  @if(!profilePopUpOpen()){
+  <div class="flex items-center mb-4">
+    <div class="p-1 bg-purple-200 rounded-full mr-3">
+      <img src="{{ userImg }}" alt="User" class="h-20 w-20 rounded-full" />
+    </div>
+    <div class="flex flex-col">
+      <h2 class="text-[24px] custom-bold tracking-tight">{{ userName }}</h2>
+      <h2 class="text-[14px] font-semibold text-[#444]">{{ userEmail }}</h2>
+    </div>
+  </div>
+  <div class="flex flex-col items-center">
+    <p class="custom-light text-[13.5px]">Joined : {{ creationTime }}</p>
+    <p class="custom-light text-[13.5px] mb-8">
+      Last Login : {{ lastSignInTime }}
+    </p>
+  </div>
+  <div
+    class="flex items-center justify-between p-2 min-w-[400px] border border-gray-300 bg-gray-100 rounded-lg"
+  >
+    <button
+      (click)="openProfilePopUp()"
+      class="cursor-pointer border border-gray-500 hover:border-green-600 text-[#555] hover:text-white px-5 py-1.5 rounded-md hover:bg-green-400 text-sm transition-all"
+    >
+      Profile
+    </button>
+    <button
+      (click)="logout()"
+      class="cursor-pointer border border-gray-500 hover:border-red-600 text-[#555] hover:text-white px-6 py-1.5 rounded-md hover:bg-red-400 text-sm transition-all"
+    >
+      Logout
+    </button>
+  </div>
+
+  }
 </div>
 
-</div>}
+}
