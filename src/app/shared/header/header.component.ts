@@ -41,6 +41,7 @@ export class HeaderComponent implements OnInit {
   creationTime = '';
   profileOpen = signal(false);
   profilePopUpOpen = signal(false);
+  showFallback: boolean = false;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   selectTab(tab: string) {
@@ -86,6 +87,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.signOut().then(() => {
       this.openProfile();
+      this.isCollapsed = false;
       this.route.navigate(['/login']);
     });
   }
@@ -135,5 +137,10 @@ export class HeaderComponent implements OnInit {
 
   saveProfile() {
     this.updateProfile();
+  }
+
+
+  onImgError() {
+    this.showFallback = true;
   }
 }

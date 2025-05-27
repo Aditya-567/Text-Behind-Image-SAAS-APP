@@ -35,17 +35,28 @@ export class LoginComponent implements OnInit, AfterViewInit {
       .catch((err) => console.error('Login Error:', err));
   }
 
-  // Sign Up with Email & Password
   signUpWithEmail(event: Event) {
     event.preventDefault();
     this.authService
       .signUp(this.email, this.password)
       .then((res) => {
-        res.user?.updateProfile({
-          displayName: this.displayName,
-        });
-        console.log('Account Created Successfully!', res);
-        this.router.navigate(['/home']);
+        const user = res.user;
+        if (user) {
+          user
+            .updateProfile({
+              displayName: this.displayName,
+            })
+            .then(() => user.reload())
+            .then(() => {
+              // Fetch updated user from Firebase
+              this.authService.getCurrentUser().subscribe((updatedUser) => {
+                if (updatedUser) {
+                  this.authService.setCurrentUser(updatedUser as User);
+                }
+                this.router.navigate(['/home']);
+              });
+            });
+        }
       })
       .catch((err) => console.error('Signup Error:', err));
   }
@@ -67,16 +78,21 @@ export class LoginComponent implements OnInit, AfterViewInit {
       .catch((err) => console.error('Google Sign-In Error:', err));
   }
 
-  // Facebook Sign In
-  facebookSignIn(event: Event) {
+  // Add this method in LoginComponent
+  githubSignIn(event: Event) {
     event.preventDefault();
     this.authService
-      .facebookSignIn()
+      .githubSignIn()
       .then((res) => {
-        console.log('Facebook Sign-In Success:', res);
+        this.authService.getCurrentUser().subscribe((user) => {
+          if (user) {
+            this.authService.setCurrentUser(user as unknown as User);
+          }
+        });
+        console.log('GitHub Sign-In Success:', res);
         this.router.navigate(['/home']);
       })
-      .catch((err) => console.error('Facebook Sign-In Error:', err));
+      .catch((err) => console.error('GitHub Sign-In Error:', err));
   }
 
   // Forgot Password

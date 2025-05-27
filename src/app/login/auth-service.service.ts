@@ -62,11 +62,9 @@ export class AuthService {
     return this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
-  // Facebook Sign-In
-  facebookSignIn() {
-    return this.afAuth.signInWithPopup(
-      new firebase.auth.FacebookAuthProvider()
-    );
+  // Add this method in AuthService
+  githubSignIn() {
+    return this.afAuth.signInWithPopup(new firebase.auth.GithubAuthProvider());
   }
 
   resetPassword(email: string) {
@@ -74,7 +72,11 @@ export class AuthService {
   }
 
   signOut() {
-    return this.afAuth.signOut();
+    return this.afAuth.signOut().then(() => {
+      this.isLoggedInState = false;
+      this.currentUserSubject.next(undefined);
+      window.location.reload();
+    });
   }
 
   getCurrentUser() {
