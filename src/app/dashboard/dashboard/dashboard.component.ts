@@ -1,48 +1,84 @@
-import { Component, EventEmitter, Output, signal } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, signal } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { BottomBarService } from '../../shared/header/bottom-bar.service';
 import { AuthService } from '../../login/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  standalone:false,
+  standalone: false,
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   animations: [
     trigger('slideTransition', [
       transition(':increment', [
         style({ transform: 'translateX(100%)', opacity: 0 }),
-        animate('300ms ease-out', style({ transform: 'translateX(0)', opacity: 1 })),
+        animate(
+          '300ms ease-out',
+          style({ transform: 'translateX(0)', opacity: 1 })
+        ),
       ]),
       transition(':decrement', [
         style({ transform: 'translateX(-100%)', opacity: 0 }),
-        animate('300ms ease-out', style({ transform: 'translateX(0)', opacity: 1 })),
+        animate(
+          '300ms ease-out',
+          style({ transform: 'translateX(0)', opacity: 1 })
+        ),
       ]),
     ]),
   ],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   isDragging = signal(false);
   imageSrc: string | ArrayBuffer | null = null;
   activeTab: number = 0;
   @Output() barToggle = new EventEmitter<boolean>();
-  isCollapsed: boolean = false; 
+  isCollapsed: boolean = false;
 
- constructor(private bottomBarService: BottomBarService,
-  private authservice: AuthService,
- ) {}
+  constructor(
+    private router: Router,
+    private bottomBarService: BottomBarService,
+    private authService: AuthService
+  ) {}
 
- openTBI() {
-  this.isCollapsed = !this.isCollapsed;
-  console.log("Sidebar state changed to:", this.isCollapsed);
-  this.bottomBarService.toggleSidebar(this.isCollapsed);
-}
+  ngOnInit() {
+    this.bottomBarService.isCollapsed$.subscribe((state) => {
+      this.isCollapsed = state;
+      // Continue to call: this.bottomBarService.toggleSidebar(this.isCollapsed); in your closeTBI()
+    });
+  }
 
-closeTBI() {
-  this.isCollapsed = !this.isCollapsed;
-  console.log("Sidebar state changed to:", this.isCollapsed);
-  this.bottomBarService.toggleSidebar(this.isCollapsed);
-}
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  handleCardClick() {
+    if (!this.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    } else {
+      // Continue to object removal functionality
+      this.router.navigate(['/object-removal']);
+    }
+  }
+
+  isAllowed(): boolean {
+    if (this.isLoggedIn()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  openTBI() {
+    this.isCollapsed = !this.isCollapsed;
+    console.log('Sidebar state changed to:', this.isCollapsed);
+    this.bottomBarService.toggleSidebar(this.isCollapsed);
+  }
+
+  closeTBI() {
+    this.isCollapsed = !this.isCollapsed;
+    this.bottomBarService.toggleSidebar(this.isCollapsed);
+  }
 
   selectTab(index: number) {
     this.activeTab = index;

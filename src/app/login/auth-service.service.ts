@@ -35,10 +35,6 @@ export class AuthService {
       } else {
         this.isLoggedInState = false;
         this.currentUserSubject.next(undefined);
-        console.log(
-          'No user found in auth service no user data found in auth service',
-          firebaseUser
-        );
       }
     });
   }
