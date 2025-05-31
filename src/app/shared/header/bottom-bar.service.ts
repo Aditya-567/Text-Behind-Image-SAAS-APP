@@ -11,4 +11,9 @@ export class BottomBarService {
   toggleSidebar(state: boolean) {
     this.isCollapsedSubject.next(state);
   }
+
+  toggleFromHeader() {
+    const current = this.isCollapsedSubject.value;
+    this.isCollapsedSubject.next(!current);
+  }
 }

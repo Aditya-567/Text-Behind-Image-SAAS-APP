@@ -69,7 +69,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.bottomBarService.isCollapsed$.subscribe((state) => {
       this.isCollapsed = state;
-      console.log('Received Sidebar State in Header:', state);
     });
   }
   goToHome() {
@@ -139,8 +138,11 @@ export class HeaderComponent implements OnInit {
     this.updateProfile();
   }
 
-
   onImgError() {
     this.showFallback = true;
+  }
+
+  onToggleClick() {
+    this.bottomBarService.toggleFromHeader(); // use new toggle logic
   }
 }

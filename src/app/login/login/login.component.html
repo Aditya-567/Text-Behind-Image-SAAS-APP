@@ -6,8 +6,7 @@
     <!-- Sign Up Container -->
     <div class="form-container sign-up-container">
       <form (submit)="signUpWithEmail($event)">
-        <h1 class=" -mt-4 text-[#333] text-xl ">Let's start Creation<span class="text-3xl text-purple-800 font-bold"> TBI Studio</span></h1>
-        <h1 class="mb-8 text-[#666] text-xs ">Join us and bring your ideas to life.</h1>
+        <h1 class=" -mt-4 text-[#333] text-xl mb-8">Let's start Creation with<span class="text-3xl text-purple-800 font-bold"> TBI Studio</span></h1>
         <div class="flex flex-col gap-2 w-full">
           <button (click)="googleSignIn($event)" class="flex items-center gap-4 p-2 px-6 border border-gray-300 rounded-md
           hover:bg-gray-200 hover:shadow-md  
@@ -57,8 +56,7 @@
     <!-- Sign In Container -->
     <div class="form-container sign-in-container">
       <form (submit)="signInWithEmail($event)">
-        <h1 class=" text-[#333] text-xl ">Welcome Back to<span class="text-3xl text-purple-800 font-bold"> TBI Studio</span></h1>
-        <h1 class="mb-10 text-[#666] text-xs ">Unleash Your Inner Artist – Sign In</h1>
+        <h1 class=" text-[#333] text-xl mb-12">Welcome Back to<span class="text-3xl text-purple-800 font-bold"> TBI Studio</span></h1>
         <div class="flex flex-col gap-2 w-full">
           <button (click)="googleSignIn($event)" class="flex items-center gap-4 p-2 px-6 border border-gray-300 rounded-md
           hover:bg-gray-200 hover:shadow-md  
@@ -104,12 +102,12 @@
       <div class="overlay">
         <div class="overlay-panel overlay-left">
           <h1 class="text-2xl">Welcome Back!</h1>
-          <p>Your Gallery Missed You – Sign In to Resume.</p>
+          <p>Your Gallery Missed You – Sign In to Resume. Unleash Your Inner Artist</p>
           <button class="ghost border p-3 rounded-full px-8 cursor-pointer" id="signIn">Sign In</button>
         </div>
         <div class="overlay-panel overlay-right">
           <h1 class="text-2xl ">Hello, Creator!</h1>
-          <p>Let’s make something beautiful together. Start by signing up.</p>
+          <p>Let’s make something beautiful together. Start by signing up. Join us and bring your ideas to life.</p>
           <button class="ghost border p-3 rounded-full px-8 cursor-pointer" id="signUp">Sign Up</button>
         </div>
       </div>
