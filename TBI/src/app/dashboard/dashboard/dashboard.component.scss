@@ -1,0 +1,14 @@
+.custom-dotted-border {
+    border: 4px dotted rgb(117, 117, 117);      /* Border width and color */
+    border-radius: 6px;           /* Smooth corners */
+    border-image: initial;
+    border-style: dotted;
+    border-width: 2px;            /* Increase dot size */
+    background-clip: border-box;
+    
+    /* Increase dot spacing */
+    background-image: radial-gradient(gray 20%, transparent 2%);
+    background-size: 4px 4px; /* Adjust spacing here */
+  }
+
+  
