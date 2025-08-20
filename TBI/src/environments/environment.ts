@@ -9,4 +9,9 @@ export const environment = {
     appId: '1:516521812788:web:9c6758693149fd54b7bb61',
     measurementId: 'G-JMLCB24ZSH',
   },
+  // removeBgApiKey: '8qFbhvUiyJBvFbFxKPgBnPJ5',
+  cloudinary: {
+    cloudName: 'ddeqzsupa',
+    uploadPreset: 'z26kzr2i', // The name of the unsigned preset you created
+  },
 };

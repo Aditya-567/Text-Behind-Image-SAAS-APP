@@ -1,0 +1,410 @@
+<div class="container mx-auto p-4 sm:p-6 lg:p-8 mt-[80px]">
+  <div class="bg-gray-900 p-6"></div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10 md:w-[86%] mx-auto">
+    <div
+      id="previewWrapper"
+      class="lg:col-span-2 bg-white p-4 rounded-2xl border border-[#c8c8c8] flex items-center justify-center"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+    >
+      <div
+        *ngIf="!isImageUploaded; else imagePreview"
+        class="w-full h-full min-h-[500px] flex items-center justify-center"
+      >
+        <div
+          class="dropzone w-full h-full flex flex-col items-center justify-center p-8 rounded-lg text-center transition-colors"
+          [ngClass]="{ dragging: isDragging }"
+        >
+          <svg
+            class="w-16 h-16 text-slate-400 mb-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+            />
+          </svg>
+          <p class="text-slate-500 font-semibold mb-2">
+            Drag & Drop your image here
+          </p>
+          <p class="text-slate-400 text-sm mb-4">or</p>
+          <button
+            (click)="triggerFileInput()"
+            [disabled]="
+              !cloudName || !uploadPreset || cloudName === 'YOUR_CLOUD_NAME'
+            "
+            class="bg-teal-500 text-white font-bold py-2 px-5 rounded-lg hover:bg-teal-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Select a File
+          </button>
+          <input
+            type="file"
+            #fileInput
+            (change)="onFileSelected($event)"
+            accept="image/*"
+            class="hidden"
+          />
+        </div>
+      </div>
+
+      <ng-template #imagePreview>
+        <!-- UPDATED: This container now uses a style binding for dynamic aspect ratio -->
+        <div
+          id="previewContainer"
+          class="relative w-full overflow-hidden rounded-lg bg-slate-100"
+          [ngClass]="{ 'aspect-video': !originalImageAspectRatio }"
+          [style.aspect-ratio]="
+            aspectRatioSelection === 'original'
+              ? originalImageAspectRatio
+              : aspectRatioSelection
+          "
+        >
+          <div
+            *ngIf="isLoading || messageText"
+            class="absolute inset-0 z-40 flex flex-col items-center justify-center bg-white bg-opacity-75 text-slate-700 p-8 text-center rounded-lg"
+          >
+            <div *ngIf="isLoading" class="loader"></div>
+            <p *ngIf="messageText" class="mt-4 font-semibold">
+              {{ messageText }}
+            </p>
+          </div>
+
+          <img
+            id="backgroundImage"
+            [src]="safeBackgroundImage!"
+            alt="Background"
+            class="absolute top-0 left-0 w-full h-full object-cover"
+            [style.filter]="
+              'brightness(' + brightness + '%) contrast(' + contrast + '%)'
+            "
+          />
+          <div
+            id="textOverlay"
+            class="absolute top-0 left-0 w-full h-full pointer-events-none"
+          >
+            <div
+              *ngFor="let layer of textLayers"
+              [textContent]="layer.text"
+              [style.position]="'absolute'"
+              [style.white-space]="'nowrap'"
+              [style.text-align]="layer.align"
+              [style.font-size.px]="layer.fontSize"
+              [style.color]="layer.color"
+              [style.font-family]="layer.fontFamily"
+              [style.opacity]="layer.opacity / 100"
+              [style.font-weight]="layer.isBold ? '900' : '400'"
+              [style.font-style]="layer.isItalic ? 'italic' : 'normal'"
+              [style.text-decoration]="
+                layer.isUnderlined ? 'underline' : 'none'
+              "
+              [style.left.%]="layer.hPos"
+              [style.top.%]="layer.vPos"
+              [style.transform]="
+                'translate(-50%, -50%) rotate(' + layer.rotation + 'deg)'
+              "
+            ></div>
+          </div>
+          <img
+            id="foregroundImage"
+            [src]="safeForegroundImage!"
+            alt="Foreground"
+            class="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
+          />
+        </div>
+      </ng-template>
+    </div>
+
+    <div
+      class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-lg border border-slate-200 flex flex-col"
+    >
+      <div>
+        <div class="mb-6 border-b border-slate-200">
+          <div class="flex rounded-lg border border-slate-300 p-1">
+            <button
+              (click)="activeTab = 'text'"
+              [ngClass]="{ active: activeTab === 'text' }"
+              class="tab-btn flex-1 p-2 text-sm font-semibold"
+            >
+              Text
+            </button>
+            <button
+              (click)="activeTab = 'image'"
+              [ngClass]="{ active: activeTab === 'image' }"
+              class="tab-btn flex-1 p-2 text-sm font-semibold"
+            >
+              Image
+            </button>
+            <button
+              (click)="activeTab = 'settings'"
+              [ngClass]="{ active: activeTab === 'settings' }"
+              class="tab-btn flex-1 p-2 text-sm font-semibold"
+            >
+              Settings
+            </button>
+          </div>
+        </div>
+
+        <div id="textTab" *ngIf="activeTab === 'text'">
+          <button
+            (click)="addTextLayer()"
+            [disabled]="!isImageUploaded"
+            class="w-full bg-teal-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Add New Text
+          </button>
+          <div
+            id="textLayerList"
+            class="space-y-2 mb-4 max-h-40 overflow-y-auto"
+          >
+            <div
+              *ngFor="let layer of textLayers"
+              (click)="selectTextLayer(layer.id)"
+              class="layer-item flex items-center justify-between p-2 border border-slate-300 rounded-lg cursor-pointer"
+              [ngClass]="{ active: layer.id === activeLayerId }"
+            >
+              <span class="truncate text-sm">{{ layer.text }}</span>
+              <button
+                (click)="deleteTextLayer(layer.id, $event)"
+                class="ml-2 text-red-500 hover:text-red-700 font-bold"
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+          <div *ngIf="activeLayer" class="space-y-6">
+            <!-- Text controls remain the same -->
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-2"
+                >Layer Text</label
+              ><textarea
+                [(ngModel)]="activeLayer.text"
+                rows="2"
+                class="w-full bg-slate-100 border border-slate-300 rounded-lg px-3 py-2 text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none transition"
+              ></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-2"
+                >Font Family</label
+              ><select
+                [(ngModel)]="activeLayer.fontFamily"
+                class="w-full bg-slate-100 border border-slate-300 rounded-lg px-3 py-2 text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none transition"
+              >
+                <option value="'Inter', sans-serif">Inter</option>
+                <option value="'Playfair Display', serif">
+                  Playfair Display
+                </option>
+                <option value="'Roboto Mono', monospace">Roboto Mono</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div
+                class="control-btn-group flex rounded-lg border border-slate-300"
+              >
+                <button
+                  (click)="activeLayer.align = 'left'"
+                  [ngClass]="{ active: activeLayer.align === 'left' }"
+                  class="flex-1 p-2 text-xs"
+                >
+                  Left</button
+                ><button
+                  (click)="activeLayer.align = 'center'"
+                  [ngClass]="{ active: activeLayer.align === 'center' }"
+                  class="flex-1 p-2 text-xs"
+                >
+                  Center</button
+                ><button
+                  (click)="activeLayer.align = 'right'"
+                  [ngClass]="{ active: activeLayer.align === 'right' }"
+                  class="flex-1 p-2 text-xs"
+                >
+                  Right
+                </button>
+              </div>
+              <div
+                class="control-btn-group flex rounded-lg border border-slate-300"
+              >
+                <button
+                  (click)="activeLayer.isBold = !activeLayer.isBold"
+                  [ngClass]="{ active: activeLayer.isBold }"
+                  class="flex-1 p-2 font-bold"
+                >
+                  B</button
+                ><button
+                  (click)="activeLayer.isItalic = !activeLayer.isItalic"
+                  [ngClass]="{ active: activeLayer.isItalic }"
+                  class="flex-1 p-2 italic"
+                >
+                  I</button
+                ><button
+                  (click)="activeLayer.isUnderlined = !activeLayer.isUnderlined"
+                  [ngClass]="{ active: activeLayer.isUnderlined }"
+                  class="flex-1 p-2 underline"
+                >
+                  U
+                </button>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-2"
+                >Font Size: <span>{{ activeLayer.fontSize }}</span
+                >px</label
+              ><input
+                type="range"
+                min="10"
+                max="400"
+                [(ngModel)]="activeLayer.fontSize"
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-2"
+                >Opacity: <span>{{ activeLayer.opacity }}</span
+                >%</label
+              ><input
+                type="range"
+                min="0"
+                max="100"
+                [(ngModel)]="activeLayer.opacity"
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-2"
+                >Rotation: <span>{{ activeLayer.rotation }}</span
+                >°</label
+              ><input
+                type="range"
+                min="-45"
+                max="45"
+                [(ngModel)]="activeLayer.rotation"
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-2"
+                >Vertical Position: <span>{{ activeLayer.vPos }}</span
+                >%</label
+              ><input
+                type="range"
+                min="0"
+                max="100"
+                [(ngModel)]="activeLayer.vPos"
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-2"
+                >Horizontal Position: <span>{{ activeLayer.hPos }}</span
+                >%</label
+              ><input
+                type="range"
+                min="0"
+                max="100"
+                [(ngModel)]="activeLayer.hPos"
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
+              />
+            </div>
+            <div class="flex items-center justify-between pt-2">
+              <label class="text-sm font-medium text-slate-600"
+                >Text Color</label
+              ><input
+                type="color"
+                [(ngModel)]="activeLayer.color"
+                class="w-10 h-10 p-0 border-0 rounded-md cursor-pointer bg-white"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="imageTab" *ngIf="activeTab === 'image'" class="space-y-6">
+          <div *ngIf="!isImageUploaded">
+            <p class="text-slate-500 text-center">
+              Upload an image to see image options.
+            </p>
+          </div>
+          <div *ngIf="isImageUploaded" class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-2"
+                >Brightness: <span>{{ brightness }}</span
+                >%</label
+              >
+              <input
+                type="range"
+                min="0"
+                max="200"
+                [(ngModel)]="brightness"
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-2"
+                >Contrast: <span>{{ contrast }}</span
+                >%</label
+              >
+              <input
+                type="range"
+                min="0"
+                max="200"
+                [(ngModel)]="contrast"
+                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
+              />
+            </div>
+            <div class="pt-4">
+              <button
+                (click)="discardImage()"
+                class="w-full bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition-colors"
+              >
+                Discard Image
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="settingsTab"
+          *ngIf="activeTab === 'settings'"
+          class="space-y-6"
+        >
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-2"
+              >Aspect Ratio</label
+            >
+            <!-- UPDATED: Values now match CSS aspect-ratio property -->
+            <select
+              [(ngModel)]="aspectRatioSelection"
+              class="w-full bg-slate-100 border border-slate-300 rounded-lg px-3 py-2 text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none transition"
+            >
+              <option value="original">Original</option>
+              <option value="1/1">1:1 (Square)</option>
+              <option value="4/3">4:3</option>
+              <option value="16/9">16:9</option>
+            </select>
+          </div>
+          <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+            <h3 class="font-bold text-blue-800">Cloudinary Credentials</h3>
+            <p class="text-sm text-blue-700 mt-1">
+              Your Cloud Name and Upload Preset are configured in the project's
+              environment file.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="mt-auto pt-6">
+        <button
+          (click)="downloadImage()"
+          class="w-full bg-teal-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          [disabled]="!isImageUploaded"
+        >
+          Download Image
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
