@@ -1,28 +1,52 @@
 .loader {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #14b8a6;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #14b8a6;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.tab-btn.active, .control-btn-group button.active {
-    background-color: #14b8a6;
-    color: white;
+.tab-btn.active,
+.control-btn-group button.active {
+  background-color: #14b8a6;
+  color: white;
 }
 
 .layer-item.active {
-    background-color: #ccfbf1;
-    border-color: #14b8a6;
+  background-color: #ccfbf1;
+  border-color: #14b8a6;
 }
 
 .dropzone.dragging {
-    border-color: #14b8a6; /* teal-500 */
-    background-color: #f0fdfa; /* teal-50 */
+  border-color: #14b8a6; /* teal-500 */
+  background-color: #f0fdfa; /* teal-50 */
+}
+
+.scroll-track {
+  display: flex;
+  width: max-content;
+  animation: scrollLeft 30s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  animation-timing-function: linear;
+  backface-visibility: hidden;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }

@@ -46,7 +46,6 @@ export class TbiComponent {
   brightness = 100;
   contrast = 100;
 
-  // UPDATED: These now handle the aspect ratio logic
   aspectRatioSelection = 'original';
   originalImageAspectRatio: string | null = null;
 
@@ -143,14 +142,11 @@ export class TbiComponent {
       return;
     }
 
-    // UPDATED: Read file to get dimensions first
     const reader = new FileReader();
     reader.onload = (e: any) => {
       const img = new Image();
       img.onload = () => {
-        // Calculate and store the original aspect ratio
         this.originalImageAspectRatio = `${img.naturalWidth} / ${img.naturalHeight}`;
-        // Now proceed with the upload
         this.uploadToCloudinary(file);
       };
       img.src = e.target.result;
@@ -266,6 +262,32 @@ export class TbiComponent {
     };
     bgImg.src = this.backgroundImageUrl;
   }
+
+  //ui
+  featureCards = [
+    {
+      icon: 'ifc.svg',
+      title: 'Enhance Profile Pic',
+      description: 'Write, edit, and execute code effortlessly.',
+    },
+    {
+      icon: 'dfc.svg',
+      title: 'Access it AnyTime',
+      description: 'Invite team members and set up roles in just a few clicks.',
+    },
+    {
+      icon: 'sfc.svg',
+      title: 'AI',
+      description:
+        'Powered by OnceHub, CodeOnce ensures lightning-fast execution.',
+    },
+    {
+      icon: 'tfc.svg',
+      title: 'Add Text',
+      description: 'Visualize user progress and detailed reports.',
+    },
+  ];
 }
+
 
 
