@@ -1,6 +1,6 @@
 <div class="w-full flex items-center justify-center">
   <div
-    class="p-2 w-[80%] my-4 border border-gray-200 rounded-full shadow-sm flex items-center justify-between bg-white"
+    class="p-2 w-[80%] my-4 border border-gray-200 rounded-full shadow-md flex items-center justify-between bg-white"
   >
     <div class="flex gap-2 items-center">
       <img
@@ -70,23 +70,22 @@
         (click)="openProfile()"
         class="flex items-center p-1 bg-purple-700 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.09] cursor-pointer"
       >
-       <!-- Profile image -->
-      <img
-      *ngIf="!showFallback && userImg"
-      [src]="userImg"
-      (error)="onImgError()"
-      alt="User"
-      class="h-8 w-8 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
-    />
-  
-    <!-- Fallback first letter -->
-    <span
-      *ngIf="showFallback || !userImg"
-      class="text-white font-bold text-2xl select-none bg-purple-500 rounded-full h-8 w-8 flex items-center justify-center transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
-    >
-    {{ (userName && userName.charAt(0).toUpperCase()) || '?' }}
+        <!-- Profile image -->
+        <img
+          *ngIf="!showFallback && userImg"
+          [src]="userImg"
+          (error)="onImgError()"
+          alt="User"
+          class="h-8 w-8 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+        />
 
-    </span>
+        <!-- Fallback first letter -->
+        <span
+          *ngIf="showFallback || !userImg"
+          class="text-white font-bold text-2xl select-none bg-purple-500 rounded-full h-8 w-8 flex items-center justify-center transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+        >
+          {{ (userName && userName.charAt(0).toUpperCase()) || "?" }}
+        </span>
       </button>
       }
     </div>
@@ -99,7 +98,7 @@
     class="mb-4 w-auto flex gap-2 rounded-full p-2 bg-white border border-gray-200 shadow-sm absolute top-3 right-30 animate-slide-right-to-left"
   >
     <button
-    (click)="onToggleClick()"
+      (click)="onToggleClick()"
       class="text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700 custom-rounded2 transition-all"
     >
       く
@@ -110,91 +109,90 @@
       TBI
     </button>
     <button
-    class="relative text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700 rounded-md transition-all overflow-hidden"
-    (click)="handleCardClick()"
-  >
-    <!-- Full overlay lock shown if not logged in -->
-    <ng-container *ngIf="!isLoggedIn()">
-      <div
-        class="absolute inset-0 bg-blue-300/60 flex items-center justify-center z-10 rounded-md pointer-events-none"
-      >
-        <img src="lock.png" alt="Sign in" class="h-6" />
-      </div>
-    </ng-container>
-  
-    <!-- Main button label -->
-    <span class="relative z-0">Object Removal</span>
-  </button>
-  <!-- Image Restore Button -->
-<button
-class="relative text-white text-md px-6 py-3 cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-800 hover:to-purple-800 rounded-md transition-all overflow-hidden"
-(click)="handleCardClick()"
->
-<ng-container *ngIf="!isLoggedIn()">
-  <div
-    class="absolute inset-0 bg-blue-300/60 flex items-center justify-center z-10 rounded-md pointer-events-none"
-  >
-    <img src="lock.png" alt="Sign in" class="h-6" />
-  </div>
-</ng-container>
-<span class="relative z-0">Image Restore</span>
-</button>
-
-<!-- Generative Fill Button -->
-<button
-class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:bg-purple-700 rounded-md transition-all overflow-hidden"
-(click)="handleCardClick()"
->
-<ng-container *ngIf="!isLoggedIn()">
-  <div
-    class="absolute inset-0 bg-purple-400/60 flex items-center justify-center z-10 rounded-md pointer-events-none"
-  >
-    <img src="lock.png" alt="Sign in" class="h-6" />
-  </div>
-</ng-container>
-<span class="relative z-0">Generative Fill</span>
-</button>
-
-<!-- Object Recolor Button -->
-<button
-class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:bg-purple-700 custom-rounded transition-all overflow-hidden"
-(click)="handleCardClick()"
->
-<ng-container *ngIf="!isLoggedIn()">
-  <div
-    class="absolute inset-0 bg-purple-400/60 flex items-center justify-center z-10 custom-rounded pointer-events-none"
-  >
-    <img src="lock.png" alt="Sign in" class="h-6" />
-  </div>
-</ng-container>
-<span class="relative z-0">Object Recolor</span>
-</button>
-
-@if(isLoggedIn()){
-
-  <button
-  (click)="openProfile()"
-  class="flex items-center p-1 bg-purple-700 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.09] cursor-pointer"
->
-  <!-- Profile image -->
-  <img
-    *ngIf="!showFallback && userImg"
-    [src]="userImg"
-    (error)="onImgError()"
-    alt="User"
-    class="h-10 w-10 object-cover rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
-  />
-
-  <!-- Fallback first letter -->
-  <span
-    *ngIf="showFallback || !userImg"
-    class="text-white font-bold text-2xl select-none bg-purple-500 rounded-full h-10 w-10 flex items-center justify-center transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+      class="relative text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700 rounded-md transition-all overflow-hidden"
+      (click)="handleCardClick()"
     >
-  {{ (userName && userName.charAt(0).toUpperCase()) || '?' }}
+      <!-- Full overlay lock shown if not logged in -->
+      <ng-container *ngIf="!isLoggedIn()">
+        <div
+          class="absolute inset-0 bg-blue-300/60 flex items-center justify-center z-10 rounded-md pointer-events-none"
+        >
+          <img src="lock.png" alt="Sign in" class="h-6" />
+        </div>
+      </ng-container>
 
-  </span>
-</button>
-}
+      <!-- Main button label -->
+      <span class="relative z-0">Object Removal</span>
+    </button>
+    <!-- Image Restore Button -->
+    <button
+      class="relative text-white text-md px-6 py-3 cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-800 hover:to-purple-800 rounded-md transition-all overflow-hidden"
+      (click)="handleCardClick()"
+    >
+      <ng-container *ngIf="!isLoggedIn()">
+        <div
+          class="absolute inset-0 bg-blue-300/60 flex items-center justify-center z-10 rounded-md pointer-events-none"
+        >
+          <img src="lock.png" alt="Sign in" class="h-6" />
+        </div>
+      </ng-container>
+      <span class="relative z-0">Image Restore</span>
+    </button>
+
+    <!-- Generative Fill Button -->
+    <button
+      class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:bg-purple-700 rounded-md transition-all overflow-hidden"
+      (click)="handleCardClick()"
+    >
+      <ng-container *ngIf="!isLoggedIn()">
+        <div
+          class="absolute inset-0 bg-purple-400/60 flex items-center justify-center z-10 rounded-md pointer-events-none"
+        >
+          <img src="lock.png" alt="Sign in" class="h-6" />
+        </div>
+      </ng-container>
+      <span class="relative z-0">Generative Fill</span>
+    </button>
+
+    <!-- Object Recolor Button -->
+    <button
+      class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:bg-purple-700 custom-rounded transition-all overflow-hidden"
+      (click)="handleCardClick()"
+    >
+      <ng-container *ngIf="!isLoggedIn()">
+        <div
+          class="absolute inset-0 bg-purple-400/60 flex items-center justify-center z-10 custom-rounded pointer-events-none"
+        >
+          <img src="lock.png" alt="Sign in" class="h-6" />
+        </div>
+      </ng-container>
+      <span class="relative z-0">Object Recolor</span>
+    </button>
+
+    @if(isLoggedIn()){
+
+    <button
+      (click)="openProfile()"
+      class="flex items-center p-1 bg-purple-700 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.09] cursor-pointer"
+    >
+      <!-- Profile image -->
+      <img
+        *ngIf="!showFallback && userImg"
+        [src]="userImg"
+        (error)="onImgError()"
+        alt="User"
+        class="h-10 w-10 object-cover rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+      />
+
+      <!-- Fallback first letter -->
+      <span
+        *ngIf="showFallback || !userImg"
+        class="text-white font-bold text-2xl select-none bg-purple-500 rounded-full h-10 w-10 flex items-center justify-center transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+      >
+        {{ (userName && userName.charAt(0).toUpperCase()) || "?" }}
+      </span>
+    </button>
+    }
   </div>
 </div>
 } @if(profileOpen()){
@@ -205,7 +203,7 @@ class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:
     'top-21 right-38': !isCollapsed,
     'top-22 right-30': isCollapsed
   }"
-  class="absolute w-auto bg-white shadow-lg border border-gray-200 rounded-lg p-4"
+  class="absolute w-auto bg-white box-shadow border border-[#c8c8c8] rounded-lg p-4"
 >
   <!-- profile edi open -->
   @if(profilePopUpOpen()){
@@ -214,7 +212,9 @@ class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:
     class="flex flex-col p-1 min-w-[600px]"
   >
     <div class="flex items-center mb-6 w-full">
-      <div class="p-1 bg-purple-200 rounded-full mr-5 cursor-pointer h-30 w-30 flex items-center justify-center">
+      <div
+        class="p-1 bg-purple-200 rounded-full mr-5 cursor-pointer h-30 w-30 flex items-center justify-center"
+      >
         <!-- Profile image -->
         <img
           *ngIf="!showFallback && userImg"
@@ -223,18 +223,15 @@ class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:
           alt="User"
           class="h-full w-full object-cover rounded-full"
         />
-      
+
         <!-- Fallback first letter -->
         <span
           *ngIf="showFallback || !userImg"
           class="text-white font-bold text-8xl select-none bg-purple-500 rounded-full h-full w-full flex items-center justify-center"
         >
-        {{ (userName && userName.charAt(0).toUpperCase()) || '?' }}
-
+          {{ (userName && userName.charAt(0).toUpperCase()) || "?" }}
         </span>
       </div>
-      
-      
 
       <div class="flex flex-col">
         <div class="">
@@ -249,20 +246,20 @@ class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:
             alt="Edit"
             class="h-8 w-auto bg-white rounded-full absolute top-8 right-7"
           />
-
         </div>
 
         <div class="">
           <h1
             class="w-[470px] p-3.5 px-4 bg-gray-100 border border-gray-400 rounded-md mb-3 custom-bold tracking-tight text-[14px] focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-300"
-          >{{userEmail}}</h1>
+          >
+            {{ userEmail }}
+          </h1>
         </div>
       </div>
-
     </div>
     <div class="flex flex-col ml-37 mb-10">
       <p class="custom-light text-[13.5px]">Joined : {{ creationTime }}</p>
-      <p class="custom-light text-[13.5px] ">
+      <p class="custom-light text-[13.5px]">
         Last Login : {{ lastSignInTime }}
       </p>
     </div>
@@ -272,13 +269,15 @@ class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:
       <button
         (click)="openProfilePopUp()"
         class="flex cursor-pointer border border-gray-500 hover:border-gray-600 text-[#555] pr-5 pl-4 py-1.5 rounded-md hover:bg-gray-300 text-sm transition-all"
-      ><img src="cross.svg" alt="Close" class="h-5 w-5 mr-1" />
+      >
+        <img src="cross.svg" alt="Close" class="h-5 w-5 mr-1" />
         Cancel
       </button>
       <button
         (click)="saveProfile()"
         class="flex cursor-pointer border border-gray-500 hover:border-green-600 text-[#555] hover:text-white pr-5 pl-4 py-1.5 rounded-md hover:bg-green-400 text-sm transition-all"
-      ><img src="check.svg" alt="Save" class="h-5 w-5 mr-2" />
+      >
+        <img src="check.svg" alt="Save" class="h-5 w-5 mr-2" />
         Save
       </button>
     </div>
@@ -288,7 +287,9 @@ class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:
 
   @if(!profilePopUpOpen()){
   <div class="flex items-center mb-4">
-    <div class="p-1 bg-purple-200 rounded-full mr-5 cursor-pointer h-20 w-20 flex items-center justify-center">
+    <div
+      class="p-1 bg-purple-200 rounded-full mr-5 cursor-pointer h-20 w-20 flex items-center justify-center"
+    >
       <!-- Profile image -->
       <img
         *ngIf="!showFallback && userImg"
@@ -297,14 +298,13 @@ class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:
         alt="User"
         class="h-full w-full object-cover rounded-full"
       />
-    
+
       <!-- Fallback first letter -->
       <span
         *ngIf="showFallback || !userImg"
         class="text-white font-bold text-7xl select-none bg-purple-500 rounded-full h-full w-full flex items-center justify-center"
       >
-      {{ (userName && userName.charAt(0).toUpperCase()) || '?' }}
-
+        {{ (userName && userName.charAt(0).toUpperCase()) || "?" }}
       </span>
     </div>
     <div class="flex flex-col">
@@ -324,13 +324,15 @@ class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:
     <button
       (click)="openProfilePopUp()"
       class="flex cursor-pointer border border-gray-500 hover:border-green-600 text-[#555] hover:text-white pr-5 pl-4 py-1.5 rounded-md hover:bg-green-400 text-sm transition-all"
-    ><img src="edit2.svg" alt="Edit" class="h-5 w-5 mr-2" />
+    >
+      <img src="edit2.svg" alt="Edit" class="h-5 w-5 mr-2" />
       Edit
     </button>
     <button
       (click)="logout()"
       class="flex cursor-pointer border border-gray-500 hover:border-red-600 text-[#555] hover:text-white px-6 py-1.5 rounded-md hover:bg-red-400 text-sm transition-all"
-    ><img src="logout.svg" alt="Logout" class="h-5 w-5 mr-2" />
+    >
+      <img src="logout.svg" alt="Logout" class="h-5 w-5 mr-2" />
       Logout
     </button>
   </div>

@@ -11,4 +11,24 @@
     background-size: 4px 4px; /* Adjust spacing here */
   }
 
+  .scroll-track {
+  display: flex;
+  width: max-content;
+  animation: scrollLeft 30s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  animation-timing-function: linear;
+  backface-visibility: hidden;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
   

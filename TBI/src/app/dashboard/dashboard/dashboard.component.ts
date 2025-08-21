@@ -33,4 +33,28 @@ export class DashboardComponent implements OnInit {
   openTBI() {
     this.router.navigate(['/text-behind-image']);
   }
+
+  featureCards = [
+    {
+      icon: 'ifc.svg',
+      title: 'Enhance Profile Pic',
+      description: 'Write, edit, and execute code effortlessly.',
+    },
+    {
+      icon: 'dfc.svg',
+      title: 'Access it AnyTime',
+      description: 'Invite team members and set up roles in just a few clicks.',
+    },
+    {
+      icon: 'sfc.svg',
+      title: 'AI',
+      description:
+        'Powered by OnceHub, CodeOnce ensures lightning-fast execution.',
+    },
+    {
+      icon: 'tfc.svg',
+      title: 'Add Text',
+      description: 'Visualize user progress and detailed reports.',
+    },
+  ];
 }
