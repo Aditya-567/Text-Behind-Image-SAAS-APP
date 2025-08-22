@@ -6,9 +6,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
+import { ToasterComponent } from './toaster/toaster.component';
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent, ToasterComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -18,6 +19,6 @@ import { HeaderComponent } from './header/header.component';
     MatFormFieldModule,
     MatIconModule,
   ],
-  exports: [HeaderComponent, MatIconModule],
+  exports: [HeaderComponent, ToasterComponent],
 })
 export class SharedModule {}

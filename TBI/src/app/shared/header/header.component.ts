@@ -17,6 +17,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthService } from '../../login/auth-service.service';
 import { BottomBarService } from './bottom-bar.service';
+import { ToasterService } from '../../services/toaster.service';
 
 @Component({
   selector: 'app-header',
@@ -51,7 +52,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private route: Router,
     private bottomBarService: BottomBarService,
-    public authService: AuthService
+    public authService: AuthService,
+    public toasterService: ToasterService
   ) {
     this.authService.currentUser$.subscribe((user) => {
       if (user) {
@@ -69,6 +71,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.bottomBarService.isCollapsed$.subscribe((state) => {
       this.isCollapsed = state;
+    });
+
+    this.route.events.subscribe(() => {
+      this.isCollapsed = this.route.url === '/text-behind-image';
     });
   }
   goToHome() {
@@ -135,11 +141,11 @@ export class HeaderComponent implements OnInit {
     this.authService
       .updateUserProfile(this.userName, this.userImg)
       .then(() => {
-        console.log('✅ Profile updated successfully');
+        this.toasterService.show('Profile updated successfully', 'success');
         this.openProfilePopUp(); // close popup if needed
       })
       .catch((err) => {
-        console.error('❌ Failed to update profile:', err);
+        this.toasterService.show('Failed to update profile', 'error');
       });
   }
 

@@ -2,9 +2,8 @@
   <div
     class="p-2 w-[80%] my-4 border border-gray-200 rounded-full shadow-md flex items-center justify-between bg-white"
   >
-    <div class="flex gap-2 items-center">
+    <div class="flex gap-2 items-center cursor-pointer" (click)="goToHome()">
       <img
-        (click)="goToHome()"
         src="brush.svg"
         alt="Logo"
         class="h-10 rounded-full"
@@ -95,13 +94,13 @@
 @if(isCollapsed){
 <div class="flex items-center justify-center mx-20 w-full">
   <div
-    class="mb-4 w-auto flex gap-2 rounded-full p-2 bg-white border border-gray-200 shadow-sm absolute top-3 right-30 animate-slide-right-to-left"
+    class="mb-4 w-auto flex gap-2 rounded-full p-2 bg-white border border-gray-200 shadow-md absolute top-3 right-30 animate-slide-right-to-left"
   >
     <button
-      (click)="onToggleClick()"
+      (click)="goToHome()"
       class="text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700 custom-rounded2 transition-all"
     >
-      く
+      home
     </button>
     <button
       class="text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700 rounded-md transition-all"
