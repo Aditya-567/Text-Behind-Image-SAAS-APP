@@ -1,7 +1,7 @@
 @use "tailwindcss";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: monospace, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji; }
 
 .custom-rounded {
     border-radius: 0.5rem 2rem 2rem 0.5rem;
@@ -22,4 +22,9 @@ body { margin: 0; font-family: monospace, "Helvetica Neue", sans-serif; }
 
   .custom-rounded5 {
     border-radius: 0.5rem 0.5rem 2rem 0.5rem;
+  }
+
+
+    .box-shadow {
+    box-shadow: 0px 1px 8px 1px #b9b9b9;
   }

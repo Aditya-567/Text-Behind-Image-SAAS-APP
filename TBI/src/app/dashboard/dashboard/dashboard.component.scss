@@ -1,20 +1,20 @@
 .custom-dotted-border {
-    border: 4px dotted rgb(117, 117, 117);      /* Border width and color */
-    border-radius: 6px;           /* Smooth corners */
-    border-image: initial;
-    border-style: dotted;
-    border-width: 2px;            /* Increase dot size */
-    background-clip: border-box;
-    
-    /* Increase dot spacing */
-    background-image: radial-gradient(gray 20%, transparent 2%);
-    background-size: 4px 4px; /* Adjust spacing here */
-  }
+  border: 4px dotted rgb(117, 117, 117); /* Border width and color */
+  border-radius: 6px; /* Smooth corners */
+  border-image: initial;
+  border-style: dotted;
+  border-width: 2px; /* Increase dot size */
+  background-clip: border-box;
 
-  .scroll-track {
+  /* Increase dot spacing */
+  background-image: radial-gradient(gray 20%, transparent 2%);
+  background-size: 4px 4px; /* Adjust spacing here */
+}
+
+.scroll-track {
   display: flex;
   width: max-content;
-  animation: scrollLeft 30s linear infinite;
+  animation: scrollLeft 40s linear infinite;
   will-change: transform;
   transform: translateZ(0);
   animation-timing-function: linear;
@@ -30,5 +30,21 @@
   }
 }
 
+.scroll-track-left {
+  display: flex;
+  width: max-content;
+  animation: scrollRight 30s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  animation-timing-function: linear;
+  backface-visibility: hidden;
+}
 
-  
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
