@@ -1,17 +1,18 @@
 export const environment = {
   production: false,
+
   firebaseConfig: {
-    apiKey: 'AIzaSyAgl__cX65WRIeLVBu41zrebO2nS5JGIas',
-    authDomain: 'textbehindphotos-7bf33.firebaseapp.com',
-    projectId: 'textbehindphotos-7bf33',
-    storageBucket: 'textbehindphotos-7bf33.appspot.com',
-    messagingSenderId: '516521812788',
-    appId: '1:516521812788:web:9c6758693149fd54b7bb61',
-    measurementId: 'G-JMLCB24ZSH',
+    apiKey: process.env.NG_APP_FIREBASE_API_KEY,
+    authDomain: process.env.NG_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.NG_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NG_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NG_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.NG_APP_FIREBASE_APP_ID,
+    measurementId: process.env.NG_APP_FIREBASE_MEASUREMENT_ID,
   },
-  // removeBgApiKey: '8qFbhvUiyJBvFbFxKPgBnPJ5',
+  removeBgApiKey: process.env.NG_APP_REMOVE_BG_API_KEY,
   cloudinary: {
-    cloudName: 'ddeqzsupa',
-    uploadPreset: 'z26kzr2i', // The name of the unsigned preset you created
+    cloudName: process.env.NG_APP_CLOUDINARY_CLOUD_NAME,
+    uploadPreset: process.env.NG_APP_CLOUDINARY_UPLOAD_PRESET,
   },
 };
