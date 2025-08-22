@@ -3,20 +3,20 @@
     *ngFor="let toast of toasterService.toasts$ | async"
     class="p-2.5 rounded-full shadow-lg animate-slide-in flex items-center justify-between gap-3"
     [ngClass]="{
-      'bg-green-600 text-white': toast.type === 'success',
-      'bg-red-600 text-white': toast.type === 'error',
-      'bg-blue-600 text-white': toast.type === 'info',
-      'bg-yellow-500 text-white': toast.type === 'warning'
+      'bg-green-500 text-white': toast.type === 'success',
+      'bg-red-500 text-white': toast.type === 'error',
+      'bg-blue-500 text-white': toast.type === 'info',
+      'bg-yellow-400 text-white': toast.type === 'warning'
     }"
   >
     <div class="flex row items-center gap-2 ">
       <!-- Icons for each type -->
 <div class="p-1 rounded-full "
 [ngClass]="{
-  'bg-green-400': toast.type === 'success',
-  'bg-red-400': toast.type === 'error',
-  'bg-blue-400': toast.type === 'info',
-  'bg-yellow-400': toast.type === 'warning'
+  'bg-green-300': toast.type === 'success',
+  'bg-red-300': toast.type === 'error',
+  'bg-blue-300': toast.type === 'info',
+  'bg-yellow-300': toast.type === 'warning'
 }"
 >
     <svg
