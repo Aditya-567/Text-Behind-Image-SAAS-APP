@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NoAuthGuard } from './login/gaurd/no-auth.guard';
+import { AboutUsComponent } from './shared/about-us/about-us.component';
 
 export const routes: Routes = [
   {
@@ -16,9 +17,12 @@ export const routes: Routes = [
   },
   {
     path: 'text-behind-image',
-    // CORRECTED: Lazy load the module, not the component
     loadChildren: () =>
       import('./components/components.module').then((m) => m.ComponentsModule),
+  },
+  {
+    path: 'about-us',
+   component: AboutUsComponent,
   },
   {
     path: '',

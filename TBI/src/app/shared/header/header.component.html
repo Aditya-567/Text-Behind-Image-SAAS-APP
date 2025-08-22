@@ -18,10 +18,9 @@
     <div class="flex gap-2 items-center">
       <button
         (click)="goToHome()"
-        (click)="selectTab('home')"
         [ngClass]="{
-          'bg-blue-800 ': selectedTab === 'home',
-          'bg-blue-600': selectedTab !== 'home'
+          'bg-blue-800 ': route.url === '/home',
+          'bg-blue-600': route.url !== '/home'
         }"
         class="text-white text-md px-6 py-2 cursor-pointer hover:animate-pulse custom-rounded2 transition-all"
       >
@@ -29,10 +28,9 @@
       </button>
 
       <button
-        (click)="selectTab('howToUse')"
         [ngClass]="{
-          'bg-blue-800 ': selectedTab === 'howToUse',
-          'bg-blue-600': selectedTab !== 'howToUse'
+          'bg-blue-800 ': route.url === '/how-to-use',
+          'bg-blue-600': route.url !== '/how-to-use'
         }"
         class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
       >
@@ -40,16 +38,16 @@
       </button>
 
       <button
-        (click)="selectTab('About')"
         [ngClass]="{
-          'bg-purple-800': selectedTab === 'About',
+          'bg-purple-800': route.url === '/about-us',
           'bg-gradient-to-r from-blue-600 to-purple-600':
-            selectedTab !== 'About',
+            route.url !== '/about-us',
           'custom-rounded': isLoggedIn()
         }"
+      routerLink="/about-us"
         class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
       >
-        About
+        About Us
       </button>
 
       @if(!isLoggedIn()){

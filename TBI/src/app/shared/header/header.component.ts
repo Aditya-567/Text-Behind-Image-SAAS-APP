@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
   }
 
   constructor(
-    private route: Router,
+    public route: Router,
     private bottomBarService: BottomBarService,
     public authService: AuthService,
     public toasterService: ToasterService
