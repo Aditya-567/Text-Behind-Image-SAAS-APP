@@ -5,7 +5,7 @@
     <div class="flex gap-2 items-center cursor-pointer" (click)="goToHome()">
       <img src="brush.svg" alt="Logo" class="h-10 rounded-full" />
       <div class="flex flex-col leading-tight">
-        <h1 class="text-xl font-extrabold text-[#222] tracking-wider">TBI Studio</h1>
+        <h1 class="text-xl font-extrabold text-[#333] tracking-wider">TBI Studio</h1>
         <p class="text-[10px] font-medium text-purple-800 pl-1">Text Behind Image</p>
       </div>
     </div>
@@ -64,8 +64,8 @@
         (click)="goToLogin()"
         (click)="selectTab('login')"
         [ngClass]="{
-          'bg-purple-800 ': selectedTab === 'login',
-          'bg-purple-600': selectedTab !== 'login'
+          'bg-purple-800 ': route.url === '/login',
+          'bg-purple-600': route.url !== '/login'
         }"
         class="text-white text-md px-6 py-2 cursor-pointer hover:animate-pulse custom-rounded transition-all"
       >

@@ -9,7 +9,15 @@ import { AuthService } from '../../login/auth-service.service';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
-  constructor(private router: Router, private authService: AuthService) {}
+  showLoginPopup = false;
+  showScrollTop = false;
+
+  constructor(private router: Router, private authService: AuthService) {
+    // Initialize scroll event listener
+    window.addEventListener('scroll', () => {
+      this.showScrollTop = window.scrollY > 400; // Show button after 400px scroll
+    });
+  }
 
   ngOnInit() {
     // ngOnInit logic
@@ -21,15 +29,40 @@ export class DashboardComponent implements OnInit {
 
   handleCardClick() {
     if (!this.isLoggedIn()) {
-      this.router.navigate(['/login']);
+      this.showLoginPopup = true;
     } else {
       this.router.navigate(['/object-removal']);
     }
   }
 
-  // CORRECTED: This method now only handles navigation
+  closeLoginPopup() {
+    this.showLoginPopup = false;
+  }
+
+  navigateToLogin() {
+    this.showLoginPopup = false;
+    this.router.navigate(['/login']);
+  }
+
+  navigateToRegister() {
+    this.showLoginPopup = false;
+    this.router.navigate(['/register']);
+  }
+
+  // Handle TBI navigation with login check
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+
   openTBI() {
-    this.router.navigate(['/text-behind-image']);
+    if (!this.isLoggedIn()) {
+      this.showLoginPopup = true;
+    } else {
+      this.router.navigate(['/text-behind-image']);
+    }
   }
 
   featureCards = [
