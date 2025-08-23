@@ -104,7 +104,7 @@ export class DashboardComponent implements OnInit {
       number: '1',
       Image: 'service-h.svg',
       title: 'Select Service',
-      description: 'Add and style your text layers',
+      description: 'The service you want to use',
     },
     {
       number: '2',
@@ -117,13 +117,13 @@ export class DashboardComponent implements OnInit {
       number: '3',
       Image: 'edit-h.svg',
       title: 'Edit the Image',
-      description: 'Place text behind image elements',
+      description: 'Make any adjustments you need',
     },
     {
       number: '4',
       Image: 'download-h.svg',
       title: 'Download',
-      description: 'Export in high quality PNG format',
+      description: 'Export in high quality format',
     },
   ];
 }

@@ -1,9 +1,9 @@
 <div class="min-h-screen flex flex-col items-center px-20">
   <div
-    class="mx-[40px] mt-[100px] absolute inset-0 bg-[linear-gradient(to_right,theme(colors.gray.600)_2px,transparent_1px),linear-gradient(to_bottom,theme(colors.gray.600)_2px,transparent_1.5px)] bg-[size:2rem_2rem] opacity-11 [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)]"
+    class="mx-[40px] mt-[100px] absolute inset-0 bg-[linear-gradient(to_right,theme(colors.gray.600)_2px,transparent_1px),linear-gradient(to_bottom,theme(colors.gray.600)_2px,transparent_1.5px)] bg-[size:2rem_2rem] opacity-8 [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)]"
   ></div>
 
-  <div class="pt-46 w-full flex flex-col items-center justify-center">
+  <div class="pt-42 w-full flex flex-col items-center justify-center">
     <div class="w-full flex flex-col items-center justify-center">
       <h1
         class="text-[44px] font-extrabold tracking-wider drop-shadow-[2px_2.5px_0px_#888] text-[#111] mb-2"
@@ -19,32 +19,32 @@
         powerful tools.
       </p>
 
-      <div class="w-9/10 py-4 px-16">
-        <div class="grid grid-cols-5 grid-rows-5 gap-3 w-full">
+      <div class="w-9/10 mx-auto">
+        <div class="flex flex-wrap justify-center gap-3 w-full mx-auto pt-5">
           <div
-            class="col-span-3 row-span-2 bg-blue-400/30 p-1 rounded transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
+            class="w-[420px] h-[160px] bg-blue-400/30 p-1 rounded transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
           >
             <div
               (click)="openTBI()"
-              class="flex flex-row items-center justify-center h-full rounded p-8 gap-4 bg-blue-300"
+              class="flex flex-row items-center justify-center h-full rounded p-8 gap-4 bg-[#66bdff]"
             >
               <div class="rounded-full bg-white p-4">
                 <img src="text.svg" alt="tbi" class="w-auto h-10" />
               </div>
               <div>
-                <h1 class="text-[22px] text-[#333] font-bold">
+                <h1 class="text-[22px] text-[#444] font-bold">
                   TBI Text behind image
                 </h1>
-                <h1 class="text-[12px] text-[#666] pl-1">
+                <h1 class="text-[12px] text-[#555] pl-1">
                   Put text in background of your image
                 </h1>
               </div>
             </div>
           </div>
 
-          <!------------------- card-2 -->
+          <!-- db -->
           <div
-            class="col-span-2 row-span-2 bg-purple-400/30 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
+            class="w-[220px] h-[160px] bg-orange-500/30 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
             (click)="handleCardClick()"
           >
             <!-- Sign in label shown only if not logged in -->
@@ -64,16 +64,48 @@
 
             <!-- Main card content -->
             <div
-              class="flex flex-row items-center justify-center gap-4 h-full rounded p-8 bg-purple-300"
+              class="flex flex-col items-center justify-center h-full rounded p-6 bg-[#fd9963]"
             >
               <div class="rounded-full bg-white p-4">
                 <img src="scan.svg" alt="tbi" class="w-auto h-10" />
               </div>
               <div>
-                <h1 class="text-[22px] text-[#333] font-bold">
+                <h1 class="text-[22px] text-[#444] font-bold">Storage</h1>
+              </div>
+            </div>
+          </div>
+          <!------------------- card-2 -->
+          <div
+            class="w-[400px] h-[160px] bg-purple-400/30 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
+            (click)="handleCardClick()"
+          >
+            <!-- Sign in label shown only if not logged in -->
+            <ng-container *ngIf="!isLoggedIn()">
+              <div class="absolute -top-2 -right-2 z-10">
+                <h1
+                  class="flex text-sm font-thin text-[#666] bg-white/30 p-1 px-2 rounded shadow"
+                >
+                  <img
+                    src="lock.png"
+                    alt="Sign in"
+                    class="h-4 inline-block mr-1"
+                  />Sign In
+                </h1>
+              </div>
+            </ng-container>
+
+            <!-- Main card content -->
+            <div
+              class="flex flex-row items-center justify-center gap-4 h-full rounded p-8 bg-[#d18ae5]"
+            >
+              <div class="rounded-full bg-white p-4">
+                <img src="scan.svg" alt="tbi" class="w-auto h-10" />
+              </div>
+              <div>
+                <h1 class="text-[22px] text-[#444] font-bold">
                   Object Removal
                 </h1>
-                <h1 class="text-[12px] text-[#666] pl-1">
+                <h1 class="text-[12px] text-[#555] pl-1">
                   Remove unwanted object
                 </h1>
               </div>
@@ -82,7 +114,7 @@
 
           <!------------------- card-3 -->
           <div
-            class="col-span-1 row-span-3 bg-green-400/30 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
+            class="w-[240px] h-[220px] bg-green-400/30 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
             (click)="handleCardClick()"
           >
             <!-- Sign in label shown only if not logged in -->
@@ -101,14 +133,14 @@
             </ng-container>
 
             <div
-              class="flex flex-col items-center justify-center h-full rounded bg-green-300"
+              class="flex flex-col items-center justify-center h-full rounded bg-[#69ff61]"
             >
               <div class="rounded-full bg-white p-4">
                 <img src="image.svg" alt="tbi" class="w-auto h-10" />
               </div>
               <div>
-                <h1 class="text-[22px] text-[#333] font-bold">Image Restore</h1>
-                <h1 class="text-[12px] text-[#666] pl-1">
+                <h1 class="text-[22px] text-[#444] font-bold">Image Restore</h1>
+                <h1 class="text-[12px] text-[#555] pl-1">
                   Remove unwanted object
                 </h1>
               </div>
@@ -117,7 +149,7 @@
 
           <!------------------- card-4 -->
           <div
-            class="col-span-2 row-span-3 bg-yellow-400/30 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
+            class="w-[400px] h-[220px] bg-yellow-200/40 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
             (click)="handleCardClick()"
           >
             <!-- Sign in label shown only if not logged in -->
@@ -136,16 +168,16 @@
             </ng-container>
 
             <div
-              class="flex flex-row items-center justify-center h-full rounded gap-4 bg-yellow-300"
+              class="flex flex-row items-center justify-center h-full rounded gap-4 bg-[#eff240]"
             >
               <div class="rounded-full bg-white p-4">
                 <img src="stars.svg" alt="tbi" class="w-auto h-10" />
               </div>
               <div>
-                <h1 class="text-[22px] text-[#333] font-bold">
+                <h1 class="text-[22px] text-[#444] font-bold">
                   Generative Fill
                 </h1>
-                <h1 class="text-[12px] text-[#666] pl-1">
+                <h1 class="text-[12px] text-[#555] pl-1">
                   Remove unwanted object
                 </h1>
               </div>
@@ -154,7 +186,7 @@
 
           <!------------------- card-5 -->
           <div
-            class="col-span-2 row-span-3 bg-red-400/30 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
+            class="w-[400px] h-[220px] bg-red-400/30 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
             (click)="handleCardClick()"
           >
             <!-- Sign in label shown only if not logged in -->
@@ -173,16 +205,16 @@
             </ng-container>
             <!-- Sign in label shown only if not logged in -->
             <div
-              class="flex flex-row items-center justify-center h-full rounded gap-4 bg-red-300"
+              class="flex flex-row items-center justify-center h-full rounded gap-4 bg-[#ff7575]"
             >
               <div class="rounded-full bg-white p-4">
                 <img src="filter.svg" alt="tbi" class="w-auto h-10" />
               </div>
               <div>
-                <h1 class="text-[22px] text-[#333] font-bold">
+                <h1 class="text-[22px] text-[#444] font-bold">
                   Object Recolor
                 </h1>
-                <h1 class="text-[12px] text-[#666] pl-1">
+                <h1 class="text-[12px] text-[#555] pl-1">
                   Remove unwanted object
                 </h1>
               </div>
@@ -199,7 +231,7 @@
     <div class="scroll-track flex gap-6 px-4">
       <ng-container *ngFor="let card of featureCards">
         <div
-          class="feature-card flex flex-row p-2 my-2 boxShadow rounded-lg bg-[#FAF9F6] gap-4 max-w-[560px] border border-gray-300"
+          class="feature-card flex flex-row p-2 my-2 boxShadow rounded-lg bg-white gap-4 max-w-[560px] border border-gray-200"
         >
           <img
             [src]="card.icon"
@@ -221,7 +253,7 @@
 
       <ng-container *ngFor="let card of featureCards">
         <div
-          class="feature-card flex flex-row p-2 my-2 boxShadow rounded-lg bg-[#FAF9F6] gap-4 max-w-[560px] border border-gray-300"
+          class="feature-card flex flex-row p-2 my-2 boxShadow rounded-lg bg-white gap-4 max-w-[560px] border border-gray-200"
         >
           <img
             [src]="card.icon"
@@ -248,7 +280,7 @@
     <div class="scroll-track-left flex gap-6 px-4">
       <ng-container *ngFor="let card of featureCardsSecond">
         <div
-          class="feature-card flex flex-row items-center p-2 my-2 boxShadow rounded-lg bg-[#FAF9F6] gap-4 max-w-[560px] border border-gray-300"
+          class="feature-card flex flex-row items-center p-2 my-2 boxShadow rounded-lg bg-white gap-4 max-w-[560px] border border-gray-200"
         >
           <img [src]="card.icon" alt="icon" class="w-auto h-8" />
           <div class="flex flex-col items-start">
@@ -263,7 +295,7 @@
 
       <ng-container *ngFor="let card of featureCardsSecond">
         <div
-          class="feature-card flex flex-row items-center p-2 my-2 boxShadow rounded-lg bg-[#FAF9F6] gap-4 max-w-[560px] border border-gray-300"
+          class="feature-card flex flex-row items-center p-2 my-2 boxShadow rounded-lg bg-white gap-4 max-w-[560px] border border-gray-200"
         >
           <img [src]="card.icon" alt="icon" class="w-auto h-8" />
           <div class="flex flex-col items-start">
@@ -279,8 +311,11 @@
   </div>
 </div>
 
-<div class="w-[84%] mx-auto my-[100px] border border-[#c8c8c8] p-8 rounded-2xl">
-  <div class="text-center mb-2 mt-6">
+<div
+  id="Guide"
+  class="w-[84%] mx-auto my-[100px] border border-gray-200 p-8 rounded-2xl"
+>
+  <div class="text-center mb-4 mt-6">
     <h2
       class="w-full mx-auto text-center text-3xl md:text-5xl font-black tracking-tight leading-tight text-[#444]"
     >
@@ -292,7 +327,7 @@
     </h2>
   </div>
 
-  <div class="flex justify-between mx-60 relative mb-20">
+  <div class="flex justify-between mx-57 relative mb-20">
     <div
       class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-4 h-4 rounded-full z-10"
     >
@@ -322,20 +357,20 @@
   <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
     <div
       *ngFor="let step of steps"
-      class="p-6 py-8 bg-white shadow-md rounded-2xl border border-gray-200 flex flex-col items-center text-center transition hover:shadow-lg"
+      class="p-6 py-8 bg-white shadow-sm rounded-2xl border border-gray-100 flex flex-col items-center text-center transition hover:shadow-lg"
     >
       <img
         [src]="step.Image"
         alt="Step {{ step.Image }}"
-        class="w-12 h-12 mb-4"
+        class="w-12 h-12 mb-8"
       />
       <!-- Title -->
-      <h3 class="font-semibold text-lg text-gray-900">
+      <h3 class="font-bold text-lg text-gray-700">
         {{ step.title }}
       </h3>
 
       <!-- Description -->
-      <p class="text-sm text-gray-600 mt-2">
+      <p class="text-sm text-gray-400 mt-1">
         {{ step.description }}
       </p>
     </div>

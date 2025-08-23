@@ -1,16 +1,12 @@
 <div class="w-full flex items-center justify-center">
   <div
-    class="p-2 w-[80%] my-4 border border-gray-200 rounded-full shadow-md flex items-center justify-between bg-white"
+    class="p-2 w-[80%] my-4 border border-gray-100 rounded-full shadow-sm flex items-center justify-between bg-white"
   >
     <div class="flex gap-2 items-center cursor-pointer" (click)="goToHome()">
-      <img
-        src="brush.svg"
-        alt="Logo"
-        class="h-10 rounded-full"
-      />
+      <img src="brush.svg" alt="Logo" class="h-10 rounded-full" />
       <div class="flex flex-col leading-tight">
-        <h1 class="text-xl font-bold text-[#444]">TBI Studio</h1>
-        <p class="text-[10px] text-purple-800 pl-1">Text Behind Image</p>
+        <h1 class="text-xl font-extrabold text-[#222] tracking-wider">TBI Studio</h1>
+        <p class="text-[10px] font-medium text-purple-800 pl-1">Text Behind Image</p>
       </div>
     </div>
 
@@ -29,22 +25,35 @@
 
       <button
         [ngClass]="{
-          'bg-blue-800 ': route.url === '/how-to-use',
-          'bg-blue-600': route.url !== '/how-to-use'
+          'bg-blue-800 ': route.url === '/guide',
+          'bg-blue-600': route.url !== '/guide'
         }"
         class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
+        (click)="scrollToGuide()"
       >
-        How to Use
+        Guide
+      </button>
+
+<button
+        [ngClass]="{
+          'bg-purple-800': route.url === '/about-us',
+          'bg-gradient-to-r from-blue-600 to-purple-600':
+            route.url !== '/about-us',
+        }"
+        routerLink="/about-us"
+        class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
+      >
+        Features
       </button>
 
       <button
         [ngClass]="{
           'bg-purple-800': route.url === '/about-us',
-          'bg-gradient-to-r from-blue-600 to-purple-600':
+          'bg-purple-600':
             route.url !== '/about-us',
           'custom-rounded': isLoggedIn()
         }"
-      routerLink="/about-us"
+        routerLink="/about-us"
         class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
       >
         About Us
@@ -92,7 +101,7 @@
 @if(isCollapsed){
 <div class="flex items-center justify-center mx-20 w-full">
   <div
-    class="mb-4 w-auto flex gap-2 rounded-full p-2 bg-white border border-gray-200 shadow-md absolute top-3 right-30 animate-slide-right-to-left"
+    class="mb-4 w-auto flex gap-2 rounded-full p-2 bg-white border border-gray-100 shadow-sm absolute top-3 right-30 animate-slide-right-to-left"
   >
     <button
       (click)="goToHome()"

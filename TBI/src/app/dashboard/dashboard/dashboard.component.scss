@@ -14,7 +14,7 @@
 .scroll-track {
   display: flex;
   width: max-content;
-  animation: scrollLeft 40s linear infinite;
+  animation: scrollLeft 50s linear infinite;
   will-change: transform;
   transform: translateZ(0);
   animation-timing-function: linear;
@@ -33,7 +33,7 @@
 .scroll-track-left {
   display: flex;
   width: max-content;
-  animation: scrollRight 30s linear infinite;
+  animation: scrollRight 35s linear infinite;
   will-change: transform;
   transform: translateZ(0);
   animation-timing-function: linear;

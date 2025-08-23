@@ -16,8 +16,8 @@ import { Router } from '@angular/router';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthService } from '../../login/auth-service.service';
-import { BottomBarService } from './bottom-bar.service';
 import { ToasterService } from '../../services/toaster.service';
+import { BottomBarService } from './bottom-bar.service';
 
 @Component({
   selector: 'app-header',
@@ -33,6 +33,15 @@ import { ToasterService } from '../../services/toaster.service';
   ],
 })
 export class HeaderComponent implements OnInit {
+  scrollToGuide() {
+    const guideElement = document.getElementById('Guide');
+    if (guideElement) {
+      guideElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }
   selectedTab: string = 'home';
   isCollapsed: boolean = false;
   userImg = '';
