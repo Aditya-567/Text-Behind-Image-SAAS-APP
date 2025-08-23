@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth-service.service';
 import { User } from '../user.model';
 
@@ -14,12 +14,31 @@ export class LoginComponent implements OnInit, AfterViewInit {
   password: string = '';
   displayName: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
   ngOnInit() {
     this.authService.currentUser$.subscribe((user) => {
       if (user) {
         this.router.navigate(['/home']);
       }
+    });
+
+    // Get the mode from query params and show appropriate form
+    this.route.queryParams.subscribe((params) => {
+      const mode = params['mode'];
+      setTimeout(() => {
+        const container = document.getElementById('container');
+        if (container) {
+          if (mode === 'signup') {
+            container.classList.add('right-panel-active');
+          } else {
+            container.classList.remove('right-panel-active');
+          }
+        }
+      });
     });
   }
 

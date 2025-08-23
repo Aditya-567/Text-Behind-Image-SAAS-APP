@@ -11,6 +11,222 @@
   background-size: 4px 4px; /* Adjust spacing here */
 }
 
+.card-shadow-blue {
+  position: relative;
+  overflow: visible;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(0) rotateY(0);
+  transition: all 0.3s ease;
+  will-change: transform;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(
+      circle at var(--x) var(--y),
+      rgba(0, 145, 255, 0.8) 0%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 8px;
+    z-index: 0;
+    pointer-events: none;
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+  
+  & > * {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover > * {
+    transform: translateZ(50px);
+  }
+}
+
+.card-shadow-orange {
+  position: relative;
+  overflow: visible;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(0) rotateY(0);
+  transition: all 0.3s ease;
+  will-change: transform;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(
+      circle at var(--x) var(--y),
+      rgba(251, 88, 0, 0.8) 0%,
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 8px;
+    z-index: 0;
+    pointer-events: none;
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+
+  & > * {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover > * {
+    transform: translateZ(50px);
+  }
+}
+
+.card-shadow-purple {
+  position: relative;
+  overflow: visible;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(0) rotateY(0);
+  transition: all 0.3s ease;
+  will-change: transform;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(
+      circle at var(--x) var(--y),
+      rgba(200, 0, 255, 0.8) 0%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 8px;
+    z-index: 0;
+    pointer-events: none;
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+
+  & > * {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover > * {
+    transform: translateZ(50px);
+  }
+}
+
+.card-shadow-green {
+  position: relative;
+  overflow: visible;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(0) rotateY(0);
+  transition: all 0.3s ease;
+  will-change: transform;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(
+      circle at var(--x) var(--y),
+      rgba(13, 255, 0, 0.8) 0%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 8px;
+    z-index: 0;
+    pointer-events: none;
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+
+  & > * {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover > * {
+    transform: translateZ(50px);
+  }
+}
+
+.card-shadow-yellow {
+  position: relative;
+  overflow: visible;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(0) rotateY(0);
+  transition: all 0.3s ease;
+  will-change: transform;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(
+      circle at var(--x) var(--y),
+      rgba(171, 174, 15, 0.8) 0%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 8px;
+    z-index: 0;
+    pointer-events: none;
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+
+  & > * {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover > * {
+    transform: translateZ(50px);
+  }
+}
+
+.card-shadow-red {
+  position: relative;
+  overflow: visible;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(0) rotateY(0);
+  transition: all 0.3s ease;
+  will-change: transform;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: radial-gradient(
+      circle at var(--x) var(--y),
+      rgba(252, 16, 16, 0.8) 0%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: 8px;
+    z-index: 0;
+    pointer-events: none;
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+
+  & > * {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover > * {
+    transform: translateZ(50px);
+  }
+}
+
 .scroll-track {
   display: flex;
   width: max-content;

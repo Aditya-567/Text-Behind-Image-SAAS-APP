@@ -1,7 +1,7 @@
 <!-- Login Required Popup -->
 @if (showLoginPopup) {
 <div class="fixed inset-0 bg-white/60 z-50 flex items-center justify-center">
-  <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full mx-4 relative">
+  <div class="bg-white border border-gray-200 rounded-xl box-shadow p-8 max-w-lg w-full mx-4 relative">
     <!-- Close button -->
     <button
       (click)="closeLoginPopup()"
@@ -12,27 +12,68 @@
 
     <!-- Popup content -->
     <div class="flex flex-col items-center text-center">
-      <img src="needlogin.svg" alt="login required" class="w-32 h-32 mb-6" />
+      <img src="login-popup.svg" alt="login required" class="w-32 h-32 mb-6 ml-8" />
       <h2 class="text-2xl font-bold text-gray-800 mb-2">Sign in Required</h2>
-      <p class="text-gray-600 mb-6">
+      <p class="text-gray-600 mb-4">
         Sign in to unlock all features and benefits of TBI Studio
       </p>
+
+  <div class="flex justify-between w-full mx-57 relative mb-14">
+    <div
+      class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
+    >
+      <div class="w-1 h-1 bg-white rounded-full"></div>
+    </div>
+        <div
+      class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
+    >
+      <div class="w-1 h-1 bg-white rounded-full"></div>
+    </div>
+         <div
+      class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
+    >
+      <div class="w-1 h-1 bg-white rounded-full"></div>
+    </div>
+        <div
+      class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
+    >
+      <div class="w-1 h-1 bg-white rounded-full"></div>
+    </div>
+        <div
+      class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
+    >
+      <div class="w-1 h-1 bg-white rounded-full"></div>
+    </div>
+        <div
+      class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
+    >
+      <div class="w-1 h-1 bg-white rounded-full"></div>
+    </div>
+
+    <div
+      class="py-[0.9px] rounded-full bg-purple-700 w-full absolute z-1 top-[5px]"
+    ></div>
+  </div>
 
       <!-- Action buttons -->
       <div class="flex flex-col w-full gap-3">
         <button
           (click)="navigateToLogin()"
-          class="w-full py-3 px-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+          class="w-full py-3 px-4 fill-button"
         >
           Sign In
         </button>
         <button
           (click)="navigateToRegister()"
-          class="w-full py-3 px-4 border border-purple-600 text-purple-600 rounded-lg hover:bg-purple-50 transition-colors"
+          class="w-full py-3 px-4 ghost-button"
         >
           Create Account
         </button>
       </div>
+
+      <p class="text-[#555] text-sm mt-5">
+        *No spam email, promise! Just sign in and start using all the features.
+      </p>
     </div>
   </div>
 </div>
@@ -63,7 +104,10 @@
         <div class="flex flex-wrap justify-center gap-3 w-full mx-auto pt-5">
           <div
             (click)="openTBI()"
-            class="w-[420px] h-[160px] bg-blue-400/30 p-1 rounded transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
+            class="w-[420px] h-[160px] bg-blue-400/30 p-1 rounded transition-all duration-400 ease-in-out cursor-pointer relative group card-shadow-blue"
+            (mousemove)="onMouseMove($event)"
+            (mouseleave)="onMouseLeave($event)"
+            style="--x: 50%; --y: 50%"
           >
             @if (!isLoggedIn()) {
             <div class="absolute top-0 right-0 z-10">
@@ -94,8 +138,11 @@
 
           <!-- db -->
           <div
-            class="w-[220px] h-[160px] bg-orange-500/30 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
+            class="w-[220px] h-[160px] bg-orange-500/30 rounded p-1 transition-all duration-400 ease-in-out cursor-pointer relative card-shadow-orange"
             (click)="handleCardClick()"
+            (mousemove)="onMouseMove($event)"
+            (mouseleave)="onMouseLeave($event)"
+            style="--x: 50%; --y: 50%"
           >
             <!-- Sign in label shown only if not logged in -->
             @if (!isLoggedIn()) {
@@ -122,8 +169,11 @@
           </div>
           <!------------------- card-2 -->
           <div
-            class="w-[400px] h-[160px] bg-purple-400/30 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
+            class="w-[400px] h-[160px] bg-purple-400/30 rounded p-1 transition-all duration-400 ease-in-out cursor-pointer relative card-shadow-purple"
             (click)="handleCardClick()"
+            (mousemove)="onMouseMove($event)"
+            (mouseleave)="onMouseLeave($event)"
+            style="--x: 50%; --y: 50%"
           >
             <!-- Sign in label shown only if not logged in -->
             @if (!isLoggedIn()) {
@@ -156,8 +206,11 @@
 
           <!------------------- card-3 -->
           <div
-            class="w-[240px] h-[200px] bg-green-400/30 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
+            class="w-[240px] h-[200px] bg-green-400/30 rounded p-1 transition-all duration-400 ease-in-out cursor-pointer relative card-shadow-green"
             (click)="handleCardClick()"
+            (mousemove)="onMouseMove($event)"
+            (mouseleave)="onMouseLeave($event)"
+            style="--x: 50%; --y: 50%"
           >
             <!-- Sign in label shown only if not logged in -->
             @if (!isLoggedIn()) {
@@ -187,8 +240,11 @@
 
           <!------------------- card-4 -->
           <div
-            class="w-[400px] h-[200px] bg-yellow-200/40 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
+            class="w-[400px] h-[200px] bg-yellow-200/40 rounded p-1 transition-all duration-400 ease-in-out cursor-pointer relative card-shadow-yellow"
             (click)="handleCardClick()"
+            (mousemove)="onMouseMove($event)"
+            (mouseleave)="onMouseLeave($event)"
+            style="--x: 50%; --y: 50%"
           >
             <!-- Sign in label shown only if not logged in -->
             @if (!isLoggedIn()) {
@@ -220,8 +276,11 @@
 
           <!------------------- card-5 -->
           <div
-            class="w-[400px] h-[200px] bg-red-400/30 rounded p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.03] cursor-pointer relative"
+            class="w-[400px] h-[200px] bg-red-400/30 rounded p-1 transition-all duration-400 ease-in-out cursor-pointer relative card-shadow-red"
             (click)="handleCardClick()"
+            (mousemove)="onMouseMove($event)"
+            (mouseleave)="onMouseLeave($event)"
+            style="--x: 50%; --y: 50%"
           >
             <!-- Sign in label shown only if not logged in -->
             @if (!isLoggedIn()) {

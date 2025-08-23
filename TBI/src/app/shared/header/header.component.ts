@@ -91,7 +91,7 @@ export class HeaderComponent implements OnInit {
   }
 
   goToLogin() {
-    this.route.navigate(['/login']);
+    this.route.navigate(['/login'], { queryParams: { mode: 'signup' } });
   }
 
   isLoggedIn(): boolean {

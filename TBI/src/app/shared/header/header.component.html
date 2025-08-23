@@ -5,8 +5,12 @@
     <div class="flex gap-2 items-center cursor-pointer" (click)="goToHome()">
       <img src="brush.svg" alt="Logo" class="h-10 rounded-full" />
       <div class="flex flex-col leading-tight">
-        <h1 class="text-xl font-extrabold text-[#333] tracking-wider">TBI Studio</h1>
-        <p class="text-[10px] font-medium text-purple-800 pl-1">Text Behind Image</p>
+        <h1 class="text-xl font-extrabold text-[#333] tracking-wider">
+          TBI Studio
+        </h1>
+        <p class="text-[10px] font-medium text-purple-800 pl-1">
+          Text Behind Image
+        </p>
       </div>
     </div>
 
@@ -34,7 +38,7 @@
         Guide
       </button>
 
-<button
+      <button
         [ngClass]="{
           'bg-purple-800': route.url === '/about-us',
           'bg-gradient-to-r from-blue-600 to-purple-600':
@@ -49,8 +53,7 @@
       <button
         [ngClass]="{
           'bg-purple-800': route.url === '/about-us',
-          'bg-purple-600':
-            route.url !== '/about-us',
+          'bg-purple-600': route.url !== '/about-us',
           'custom-rounded': isLoggedIn()
         }"
         routerLink="/about-us"
@@ -62,7 +65,6 @@
       @if(!isLoggedIn()){
       <button
         (click)="goToLogin()"
-        (click)="selectTab('login')"
         [ngClass]="{
           'bg-purple-800 ': route.url === '/login',
           'bg-purple-600': route.url !== '/login'

@@ -41,12 +41,51 @@ export class DashboardComponent implements OnInit {
 
   navigateToLogin() {
     this.showLoginPopup = false;
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login'], { queryParams: { mode: 'signin' } });
   }
 
   navigateToRegister() {
     this.showLoginPopup = false;
-    this.router.navigate(['/register']);
+    this.router.navigate(['/login'], { queryParams: { mode: 'signup' } });
+  }
+
+  onMouseMove(event: MouseEvent) {
+    const card = event.currentTarget as HTMLElement;
+    const rect = card.getBoundingClientRect();
+
+    // Calculate the mouse position relative to the card
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    // Convert to percentage for shadow effect
+    const xPercent = (x / rect.width) * 100;
+    const yPercent = (y / rect.height) * 100;
+
+    // Calculate tilt effect (maximum 10 degrees)
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -10;
+    const rotateY = ((x - centerX) / centerX) * 10;
+
+    // Update CSS custom properties
+    card.style.setProperty('--x', `${xPercent}%`);
+    card.style.setProperty('--y', `${yPercent}%`);
+    card.style.setProperty('--rotate-x', `${rotateX}deg`);
+    card.style.setProperty('--rotate-y', `${rotateY}deg`);
+    card.style.setProperty(
+      'transform',
+      `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+    );
+  }
+
+  onMouseLeave(event: MouseEvent) {
+    const card = event.currentTarget as HTMLElement;
+    card.style.setProperty('--rotate-x', '0deg');
+    card.style.setProperty('--rotate-y', '0deg');
+    card.style.setProperty(
+      'transform',
+      'perspective(1000px) rotateX(0deg) rotateY(0deg)'
+    );
   }
 
   // Handle TBI navigation with login check
