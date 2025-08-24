@@ -6,18 +6,21 @@ import {
   trigger,
 } from '@angular/animations';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
   signal,
   ViewChild,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthService } from '../../login/auth-service.service';
 import { ToasterService } from '../../services/toaster.service';
 import { BottomBarService } from './bottom-bar.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -32,15 +35,22 @@ import { BottomBarService } from './bottom-bar.service';
     ]),
   ],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
+  private observer!: IntersectionObserver;
+
   scrollToGuide() {
-    const guideElement = document.getElementById('Guide');
-    if (guideElement) {
-      guideElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }
+    this.selectedTab = 'Guide';
+    this.route.navigate(['/home']).then(() => {
+      setTimeout(() => {
+        const guideElement = document.getElementById('Guide');
+        if (guideElement) {
+          guideElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+      }, 100);
+    });
   }
   selectedTab: string = 'home';
   isCollapsed: boolean = false;
@@ -54,7 +64,7 @@ export class HeaderComponent implements OnInit {
   showFallback: boolean = false;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  selectTab(tab: string) {
+  setSelectedTab(tab: string) {
     this.selectedTab = tab;
   }
 
@@ -86,7 +96,62 @@ export class HeaderComponent implements OnInit {
       this.isCollapsed = this.route.url === '/text-behind-image';
     });
   }
+
+  ngAfterViewInit() {
+    this.route.events
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        if (event.urlAfterRedirects === '/home') {
+          setTimeout(() => this.observeGuideSection(), 0);
+        } else {
+          this.unobserveGuideSection();
+        }
+      });
+
+    if (this.route.url === '/home') {
+      setTimeout(() => this.observeGuideSection(), 0);
+    }
+  }
+
+  ngOnDestroy() {
+    this.unobserveGuideSection();
+  }
+
+  observeGuideSection() {
+    this.unobserveGuideSection();
+
+    const guideElement = document.getElementById('Guide');
+    if (guideElement) {
+      const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5,
+      };
+
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.selectedTab = 'Guide';
+          } else {
+            if (this.route.url === '/home') {
+              this.selectedTab = 'home';
+            }
+          }
+        });
+      }, options);
+
+      this.observer.observe(guideElement);
+    }
+  }
+
+  unobserveGuideSection() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
+
   goToHome() {
+    this.selectedTab = 'home';
     this.route.navigate(['/home']);
   }
 

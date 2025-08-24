@@ -1,26 +1,56 @@
-<div class="min-h-screen flex items-center justify-center">
+<div class="min-h-screen flex items-center justify-center relative">
+  <div class="absolute inset-0 overflow-hidden flex w-full">
+      <div
+        class="absolute top-0 left-0 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-tr from-purple-400 via-pink-500 to-red-500 rounded-full opacity-30 blur-3xl animate-pulse"
+      ></div>
+   
+      <div
+        class="absolute top-0 left-0 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-tr from-purple-400 via-pink-500 to-red-500 rounded-full opacity-30 blur-3xl animate-pulse"
+      ></div>
+   
+      <div
+        class="absolute -bottom-50 -right-40 transform w-96 h-96 bg-gradient-to-tr from-purple-400 via-pink-500 to-red-500 rounded-full opacity-30 blur-3xl animate-pulse"
+      ></div>
+      <div
+        class="absolute -bottom-50 -right-40 transform w-96 h-96 bg-gradient-to-tr from-purple-400 via-pink-500 to-red-500 rounded-full opacity-30 blur-3xl animate-pulse"
+      ></div>
+
+
+  </div>
+
   <div
-    class="container border border-gray-200 rounded-lg shadow-lg mt-10"
+    class="container border border-gray-200 rounded-lg box-shadow mt-10 z-30"
     id="container"
   >
     <!-- Sign Up Container -->
     <div class="form-container sign-up-container">
       <form (submit)="signUpWithEmail($event)">
-        <h1 class=" -mt-4 text-[#333] text-xl mb-8">Let's start Creation with<span class="text-3xl text-purple-800 font-bold"> TBI Studio</span></h1>
+        <h1 class="-mt-4 text-[#333] text-xl mb-8">
+          Let's start Creation with<span
+            class="text-3xl text-purple-800 font-bold"
+          >
+            TBI Studio</span
+          >
+        </h1>
         <div class="flex flex-col gap-2 w-full">
-          <button (click)="googleSignIn($event)" class="flex items-center gap-4 p-2 px-6 border border-gray-300 rounded-md
-          hover:bg-gray-200 hover:shadow-md  
-          cursor-pointer transition-all duration-400 ease-in-out transform hover:scale-[1.07]">
-            <img src="google.svg" alt="google" class="h-6" /><h1 class="text-[#777] text-[14px]">Continue with Google</h1>
+          <button
+            (click)="googleSignIn($event)"
+            class="flex items-center gap-4 p-2 px-6 border border-gray-300 rounded-md hover:bg-gray-200 hover:shadow-md cursor-pointer transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+          >
+            <img src="google.svg" alt="google" class="h-6" />
+            <h1 class="text-[#777] text-[14px]">Continue with Google</h1>
           </button>
-          <button 
-          (click)="githubSignIn($event)"
-          class="flex items-center gap-4 p-2 px-6 border border-gray-300 rounded-md
-          hover:bg-gray-200 hover:shadow-md  
-          cursor-pointer transition-all duration-400 ease-in-out transform hover:scale-[1.07]">
-            <img src="github2.svg" alt="google" class="h-6" /><h1 class="text-[#666] text-[14px]">Continue with GitHub</h1>
-          </button></div>
-        <span class="my-4 text-xs text-[#777] ">----- or use your email for registration -----</span>
+          <button
+            (click)="githubSignIn($event)"
+            class="flex items-center gap-4 p-2 px-6 border border-gray-300 rounded-md hover:bg-gray-200 hover:shadow-md cursor-pointer transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+          >
+            <img src="github2.svg" alt="google" class="h-6" />
+            <h1 class="text-[#666] text-[14px]">Continue with GitHub</h1>
+          </button>
+        </div>
+        <span class="my-4 text-xs text-[#777]"
+          >----- or use your email for registration -----</span
+        >
         <input
           [(ngModel)]="displayName"
           type="text"
@@ -44,9 +74,7 @@
         />
         <button
           type="submit"
-          class="mt-3 p-3 px-16 cursor-pointer rounded-full text-white  bg-gradient-to-r from-blue-600 to-purple-700 
-          hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-[1.05] active:scale-[0.95] 
-          hover:bg-gradient-to-r hover:from-blue-800 hover:to-purple-900"
+          class="mt-3 p-3 px-16 cursor-pointer rounded-full text-white bg-gradient-to-r from-blue-600 to-purple-700 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-[1.05] active:scale-[0.95] hover:bg-gradient-to-r hover:from-blue-800 hover:to-purple-900"
         >
           Sign Up
         </button>
@@ -56,21 +84,30 @@
     <!-- Sign In Container -->
     <div class="form-container sign-in-container">
       <form (submit)="signInWithEmail($event)">
-        <h1 class=" text-[#333] text-xl mb-12">Welcome Back to<span class="text-3xl text-purple-800 font-bold"> TBI Studio</span></h1>
+        <h1 class="text-[#333] text-xl mb-12">
+          Welcome Back to<span class="text-3xl text-purple-800 font-bold">
+            TBI Studio</span
+          >
+        </h1>
         <div class="flex flex-col gap-2 w-full">
-          <button (click)="googleSignIn($event)" class="flex items-center gap-4 p-2 px-6 border border-gray-300 rounded-md
-          hover:bg-gray-200 hover:shadow-md  
-          cursor-pointer transition-all duration-400 ease-in-out transform hover:scale-[1.07]">
-            <img src="google.svg" alt="google" class="h-6" /><h1 class="text-[#777] text-[14px]">Continue with Google</h1>
+          <button
+            (click)="googleSignIn($event)"
+            class="flex items-center gap-4 p-2 px-6 border border-gray-300 rounded-md hover:bg-gray-200 hover:shadow-md cursor-pointer transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+          >
+            <img src="google.svg" alt="google" class="h-6" />
+            <h1 class="text-[#777] text-[14px]">Continue with Google</h1>
           </button>
-          <button 
-          (click)="githubSignIn($event)"
-          class="flex items-center gap-4 p-2 px-6 border border-gray-300 rounded-md
-          hover:bg-gray-200 hover:shadow-md  
-          cursor-pointer transition-all duration-400 ease-in-out transform hover:scale-[1.07]">
-            <img src="github2.svg" alt="google" class="h-6" /><h1 class="text-[#666] text-[14px]">Continue with GitHub</h1>
-          </button></div>
-        <span class="my-4 text-xs text-[#777] ">----- or use your account -----</span>
+          <button
+            (click)="githubSignIn($event)"
+            class="flex items-center gap-4 p-2 px-6 border border-gray-300 rounded-md hover:bg-gray-200 hover:shadow-md cursor-pointer transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+          >
+            <img src="github2.svg" alt="google" class="h-6" />
+            <h1 class="text-[#666] text-[14px]">Continue with GitHub</h1>
+          </button>
+        </div>
+        <span class="my-4 text-xs text-[#777]"
+          >----- or use your account -----</span
+        >
         <input
           [(ngModel)]="email"
           type="email"
@@ -85,12 +122,15 @@
           name="password"
           class="cursor-pointer transition-all duration-400 ease-in-out transform hover:scale-[1.04]"
         />
-        <button (click)="resetPassword($event)" class="text-sm text-[#777] hover:text-blue-500 cursor-pointer" >Forgot your password?</button>
+        <button
+          (click)="resetPassword($event)"
+          class="text-sm text-[#777] hover:text-blue-500 cursor-pointer"
+        >
+          Forgot your password?
+        </button>
         <button
           type="submit"
-          class="mt-3 p-3 px-16 cursor-pointer rounded-full text-white  bg-gradient-to-r from-blue-600 to-purple-700 
-          hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-[1.05] active:scale-[0.95] 
-          hover:bg-gradient-to-r hover:from-blue-800 hover:to-purple-900"
+          class="mt-3 p-3 px-16 cursor-pointer rounded-full text-white bg-gradient-to-r from-blue-600 to-purple-700 hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-[1.05] active:scale-[0.95] hover:bg-gradient-to-r hover:from-blue-800 hover:to-purple-900"
         >
           Sign In
         </button>
@@ -102,13 +142,29 @@
       <div class="overlay">
         <div class="overlay-panel overlay-left">
           <h1 class="text-2xl">Welcome Back!</h1>
-          <p>Your Gallery Missed You – Sign In to Resume. Unleash Your Inner Artist</p>
-          <button class="ghost border p-3 rounded-full px-8 cursor-pointer" id="signIn">Sign In</button>
+          <p>
+            Your Gallery Missed You – Sign In to Resume. Unleash Your Inner
+            Artist
+          </p>
+          <button
+            class="ghost border p-3 rounded-full px-8 cursor-pointer"
+            id="signIn"
+          >
+            Sign In
+          </button>
         </div>
         <div class="overlay-panel overlay-right">
-          <h1 class="text-2xl ">Hello, Creator!</h1>
-          <p>Let’s make something beautiful together. Start by signing up. Join us and bring your ideas to life.</p>
-          <button class="ghost border p-3 rounded-full px-8 cursor-pointer" id="signUp">Sign Up</button>
+          <h1 class="text-2xl">Hello, Creator!</h1>
+          <p>
+            Let’s make something beautiful together. Start by signing up. Join
+            us and bring your ideas to life.
+          </p>
+          <button
+            class="ghost border p-3 rounded-full px-8 cursor-pointer"
+            id="signUp"
+          >
+            Sign Up
+          </button>
         </div>
       </div>
     </div>

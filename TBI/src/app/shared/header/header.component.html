@@ -29,8 +29,8 @@
 
       <button
         [ngClass]="{
-          'bg-blue-800 ': route.url === '/guide',
-          'bg-blue-600': route.url !== '/guide'
+          'bg-blue-800 ': selectedTab === 'Guide',
+          'bg-blue-600': selectedTab !== 'Guide'
         }"
         class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
         (click)="scrollToGuide()"
@@ -45,6 +45,7 @@
             route.url !== '/about-us',
         }"
         routerLink="/about-us"
+        (click)="selectedTab = ''"
         class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
       >
         Features
@@ -57,6 +58,7 @@
           'custom-rounded': isLoggedIn()
         }"
         routerLink="/about-us"
+        (click)="selectedTab = ''"
         class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
       >
         About Us
