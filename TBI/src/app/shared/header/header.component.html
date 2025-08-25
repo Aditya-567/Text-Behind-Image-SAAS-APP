@@ -67,11 +67,7 @@
       @if(!isLoggedIn()){
       <button
         (click)="goToLogin()"
-        [ngClass]="{
-          'bg-purple-800 ': route.url === '/login',
-          'bg-purple-600': route.url !== '/login'
-        }"
-        class="text-white text-md px-6 py-2 cursor-pointer hover:animate-pulse custom-rounded transition-all"
+        class="bg-purple-600 text-white text-md px-6 py-2 cursor-pointer hover:animate-pulse custom-rounded transition-all"
       >
         Sign Up
       </button>

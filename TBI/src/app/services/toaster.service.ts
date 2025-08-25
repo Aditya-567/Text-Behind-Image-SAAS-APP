@@ -30,7 +30,7 @@ export class ToasterService {
     // Auto remove after 3 seconds
     setTimeout(() => {
       this.remove(toast.id);
-    }, 3000);
+    }, 4000);
   }
 
   remove(id: number) {

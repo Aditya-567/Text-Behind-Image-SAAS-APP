@@ -21,6 +21,7 @@ import { AuthService } from '../../login/auth-service.service';
 import { ToasterService } from '../../services/toaster.service';
 import { BottomBarService } from './bottom-bar.service';
 import { filter } from 'rxjs/operators';
+import { LoginPopupService } from '../../services/login-pop-up.service';
 
 @Component({
   selector: 'app-header',
@@ -72,7 +73,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     public route: Router,
     private bottomBarService: BottomBarService,
     public authService: AuthService,
-    public toasterService: ToasterService
+    public toasterService: ToasterService,
+    private loginPopupService: LoginPopupService // Injected the service
   ) {
     this.authService.currentUser$.subscribe((user) => {
       if (user) {
@@ -99,7 +101,11 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.route.events
-      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .pipe(
+        filter(
+          (event): event is NavigationEnd => event instanceof NavigationEnd
+        )
+      )
       .subscribe((event: NavigationEnd) => {
         if (event.urlAfterRedirects === '/home') {
           setTimeout(() => this.observeGuideSection(), 0);
@@ -155,17 +161,24 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.route.navigate(['/home']);
   }
 
+  /**
+   * Opens the login popup with the 'Sign Up' form active.
+   */
   goToLogin() {
-    this.route.navigate(['/login'], { queryParams: { mode: 'signup' } });
+    this.loginPopupService.open(true); // true = show Sign Up form
   }
 
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
 
+  /**
+   * If the user is not logged in, it opens the login popup with the 'Sign In' form active.
+   * Otherwise, it navigates to the intended feature.
+   */
   handleCardClick() {
     if (!this.isLoggedIn()) {
-      this.route.navigate(['/login']);
+      this.loginPopupService.open(false); // false = show Sign In form
     } else {
       // Continue to object removal functionality
       this.route.navigate(['/object-removal']);
@@ -176,7 +189,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.authService.signOut().then(() => {
       this.openProfile();
       this.isCollapsed = false;
-      this.route.navigate(['/login']);
+      this.route.navigate(['/home']); // Navigate to home after logout
     });
   }
 

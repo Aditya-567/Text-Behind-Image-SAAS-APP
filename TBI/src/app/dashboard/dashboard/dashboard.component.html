@@ -5,7 +5,7 @@
     <!-- Close button -->
     <button
       (click)="closeLoginPopup()"
-      class="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+      class="absolute top-4 right-4 bg-gray-50 hover:bg-gray-200 cursor-pointer p-2 rounded-full"
     >
       <img src="cross.svg" alt="close" class="w-5 h-5" />
     </button>
@@ -13,7 +13,7 @@
     <!-- Popup content -->
     <div class="flex flex-col items-center text-center">
       <img src="login-popup.svg" alt="login required" class="w-32 h-32 mb-6 ml-8" />
-      <h2 class="text-2xl font-bold text-gray-800 mb-2">Sign in Required</h2>
+      <h2 class="text-2xl font-bold text-[#444] mb-2">Sign in Required</h2>
       <p class="text-gray-600 mb-4">
         Sign in to unlock all features and benefits of TBI Studio
       </p>
@@ -315,7 +315,7 @@
   </div>
 </div>
 
-<div class="flex flex-col items-center justify-center w-full pt-4">
+<div class="flex flex-col items-center justify-center w-full pt-8">
   <div class="overflow-hidden w-full">
     <div class="scroll-track flex gap-6 px-4">
       <ng-container *ngFor="let card of featureCards">
@@ -402,7 +402,7 @@
 
 <div
   id="Guide"
-  class="w-[84%] mx-auto my-[100px] border border-gray-200 p-8 rounded-2xl"
+  class="w-[80%] mx-auto my-[100px] border border-gray-200 p-8 rounded-2xl"
 >
   <div class="text-center mb-4 mt-6">
     <h2

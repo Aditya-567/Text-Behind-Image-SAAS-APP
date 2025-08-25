@@ -2,14 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NoAuthGuard } from './login/gaurd/no-auth.guard';
 import { AboutUsComponent } from './shared/about-us/about-us.component';
+import { AuthGuard } from './login/gaurd/auth.guard';
 
 export const routes: Routes = [
-  {
-    path: 'login',
-    loadChildren: () =>
-      import('./login/login.module').then((m) => m.LoginModule),
-    canActivate: [NoAuthGuard],
-  },
   {
     path: 'home',
     loadChildren: () =>
@@ -19,10 +14,11 @@ export const routes: Routes = [
     path: 'text-behind-image',
     loadChildren: () =>
       import('./components/components.module').then((m) => m.ComponentsModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'about-us',
-   component: AboutUsComponent,
+    component: AboutUsComponent,
   },
   {
     path: '',

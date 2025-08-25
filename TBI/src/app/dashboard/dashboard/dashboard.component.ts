@@ -1,3 +1,4 @@
+import { LoginPopupService } from './../../services/login-pop-up.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../login/auth-service.service';
@@ -12,7 +13,7 @@ export class DashboardComponent implements OnInit {
   showLoginPopup = false;
   showScrollTop = false;
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, public loginPopupService: LoginPopupService) {
     // Initialize scroll event listener
     window.addEventListener('scroll', () => {
       this.showScrollTop = window.scrollY > 400; // Show button after 400px scroll
@@ -41,12 +42,12 @@ export class DashboardComponent implements OnInit {
 
   navigateToLogin() {
     this.showLoginPopup = false;
-    this.router.navigate(['/login'], { queryParams: { mode: 'signin' } });
+    this.loginPopupService.open(false);
   }
 
   navigateToRegister() {
     this.showLoginPopup = false;
-    this.router.navigate(['/login'], { queryParams: { mode: 'signup' } });
+    this.loginPopupService.open(true);
   }
 
   onMouseMove(event: MouseEvent) {

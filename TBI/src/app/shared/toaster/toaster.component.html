@@ -1,7 +1,7 @@
-<div class="fixed bottom-5 left-5 z-50 flex flex-col gap-3 min-w-[300px]">
+<div class="fixed bottom-5 left-5 z-500 flex flex-col gap-3 min-w-[200px]">
   <div
     *ngFor="let toast of toasterService.toasts$ | async"
-    class="p-2.5 rounded-full shadow-lg animate-slide-in flex items-center justify-between gap-3"
+    class="p-1.5 rounded-full shadow-lg animate-slide-in flex items-center justify-between gap-3"
     [ngClass]="{
       'bg-green-500 text-white': toast.type === 'success',
       'bg-red-500 text-white': toast.type === 'error',
@@ -21,7 +21,7 @@
 >
     <svg
       *ngIf="toast.type === 'success'"
-      class="w-6 h-6"
+      class="w-5 h-5"
       fill="none"
       stroke="white"
       viewBox="0 0 24 24"
@@ -35,7 +35,7 @@
     </svg>
     <svg
       *ngIf="toast.type === 'error'"
-      class="w-6 h-6"
+      class="w-5 h-5"
       fill="none"
       stroke="white"
       viewBox="0 0 24 24"
@@ -49,7 +49,7 @@
     </svg>
     <svg
       *ngIf="toast.type === 'warning'"
-      class="w-6 h-6"
+      class="w-5 h-5"
       fill="none"
       stroke="white"
       viewBox="0 0 24 24"
@@ -63,7 +63,7 @@
     </svg>
     <svg
       *ngIf="toast.type === 'info'"
-      class="w-6 h-6"
+      class="w-5 h-5"
       fill="none"
       stroke="white"
       viewBox="0 0 24 24"
@@ -76,10 +76,10 @@
       ></path>
     </svg>
 </div>
-      <span class="text-white text-lg">{{ toast.message }}</span>
+      <span class="text-white text-md">{{ toast.message }}</span>
     </div>
     <button
-      class="text-white opacity-80 hover:opacity-100 text-2xl w-6 h-6 flex items-center justify-center focus:outline-none"
+      class="text-white text-2xl w-6 h-6 flex items-center mb-1 justify-center focus:outline-none"
       (click)="removeToast(toast.id)"
     >
       ×
