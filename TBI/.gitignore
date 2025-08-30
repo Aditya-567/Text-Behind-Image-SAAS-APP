@@ -6,6 +6,10 @@
 /out-tsc
 /bazel-out
 
+# Environment files
+/src/environments/environment.prod.secret.ts
+.env
+
 # Node
 /node_modules
 npm-debug.log
@@ -42,4 +46,4 @@ testem.log
 Thumbs.db
 
 # Environment files
-/src/app/environments/environment.ts
+/src/environments/environment.ts

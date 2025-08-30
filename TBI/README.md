@@ -2,6 +2,22 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
 
+## Environment Setup
+
+Before running the application, you need to set up your environment:
+
+1. Copy the environment template:
+
+```bash
+cp src/environments/environment.prod.ts.example src/environments/environment.prod.secret.ts
+```
+
+2. Edit `environment.prod.secret.ts` with your actual credentials:
+   - Firebase configuration
+   - Cloudinary configuration
+
+Note: Never commit `environment.prod.secret.ts` to the repository as it contains sensitive information.
+
 ## Development server
 
 To start a local development server, run:
@@ -11,6 +27,17 @@ ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Production Build
+
+For production deployment:
+
+1. Ensure your `environment.prod.secret.ts` is properly configured
+2. Run the production build:
+
+```bash
+ng build --configuration production
+```
 
 ## Code scaffolding
 

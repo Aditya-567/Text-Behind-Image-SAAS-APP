@@ -1,0 +1,19 @@
+// RENAME THIS FILE to environment.prod.secret.ts and fill in your actual credentials.
+// DO NOT COMMIT the environment.prod.secret.ts file.
+
+export const environment = {
+  production: true,
+  firebaseConfig: {
+    apiKey: "PASTE_YOUR_FIREBASE_API_KEY_HERE",
+    authDomain: "your-app.firebaseapp.com",
+    projectId: "your-project-id",
+    storageBucket: "your-app.appspot.com",
+    messagingSenderId: "SENDER_ID_HERE",
+    appId: "APP_ID_HERE",
+    measurementId: "MEASUREMENT_ID_HERE"
+  },
+  cloudinary: {
+    cloudName: "PASTE_YOUR_CLOUDINARY_CLOUD_NAME_HERE",
+    uploadPreset: "PASTE_YOUR_CLOUDINARY_UPLOAD_PRESET_HERE"
+  }
+};
