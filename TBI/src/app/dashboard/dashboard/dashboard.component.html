@@ -1,7 +1,9 @@
 <!-- Login Required Popup -->
 @if (showLoginPopup) {
 <div class="fixed inset-0 bg-white/60 z-50 flex items-center justify-center">
-  <div class="bg-white border border-gray-200 rounded-xl box-shadow p-8 max-w-lg w-full mx-4 relative">
+  <div
+    class="bg-white border border-gray-200 rounded-xl box-shadow p-8 max-w-lg w-full mx-4 relative"
+  >
     <!-- Close button -->
     <button
       (click)="closeLoginPopup()"
@@ -12,48 +14,52 @@
 
     <!-- Popup content -->
     <div class="flex flex-col items-center text-center">
-      <img src="login-popup.svg" alt="login required" class="w-32 h-32 mb-6 ml-8" />
+      <img
+        src="login-popup.svg"
+        alt="login required"
+        class="w-32 h-32 mb-6 ml-8"
+      />
       <h2 class="text-2xl font-bold text-[#444] mb-2">Sign in Required</h2>
       <p class="text-gray-600 mb-4">
         Sign in to unlock all features and benefits of TBI Studio
       </p>
 
-  <div class="flex justify-between w-full mx-57 relative mb-14">
-    <div
-      class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
-    >
-      <div class="w-1 h-1 bg-white rounded-full"></div>
-    </div>
+      <div class="flex justify-between w-full mx-57 relative mb-14">
         <div
-      class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
-    >
-      <div class="w-1 h-1 bg-white rounded-full"></div>
-    </div>
-         <div
-      class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
-    >
-      <div class="w-1 h-1 bg-white rounded-full"></div>
-    </div>
+          class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
+        >
+          <div class="w-1 h-1 bg-white rounded-full"></div>
+        </div>
         <div
-      class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
-    >
-      <div class="w-1 h-1 bg-white rounded-full"></div>
-    </div>
+          class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
+        >
+          <div class="w-1 h-1 bg-white rounded-full"></div>
+        </div>
         <div
-      class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
-    >
-      <div class="w-1 h-1 bg-white rounded-full"></div>
-    </div>
+          class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
+        >
+          <div class="w-1 h-1 bg-white rounded-full"></div>
+        </div>
         <div
-      class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
-    >
-      <div class="w-1 h-1 bg-white rounded-full"></div>
-    </div>
+          class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
+        >
+          <div class="w-1 h-1 bg-white rounded-full"></div>
+        </div>
+        <div
+          class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
+        >
+          <div class="w-1 h-1 bg-white rounded-full"></div>
+        </div>
+        <div
+          class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-3 h-3 rounded-full z-10"
+        >
+          <div class="w-1 h-1 bg-white rounded-full"></div>
+        </div>
 
-    <div
-      class="py-[0.9px] rounded-full bg-purple-700 w-full absolute z-1 top-[5px]"
-    ></div>
-  </div>
+        <div
+          class="py-[0.9px] rounded-full bg-purple-700 w-full absolute z-1 top-[5px]"
+        ></div>
+      </div>
 
       <!-- Action buttons -->
       <div class="flex flex-col w-full gap-3">
@@ -402,7 +408,7 @@
 
 <div
   id="Guide"
-  class="w-[80%] mx-auto my-[100px] border border-gray-200 p-8 rounded-2xl"
+  class="w-[80%] mx-auto mt-[100px] mb-[150px] border border-gray-200 p-8 rounded-2xl"
 >
   <div class="text-center mb-4 mt-6">
     <h2
@@ -468,63 +474,73 @@
 </div>
 
 <!-- Footer -->
-<div class="flex flex-col items-center mx-20 mt-20">
+<div class="flex flex-col items-center mt-20 bg-[#222]">
+  <div class="flex justify-between w-[80%] pt-10 bg-[#222]">
+    <div class="flex gap-6">
+      <div class="flex flex-col">
+        <h1 class="text-xl font-extrabold text-[#999] mb-4">
+          TBI Studio - Where Creativity Meets
+          Innovation
+        </h1>
+        <p class="text-[#888] text-sm mb-1">
+          ✨ Powerful AI-driven tools for seamless image manipulation and
+          enhancement
+        </p>
+        <p class="text-[#888] text-sm mb-1">
+          ✨ Add stunning text effects behind your images with just a few clicks
+        </p>
+        <p class="text-[#888] text-sm mb-1">
+          ✨ Smart object removal and restoration capabilities
+        </p>
+        <p class="text-[#888] text-sm mb-1">
+          ✨ Professional-grade results with user-friendly interface
+        </p>
+
+        <div class="flex flex-row gap-4 mt-6">
+          <div
+            class="bg-[#555] p-1 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+          >
+            <div
+              class="rounded-full bg-[#555] p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.07] hover:bg-purple-50 cursor-pointer"
+            >
+              <img src="linkedin2.svg" alt="tbi" class="w-auto h-8 " />
+            </div>
+          </div>
+          <div
+            class="bg-[#555] p-1 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+          >
+            <div
+              class="rounded-full bg-[#555] p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.07] hover:bg-purple-50 cursor-pointer"
+            >
+              <img src="facebook2.svg" alt="tbi" class="w-auto h-8 " />
+            </div>
+          </div>
+          <div
+            class="bg-[#555] p-1 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+          >
+            <div
+              class="rounded-full bg-[#555] p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.07] hover:bg-purple-50 cursor-pointer"
+            >
+              <img src="github2.svg" alt="tbi" class="w-auto h-8 p-0.5" />
+            </div>
+          </div>
+          <div
+            class="bg-[#555] p-1 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
+          >
+            <div
+              class="rounded-full bg-[#555] p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.07] hover:bg-purple-50 cursor-pointer"
+            >
+              <img src="instagram.svg" alt="tbi" class="w-auto h-8" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img src="camera.gif" class="w-[200px] h-[200px] mb-8 mr-18" alt="Lord Icon" />
+  </div>
+
   <div
-    class="w-full bg-white px-1 pt-1 border border-gray-200 shadow-md bg-white rounded-t-lg"
-  >
-    <section
-      class="border-t border-l border-r border-gray-500 flex justify-between p-4 text-white rounded-t-lg bg-gradient-to-r from-blue-500 to-purple-600"
-    >
-      <!-- Left -->
-      <div class="me-5 text-xl flex items-center">
-        <span>Get connected with us on social networks</span>
-      </div>
-      <!-- Left -->
-
-      <!-- Right -->
-      <div class="flex flex-row items-end justify-center gap-2">
-        <div
-          class="bg-blue-400 p-1 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
-        >
-          <div
-            class="rounded-full bg-white p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.07] hover:bg-purple-50 cursor-pointer"
-          >
-            <img src="linkedin.svg" alt="tbi" class="w-auto h-10 p-2" />
-          </div>
-        </div>
-        <div
-          class="bg-blue-400 p-1 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
-        >
-          <div
-            class="rounded-full bg-white p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.07] hover:bg-purple-50 cursor-pointer"
-          >
-            <img src="facebook.svg" alt="tbi" class="w-auto h-10 p-1" />
-          </div>
-        </div>
-        <div
-          class="bg-blue-400 p-1 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
-        >
-          <div
-            class="rounded-full bg-white p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.07] hover:bg-purple-50 cursor-pointer"
-          >
-            <img src="github.svg" alt="tbi" class="w-auto h-10" />
-          </div>
-        </div>
-        <div
-          class="bg-blue-400 p-1 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
-        >
-          <div
-            class="rounded-full bg-white p-1 transition-all duration-400 ease-in-out transform hover:scale-[1.07] hover:bg-purple-50 cursor-pointer"
-          >
-            <img src="instagram.svg" alt="tbi" class="w-auto h-10 p-2" />
-          </div>
-        </div>
-      </div>
-      <!-- Right -->
-    </section>
-
-    <div
-      class="text-center p-3 px-4 bg-white border-l border-r border-gray-500 flex justify-between"
+      class="text-center pt-10 pb-4  w-[80%] flex justify-between"
     >
       <p class="text-[#666]">
         &copy; Copyright TBI Studio 2025, All rights reserved.
@@ -534,7 +550,6 @@
         <a href="#">Terms of Service</a>
       </div>
     </div>
-  </div>
 </div>
 
 <!-- Scroll to top button -->
