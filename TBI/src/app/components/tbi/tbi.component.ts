@@ -1,5 +1,5 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { environment } from '../../../environments/environment';
 
@@ -29,8 +29,8 @@ export interface TextLayer {
 export class TbiComponent {
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  cloudName = environment.cloudinary.cloudName;
-  uploadPreset = environment.cloudinary.uploadPreset;
+  cloudName: string = environment.cloudinary.cloudName;
+  uploadPreset: string = environment.cloudinary.uploadPreset;
 
   textLayers: TextLayer[] = [];
   activeLayerId: number | null = null;
@@ -288,6 +288,3 @@ export class TbiComponent {
     },
   ];
 }
-
-
-

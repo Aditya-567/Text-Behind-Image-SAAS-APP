@@ -12,6 +12,6 @@ export const environment = {
   // removeBgApiKey: '8qFbhvUiyJBvFbFxKPgBnPJ5',
   cloudinary: {
     cloudName: 'ddeqzsupa',
-    uploadPreset: 'z26kzr2i', // The name of the unsigned preset you created
+    uploadPreset: 'z26kzr2i',
   },
 };
