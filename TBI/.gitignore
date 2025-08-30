@@ -7,8 +7,13 @@
 /bazel-out
 
 # Environment files
-/src/environments/environment.prod.secret.ts
+/src/environments/*.secret.ts
+/src/environments/environment.prod.ts
+/src/environments/environment.ts
 .env
+.env.*
+!.env.example
+!src/environments/*.example.ts
 
 # Node
 /node_modules
