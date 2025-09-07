@@ -9,6 +9,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  HostListener,
   OnDestroy,
   OnInit,
   signal,
@@ -16,12 +17,12 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { filter } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthService } from '../../login/auth-service.service';
+import { LoginPopupService } from '../../services/login-pop-up.service';
 import { ToasterService } from '../../services/toaster.service';
 import { BottomBarService } from './bottom-bar.service';
-import { filter } from 'rxjs/operators';
-import { LoginPopupService } from '../../services/login-pop-up.service';
 
 @Component({
   selector: 'app-header',
@@ -41,6 +42,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   scrollToGuide() {
     this.selectedTab = 'Guide';
+    this.closeProfile();
     this.route.navigate(['/home']).then(() => {
       setTimeout(() => {
         const guideElement = document.getElementById('Guide');
@@ -63,7 +65,41 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   profileOpen = signal(false);
   profilePopUpOpen = signal(false);
   showFallback: boolean = false;
+  isMenuOpen: boolean = false;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+    this.closeProfile();
+  }
+
+  // Close menu and profile when clicking outside
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    // Handle menu dropdown
+    const menuContainer = document.querySelector('.menu-container');
+    if (menuContainer && !menuContainer.contains(event.target as Node)) {
+      this.isMenuOpen = false;
+    }
+
+    // Handle profile dropdown
+    const profileButton = document.querySelector('.profile-button');
+    const profileDropdown = document.querySelector('.profile-dropdown');
+    const target = event.target as HTMLElement;
+
+    // Check if the click is not inside profile button or dropdown
+    if (profileDropdown && profileButton) {
+      const isOutsideClick =
+        !profileDropdown.contains(target) && !profileButton.contains(target);
+      // Check if we're not clicking edit/save/cancel buttons
+      const isActionButton = target.closest('button[class*="cursor-pointer"]');
+
+      if (isOutsideClick && !isActionButton) {
+        this.profileOpen.set(false);
+        this.profilePopUpOpen.set(false);
+      }
+    }
+  }
 
   setSelectedTab(tab: string) {
     this.selectedTab = tab;
@@ -156,9 +192,21 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  private closeProfile() {
+    this.profileOpen.set(false);
+    this.profilePopUpOpen.set(false);
+  }
+
   goToHome() {
     this.selectedTab = 'home';
+    this.closeProfile();
     this.route.navigate(['/home']);
+  }
+
+  navigateToAboutUs() {
+    this.selectedTab = '';
+    this.closeProfile();
+    this.route.navigate(['/about-us']);
   }
 
   /**
@@ -180,6 +228,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.isLoggedIn()) {
       this.loginPopupService.open(false); // false = show Sign In form
     } else {
+      this.closeProfile();
       // Continue to object removal functionality
       this.route.navigate(['/object-removal']);
     }

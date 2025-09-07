@@ -14,7 +14,6 @@
       </div>
     </div>
 
-    @if(!isCollapsed){
     <div class="flex gap-2 items-center">
       <button
         (click)="goToHome()"
@@ -22,47 +21,105 @@
           'bg-blue-800 ': route.url === '/home',
           'bg-blue-600': route.url !== '/home'
         }"
-        class="text-white text-md px-6 py-2 cursor-pointer hover:animate-pulse custom-rounded2 transition-all"
+        class="text-white text-md px-6 py-2 custom-rounded2 cursor-pointer hover:animate-pulse transition-all"
       >
         Home
       </button>
 
       <button
+        (click)="navigateToAboutUs()"
         [ngClass]="{
-          'bg-blue-800 ': selectedTab === 'Guide',
-          'bg-blue-600': selectedTab !== 'Guide'
-        }"
-        class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
-        (click)="scrollToGuide()"
-      >
-        Guide
-      </button>
-
-      <button
-        [ngClass]="{
-          'bg-purple-800': route.url === '/about-us',
+          'bg-blue-800 ': route.url === '/about-us',
           'bg-gradient-to-r from-blue-600 to-purple-600':
-            route.url !== '/about-us',
+            route.url !== '/about-us'
         }"
-        routerLink="/about-us"
-        (click)="selectedTab = ''"
-        class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
-      >
-        Features
-      </button>
-
-      <button
-        [ngClass]="{
-          'bg-purple-800': route.url === '/about-us',
-          'bg-purple-600': route.url !== '/about-us',
-          'custom-rounded': isLoggedIn()
-        }"
-        routerLink="/about-us"
-        (click)="selectedTab = ''"
         class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
       >
         About Us
       </button>
+
+      <div class="relative menu-container">
+        <button
+          [ngClass]="{
+            'bg-purple-800': isMenuOpen,
+            'bg-purple-600': !isMenuOpen,
+            'custom-rounded': isLoggedIn()
+          }"
+          (click)="toggleMenu()"
+          class="text-white text-md px-6 py-2 rounded-md cursor-pointer hover:animate-pulse transition-all"
+        >
+          Menu
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div
+          *ngIf="isMenuOpen"
+          class="absolute z-50 top-15 -right-13 w-[300px] bg-white border border-[#c8c8c8] shadow-lg rounded-lg"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="menu-button"
+        >
+          <div class="" role="none">
+            <a
+              class="flex items-center pl-8 py-2.5 rounded-t-lg menu"
+              role="menuitem"
+              (click)="scrollToGuide(); toggleMenu()"
+            >
+              <img src="guid.svg" alt="Guide" class="h-6 mr-[8px]" /> Guide
+            </a>
+
+            <a
+              href="#"
+              class="flex items-center pl-8 py-2.5 menu"
+              role="menuitem"
+            >
+              <img src="text.svg" alt="Text Behind Image" class="h-6 mr-[8px]" /> Text Behind Image
+            </a>
+             <a
+              href="#"
+              class="flex items-center pl-8 py-2.5 menu"
+              role="menuitem"
+            >
+              <img src="gallery.svg" alt="Gallery" class="h-6 mr-[8px]" /> Gallery
+            </a>
+            <a
+              href="#"
+              class="flex items-center pl-8 py-2.5 menu"
+              role="menuitem"
+            >
+              <img src="service-h.svg" alt="Plan & Billing" class="h-5 pl-[2px] mr-[11px]" /> Plan & Billing
+            </a>
+            <a
+              href="#"
+              class="flex items-center pl-8 py-2.5 menu"
+              role="menuitem"
+            >
+              <img src="scan.svg" alt="Object Removal" class="h-5 mr-[11px]" /> Object Removal
+            </a>
+            <a
+              href="#"
+              class="flex items-center pl-8 py-2.5 menu"
+              role="menuitem"
+            >
+              <img src="image.svg" alt="Image Restore" class="h-5 mr-[11px]" /> Image Restore
+            </a>
+            <a
+              href="#"
+              class="flex items-center pl-8 py-2.5 menu"
+              role="menuitem"
+            >
+              <img src="stars.svg" alt="Generative Fill" class="h-5 mr-[11px]" /> Generative Fill
+            </a>
+            <a
+              href="#"
+              class="flex items-center pl-8 py-2.5 menu rounded-b-lg"
+              role="menuitem"
+            >
+              <img src="filter.svg" alt="Object Recolor" class="h-5 mr-[11px]" /> Object Recolor 
+            </a>
+          </div>
+        </div>
+      </div>
 
       @if(!isLoggedIn()){
       <button
@@ -74,7 +131,7 @@
       }@else{
       <button
         (click)="openProfile()"
-        class="flex items-center p-1 bg-purple-700 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.09] cursor-pointer"
+        class="profile-button flex items-center p-1 bg-purple-700 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.09] cursor-pointer"
       >
         <!-- Profile image -->
         <img
@@ -95,113 +152,10 @@
       </button>
       }
     </div>
-    }
+    
   </div>
 </div>
-@if(isCollapsed){
-<div class="flex items-center justify-center mx-20 w-full">
-  <div
-    class="mb-4 w-auto flex gap-2 rounded-full p-2 bg-white border border-gray-100 shadow-sm absolute top-3 right-30 animate-slide-right-to-left"
-  >
-    <button
-      (click)="goToHome()"
-      class="text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700 custom-rounded2 transition-all"
-    >
-      home
-    </button>
-    <button
-      class="text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700 rounded-md transition-all"
-    >
-      TBI
-    </button>
-    <button
-      class="relative text-white text-md px-6 py-3 cursor-pointer bg-blue-600 hover:bg-blue-700 rounded-md transition-all overflow-hidden"
-      (click)="handleCardClick()"
-    >
-      <!-- Full overlay lock shown if not logged in -->
-      <ng-container *ngIf="!isLoggedIn()">
-        <div
-          class="absolute inset-0 bg-blue-300/60 flex items-center justify-center z-10 rounded-md pointer-events-none"
-        >
-          <img src="lock.png" alt="Sign in" class="h-6" />
-        </div>
-      </ng-container>
-
-      <!-- Main button label -->
-      <span class="relative z-0">Object Removal</span>
-    </button>
-    <!-- Image Restore Button -->
-    <button
-      class="relative text-white text-md px-6 py-3 cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-800 hover:to-purple-800 rounded-md transition-all overflow-hidden"
-      (click)="handleCardClick()"
-    >
-      <ng-container *ngIf="!isLoggedIn()">
-        <div
-          class="absolute inset-0 bg-blue-300/60 flex items-center justify-center z-10 rounded-md pointer-events-none"
-        >
-          <img src="lock.png" alt="Sign in" class="h-6" />
-        </div>
-      </ng-container>
-      <span class="relative z-0">Image Restore</span>
-    </button>
-
-    <!-- Generative Fill Button -->
-    <button
-      class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:bg-purple-700 rounded-md transition-all overflow-hidden"
-      (click)="handleCardClick()"
-    >
-      <ng-container *ngIf="!isLoggedIn()">
-        <div
-          class="absolute inset-0 bg-purple-400/60 flex items-center justify-center z-10 rounded-md pointer-events-none"
-        >
-          <img src="lock.png" alt="Sign in" class="h-6" />
-        </div>
-      </ng-container>
-      <span class="relative z-0">Generative Fill</span>
-    </button>
-
-    <!-- Object Recolor Button -->
-    <button
-      class="relative text-white text-md px-6 py-3 cursor-pointer bg-purple-600 hover:bg-purple-700 custom-rounded transition-all overflow-hidden"
-      (click)="handleCardClick()"
-    >
-      <ng-container *ngIf="!isLoggedIn()">
-        <div
-          class="absolute inset-0 bg-purple-400/60 flex items-center justify-center z-10 custom-rounded pointer-events-none"
-        >
-          <img src="lock.png" alt="Sign in" class="h-6" />
-        </div>
-      </ng-container>
-      <span class="relative z-0">Object Recolor</span>
-    </button>
-
-    @if(isLoggedIn()){
-
-    <button
-      (click)="openProfile()"
-      class="flex items-center p-1 bg-purple-700 rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.09] cursor-pointer"
-    >
-      <!-- Profile image -->
-      <img
-        *ngIf="!showFallback && userImg"
-        [src]="userImg"
-        (error)="onImgError()"
-        alt="User"
-        class="h-10 w-10 object-cover rounded-full transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
-      />
-
-      <!-- Fallback first letter -->
-      <span
-        *ngIf="showFallback || !userImg"
-        class="text-white font-bold text-2xl select-none bg-purple-500 rounded-full h-10 w-10 flex items-center justify-center transition-all duration-400 ease-in-out transform hover:scale-[1.07]"
-      >
-        {{ (userName && userName.charAt(0).toUpperCase()) || "?" }}
-      </span>
-    </button>
-    }
-  </div>
-</div>
-} @if(profileOpen()){
+@if(profileOpen()){
 <div
   [ngClass]="{
     'animate-slide-right-to-left': profileOpen(),
@@ -209,7 +163,7 @@
     'top-21 right-38': !isCollapsed,
     'top-22 right-30': isCollapsed
   }"
-  class="absolute w-auto bg-white box-shadow border border-[#c8c8c8] rounded-lg p-4"
+  class="profile-dropdown absolute w-auto bg-white shadow-lg border border-[#c8c8c8] rounded-lg p-4"
 >
   <!-- profile edi open -->
   @if(profilePopUpOpen()){

@@ -30,7 +30,7 @@ export class TbiComponent {
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   cloudName = environment.cloudinary.cloudName;
-  uploadPreset= environment.cloudinary.uploadPreset;
+  uploadPreset = environment.cloudinary.uploadPreset;
 
   textLayers: TextLayer[] = [];
   activeLayerId: number | null = null;
@@ -46,10 +46,17 @@ export class TbiComponent {
   brightness = 100;
   contrast = 100;
 
+  downloadFormat = 'png';
   aspectRatioSelection = 'original';
   originalImageAspectRatio: string | null = null;
+  fileName = 'Cool TBI';
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
+    // Initialize scroll event listener
+    window.addEventListener('scroll', () => {
+      this.showScrollTop = window.scrollY > 400; // Show button after 400px scroll
+    });
+
     if (
       !this.cloudName ||
       !this.uploadPreset ||
@@ -254,8 +261,14 @@ export class TbiComponent {
         ctx.globalAlpha = 1;
         ctx.drawImage(fgImg, 0, 0, canvas.width, canvas.height);
         const link = document.createElement('a');
-        link.download = 'layered-image.png';
-        link.href = canvas.toDataURL('image/png');
+        link.download = `${this.fileName || 'Cool TBI'}.${this.downloadFormat}`;
+
+        // Convert canvas to the selected format
+        const mimeType =
+          this.downloadFormat === 'jpg' ? 'image/jpeg' : 'image/png';
+        const quality = this.downloadFormat === 'jpg' ? 0.9 : 1.0; // High quality for JPEG, max for PNG
+
+        link.href = canvas.toDataURL(mimeType, quality);
         link.click();
       };
       if (this.foregroundImageUrl) fgImg.src = this.foregroundImageUrl;
@@ -264,27 +277,48 @@ export class TbiComponent {
   }
 
   //ui
-  featureCards = [
+  steps = [
     {
-      icon: 'ifc.svg',
-      title: 'Enhance Profile Pic',
-      description: 'Write, edit, and execute code effortlessly.',
+      number: '1',
+      Image: 'upload-h.svg',
+      title: 'Upload Photo',
+      description: 'Upload any image from your device',
     },
+
     {
-      icon: 'dfc.svg',
-      title: 'Access it AnyTime',
-      description: 'Invite team members and set up roles in just a few clicks.',
-    },
-    {
-      icon: 'sfc.svg',
-      title: 'AI',
-      description:
-        'Powered by OnceHub, CodeOnce ensures lightning-fast execution.',
-    },
-    {
-      icon: 'tfc.svg',
+      number: '2',
+      Image: 'edit-h.svg',
       title: 'Add Text',
-      description: 'Visualize user progress and detailed reports.',
+      description: 'Make any adjustments you need',
+    },
+    {
+      number: '3',
+      Image: 'service-h.svg',
+      title: 'Settings',
+      description: 'Select brightness and contrast & aspect ratio',
+    },
+    {
+      number: '4',
+      Image: 'download-h.svg',
+      title: 'Download',
+      description: 'Export in high quality format',
     },
   ];
+
+  // Method to scroll to How to Use section
+  scrollToHowToUse() {
+    const element = document.getElementById('how-to-use');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // Handle TBI navigation with login check
+  showScrollTop = false;
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
 }

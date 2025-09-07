@@ -25,9 +25,6 @@ body { margin: 0; font-family: ui-sans-serif, system-ui, sans-serif, Apple Color
   }
 
 
-    .box-shadow {
-    box-shadow: 0px 1px 8px 1px #b9b9b9;
-  }
 
   .ghost-button{
     background-color: white;
@@ -58,5 +55,18 @@ body { margin: 0; font-family: ui-sans-serif, system-ui, sans-serif, Apple Color
       color: white;
       border: 1px solid #6e11b0;
     
+    }
+  }
+
+  .custom-input {
+    border: 1px solid #c8c8c8;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+
+    &:focus {
+      border-color: #c130ff;
+      outline: none;
     }
   }

@@ -1,121 +1,96 @@
-<div class="mt-[180px] w-[80%] mx-auto">
+
+<div id="about" class="mt-[200px] w-[80%] flex justify-between mx-auto mb-[10px]">
   <div class="w-[48%]">
-    <h1 class="w-full text-3xl md:text-5xl font-extrabold tracking-tight leading-tight text-[#222]">
+    <h1
+      class="w-full text-3xl md:text-5xl font-extrabold tracking-tight leading-tight text-[#222]"
+    >
       About Us
     </h1>
     <h3 class="text-xl font-semibold text-[#444] mb-4">
       One place for creativity and innovation
     </h3>
     <p class="mb-4 text-[#222] leading-relaxed">
-      Welcome to <span class="font-bold text-[#222]">TBI</span> — your go-to platform for transforming the way text and images come together. 
-      We make it effortless to embed text behind your visuals without losing their quality. 
-      Whether you’re watermarking your work or designing creative digital content, our cutting-edge SaaS solution 
-      helps you achieve stunning results with ease.
+      Welcome to <span class="font-bold text-[#222]">TBI</span> — your go-to
+      platform for transforming the way text and images come together. We make
+      it effortless to embed text behind your visuals without losing their
+      quality. Whether you’re watermarking your work or designing creative
+      digital content, our cutting-edge SaaS solution helps you achieve stunning
+      results with ease.
     </p>
 
     <p class="text-[#222] leading-relaxed">
-      Our platform brings together <span class="font-bold">six powerful features</span> to unlock limitless possibilities
+      Our platform brings together
+      <span class="font-bold">six powerful features</span> to unlock limitless
+      possibilities
     </p>
 
-<div class="flex gap-4 mt-6">
-  <button class=" px-6 py-2 ghost-button">
-    View Features
-  </button>
-  <button class=" px-6 py-2 fill-button">
-    Get Started
-  </button>
-</div>
-
+    <div class="flex gap-4 mt-6">
+      <button class="px-6 py-2 ghost-button">View Features</button>
+      <button class="px-6 py-2 fill-button">Get Started</button>
+    </div>
+  </div>
+  <div class="p-8 flex justify-center items-center bg-gray-50 border rounded-3xl px-30 border-gray-200 shadow-sm transition hover:shadow-lg">
+     <img src="brush.svg" alt="Logo" class="h-[300px] w-auto rounded-full" />
   </div>
 </div>
-
-
-<div class="w-[84%] mx-auto my-[100px] border border-[#c8c8c8] p-8 rounded-2xl">
+<div id="features" class="py-30">
+<div
+  class="w-[84%] mx-auto border border-gray-200 p-10  rounded-2xl "
+>
   <div class="text-center mb-2 mt-6">
     <h2
-      class="w-full mx-auto text-center text-3xl md:text-5xl font-black tracking-tight leading-tight text-[#444]"
+      class="w-full mx-auto text-center text-3xl md:text-5xl font-black tracking-tight leading-tight text-[#444] my-6 mb-16"
     >
       Our Features
     </h2>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    @for (step of steps; track step.title) {
     <div
-      class="p-6 py-8 bg-white shadow-md rounded-2xl border border-gray-200 flex flex-col items-center text-center transition hover:shadow-lg"
-    >
-      <img src="assets/tfc.svg" alt="TBI Feature" class="w-12 h-12 mb-4" />
-      <h3 class="font-semibold text-lg text-gray-900">Text Behind Image</h3>
-      <p class="text-sm text-gray-600 mt-2">
-        Seamlessly embed and hide text within your images while maintaining
-        perfect visual quality. Perfect for watermarking and metadata.
-      </p>
-    </div>
-
-    <div
-      class="p-6 py-8 bg-white shadow-md rounded-2xl border border-gray-200 flex flex-col items-center text-center transition hover:shadow-lg"
-    >
-      <img src="assets/scan.svg" alt="Object Removal" class="w-12 h-12 mb-4" />
-      <h3 class="font-semibold text-lg text-gray-900">Object Removal</h3>
-      <p class="text-sm text-gray-600 mt-2">
-        Easily remove unwanted objects from your images with our advanced
-        AI-powered removal tool.
-      </p>
-    </div>
-
-    <div
-      class="p-6 py-8 bg-white shadow-md rounded-2xl border border-gray-200 flex flex-col items-center text-center transition hover:shadow-lg"
+      class="p-6 py-8 bg-white shadow-sm rounded-2xl border border-gray-100 flex flex-col items-center text-center transition hover:shadow-lg"
     >
       <img
-        src="assets/restore.svg"
-        alt="Image Restore"
-        class="w-12 h-12 mb-4"
+        [src]="step.Image"
+        alt="Step {{ step.Image }}"
+        class="w-12 h-12 mb-8"
       />
-      <h3 class="font-semibold text-lg text-gray-900">Image Restore</h3>
-      <p class="text-sm text-gray-600 mt-2">
-        Restore and enhance old or damaged images to their former glory with our
-        intelligent restoration technology.
+      <!-- Title -->
+      <h3 class="font-bold text-lg text-gray-700">
+        {{ step.title }}
+      </h3>
+
+      <!-- Description -->
+      <p class="text-sm text-gray-400 mt-1">
+        {{ step.description }}
       </p>
     </div>
+    }
+  </div>
 
+   <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
+    @for (step of steps; track step.title) {
     <div
-      class="p-6 py-8 bg-white shadow-md rounded-2xl border border-gray-200 flex flex-col items-center text-center transition hover:shadow-lg"
+      class="p-6 py-8 bg-white shadow-sm rounded-2xl border border-gray-100 flex flex-col items-center text-center transition hover:shadow-lg"
     >
       <img
-        src="assets/aistart.svg"
-        alt="Generative Fill"
-        class="w-12 h-12 mb-4"
+        [src]="step.Image"
+        alt="Step {{ step.Image }}"
+        class="w-12 h-12 mb-8"
       />
-      <h3 class="font-semibold text-lg text-gray-900">Generative Fill</h3>
-      <p class="text-sm text-gray-600 mt-2">
-        Fill removed areas with AI-generated content that seamlessly matches the
-        surrounding image context.
-      </p>
-    </div>
+      <!-- Title -->
+      <h3 class="font-bold text-lg text-gray-700">
+        {{ step.title }}
+      </h3>
 
-    <div
-      class="p-6 py-8 bg-white shadow-md rounded-2xl border border-gray-200 flex flex-col items-center text-center transition hover:shadow-lg"
-    >
-      <img
-        src="assets/recolor.svg"
-        alt="Object Recolor"
-        class="w-12 h-12 mb-4"
-      />
-      <h3 class="font-semibold text-lg text-gray-900">Object Recolor</h3>
-      <p class="text-sm text-gray-600 mt-2">
-        Change the color of specific objects in your images while maintaining
-        natural lighting and textures.
+      <!-- Description -->
+      <p class="text-sm text-gray-400 mt-1">
+        {{ step.description }}
       </p>
     </div>
-
-    <div
-      class="p-6 py-8 bg-white shadow-md rounded-2xl border border-gray-200 flex flex-col items-center text-center transition hover:shadow-lg"
-    >
-      <img src="assets/ifc.svg" alt="Cloud Storage" class="w-12 h-12 mb-4" />
-      <h3 class="font-semibold text-lg text-gray-900">Cloud Storage</h3>
-      <p class="text-sm text-gray-600 mt-2">
-        Securely store and manage your processed images in the cloud, with easy
-        access to your entire editing history.
-      </p>
-    </div>
+    }
   </div>
 </div>
+</div>
+
+<app-footer></app-footer>

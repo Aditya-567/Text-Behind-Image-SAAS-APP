@@ -26,5 +26,15 @@
     letter-spacing: 0px;   
     color: #555;            
   }
+  .menu{
+    font-size: 16px;
+    cursor: pointer;
+    color: #333;
+    font-weight: 400;
+    &:hover {
+      background-color: #f7f7f7; 
+      color: #7c3aed;           
+    }
+  }
 
 
