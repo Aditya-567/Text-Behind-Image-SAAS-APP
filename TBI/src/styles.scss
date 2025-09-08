@@ -42,6 +42,21 @@ body { margin: 0; font-family: ui-sans-serif, system-ui, sans-serif, Apple Color
     }
   }
 
+  .blue-button{
+    background-color: white;
+    border: 1px solid #155dfc;
+    color: #155dfc;
+    border-radius: 3rem;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #155dfc;
+      color: white;
+      border: 1px solid #155dfc;
+    }
+  }
+
     .fill-button{
     background-color: #155dfc;
     border: 1px solid #155dfc;

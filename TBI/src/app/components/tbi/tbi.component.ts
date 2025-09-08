@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { environment } from '../../../environments/environment';
 
@@ -28,6 +28,8 @@ export interface TextLayer {
 })
 export class TbiComponent {
   @ViewChild('fileInput') fileInput!: ElementRef;
+  @ViewChild('downloadDropdown') downloadDropdown!: ElementRef;
+  @ViewChild('downloadDropdownTab') downloadDropdownTab!: ElementRef;
 
   cloudName = environment.cloudinary.cloudName;
   uploadPreset = environment.cloudinary.uploadPreset;
@@ -50,8 +52,44 @@ export class TbiComponent {
   aspectRatioSelection = 'original';
   originalImageAspectRatio: string | null = null;
   fileName = 'Cool TBI';
+  isDropdownOpen = false;
+  isDropdownTabOpen = false;
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
+    window.addEventListener('scroll', () => {
+      this.showScrollTop = window.scrollY > 400; // Show button after 400px scroll
+    });
+
+    if (
+      !this.cloudName ||
+      !this.uploadPreset ||
+      this.cloudName === 'YOUR_CLOUD_NAME'
+    ) {
+      this.messageText =
+        'Please configure your Cloudinary credentials in the environment file.';
+    }
+  }
+
+  // ADDED: A single, clean listener to handle clicks outside of BOTH dropdowns
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    // Close the first dropdown if the click is outside of it
+    if (
+      this.isDropdownOpen &&
+      this.downloadDropdown &&
+      !this.downloadDropdown.nativeElement.contains(event.target)
+    ) {
+      this.isDropdownOpen = false;
+    }
+
+    // Close the second dropdown if the click is outside of it
+    if (
+      this.isDropdownTabOpen &&
+      this.downloadDropdownTab &&
+      !this.downloadDropdownTab.nativeElement.contains(event.target)
+    ) {
+      this.isDropdownTabOpen = false;
+    }
     // Initialize scroll event listener
     window.addEventListener('scroll', () => {
       this.showScrollTop = window.scrollY > 400; // Show button after 400px scroll
@@ -115,6 +153,7 @@ export class TbiComponent {
         this.textLayers.length > 0 ? this.textLayers[0].id : null;
     }
   }
+
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
