@@ -1,9 +1,10 @@
+/* Add this CSS for the loading spinner */
 .loader {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #14b8a6;
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #333; /* Dark grey */
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   animation: spin 1s linear infinite;
 }
 
@@ -16,10 +17,13 @@
   }
 }
 
+/* You can keep your other existing styles below */
 .tab-btn.active,
 .control-btn-group button.active {
   background-color: #333;
   color: white;
+  border-color: #333;
+
 }
 
 .layer-item.active {

@@ -1,27 +1,14 @@
 <div class="container mx-auto p-4 sm:p-6 lg:p-8 mt-[80px]">
+
   <div class="flex flex-col items-center justify-center w-full my-8">
     <h1
-      class="text-[30px] font-extrabold tracking-wider drop-shadow-[2px_2.5px_0px_#888] text-[#444] flex items-center gap-4"
-    >
+      class="text-[30px] font-extrabold tracking-wider drop-shadow-[2px_2.5px_0px_#888] text-[#444] flex items-center gap-4">
       The Cool "Text Behind You" Trick
-      <button
-        (click)="scrollToHowToUse()"
-        class="px-4 py-2 flex text-[16px] items-center ghost-button"
-      >
+      <button (click)="scrollToHowToUse()" class="px-4 py-2 flex text-[16px] items-center ghost-button">
         How to Use
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="2.5"
-          stroke="currentColor"
-          class="w-4 h-4 ml-2 mt-1 animate-bounce"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M19.5 13.5L12 21m0 0L4.5 13.5M12 21V3"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
+          class="w-4 h-4 ml-2 mt-1 animate-bounce">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0L4.5 13.5M12 21V3" />
         </svg>
       </button>
     </h1>
@@ -32,620 +19,397 @@
     </p>
   </div>
 
-  <div
-    class="flex flex-col items-start justify-center lg:flex-row gap-6 mt-18 mx-auto"
-    [ngClass]="{
-      'lg:w-[70%]': !isImageUploaded,
-      'lg:w-[80%] w-[90%]': isImageUploaded
-    }"
-  >
-    <!-- UPDATED: The preview wrapper uses flex width -->
-    <div
-      id="previewWrapper"
+  <div class="flex flex-col items-start justify-center lg:flex-row gap-8 mt-18 mx-auto" [ngClass]="{
+        'lg:w-[70%]': !isImageUploaded,
+        'lg:w-[80%] w-[90%]': isImageUploaded
+      }">
+    <!-- Preview Wrapper -->
+    <div id="previewWrapper"
       class="bg-white rounded-2xl border border-[#c8c8c8] h-fit flex flex-col items-center justify-center"
-      [ngClass]="isImageUploaded ? 'lg:w-[40%] w-[100%]' : 'w-full'"
-      (dragover)="onDragOver($event)"
-      (dragleave)="onDragLeave($event)"
-      (drop)="onDrop($event)"
-    >
+      [ngClass]="isImageUploaded ? 'lg:w-[50%] w-[100%]' : 'w-full'" (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
       <div
-        class="bg-white border-b border-[#c8c8c8] text-[#333] rounded-t-2xl p-1.5 flex items-center w-full justify-between"
-      >
+        class="bg-white border-b border-[#c8c8c8] text-[#333] rounded-t-2xl p-1.5 flex items-center w-full justify-between">
         @if(isImageUploaded) {
         <div class="flex items-center gap-2">
-          <input
-            type="text"
-            [(ngModel)]="fileName"
-            placeholder="Cool TBI"
-            class="custom-input rounded-lg !text-[#777] py-[4px] px-4 !text-[12px]"
-          />
+          <input type="text" [(ngModel)]="fileName" placeholder="Cool TBI"
+            class="custom-input rounded-lg !text-[#777] py-[4px] px-4 !text-[12px]" />
           <div class="flex items-center gap-2 text-sm font-medium">
             <div class="relative inline-block" #downloadDropdown>
-              <button
-                (click)="isDropdownOpen = !isDropdownOpen"
+              <button (click)="isDropdownOpen = !isDropdownOpen"
                 class="blue-button !rounded-lg flex items-center gap-1 py-[4px] px-4 !text-[12px] cursor-pointer"
-                type="button"
-              >
+                type="button">
                 Download
-                <svg
-                  class="w-2.5 h-2.5 ms-3"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m1 1 4 4 4-4"
-                  />
+                <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
                 </svg>
               </button>
-
-              <!-- Dropdown menu -->
-              <div
-                [class.hidden]="!isDropdownOpen"
-                class="absolute right-0 mt-2 z-10 bg-white border border-[#c8c8c8] rounded-lg shadow-sm w-full"
-              >
-                <ul class=" text-[#333]">
+              <div [class.hidden]="!isDropdownOpen"
+                class="absolute right-0 mt-2 z-10 bg-white border border-[#c8c8c8] rounded-lg shadow-sm w-full">
+                <ul class="text-[#333]">
                   <li>
-                    <button
-                      (click)="
-                        downloadFormat = 'jpg';
-                        downloadImage();
-                        isDropdownOpen = false
-                      "
-                      class="w-full text-center px-4 text-[14px] py-1.5 hover:bg-[#f7f7f7] cursor-pointer border-b border-[#c8c8c8] rounded-t-lg"
-                    >
+                    <button (click)="downloadFormat = 'jpg'; downloadImage(); isDropdownOpen = false"
+                      class="w-full text-center px-4 text-[14px] py-1.5 hover:bg-[#f7f7f7] cursor-pointer border-b border-[#c8c8c8] rounded-t-lg">
                       JPG
                     </button>
                   </li>
                   <li>
-                    <button
-                      (click)="
-                        downloadFormat = 'png';
-                        downloadImage();
-                        isDropdownOpen = false
-                      "
-                      class="w-full text-center px-4 py-1.5 hover:bg-[#f7f7f7] text-[14px] cursor-pointer rounded-b-lg"
-                    >
+                    <button (click)="downloadFormat = 'png'; downloadImage(); isDropdownOpen = false"
+                      class="w-full text-center px-4 py-1.5 hover:bg-[#f7f7f7] text-[14px] cursor-pointer rounded-b-lg">
                       PNG
                     </button>
                   </li>
                 </ul>
               </div>
             </div>
-
-            <button
-              class="!rounded-lg font-medium blue-button py-[4px] px-4 !text-[12px]"
-            >
+            <button class="!rounded-lg font-medium blue-button py-[4px] px-4 !text-[12px]">
               Save
             </button>
           </div>
         </div>
         <div class="flex items-center gap-2">
-          <button
-            (click)="discardImage()"
-            class="text-[#444] text-sm font-medium p-[4px] cursor-pointer rounded-lg border border-[#c8c8c8] hover:bg-gray-200"
-          >
+          <button (click)="discardImage()"
+            class="text-[#444] text-sm font-medium p-[4px] cursor-pointer rounded-lg border border-[#c8c8c8] hover:bg-gray-200">
             <img src="cross.svg" alt="Discard" class="w-4 h-4" />
           </button>
         </div>
         } @else {
         <button
-          class="flex items-center gap-2 border border-[#c8c8c8] px-2 py-1 rounded-lg text-sm text-[#666] hover:bg-slate-50 cursor-pointer transition-colors"
-        >
-          <img src="gallery.svg" alt="Gallery" class="w-6 h-6" /> Upload Saved
-          Image
+          class="flex items-center gap-2 border border-[#c8c8c8] px-2 py-1 rounded-lg text-sm text-[#666] hover:bg-slate-50 cursor-pointer transition-colors">
+          <img src="gallery.svg" alt="Gallery" class="w-6 h-6" /> Upload Saved Image
         </button>
         }
       </div>
 
-      <!-- UPDATED: Switched to @if @else syntax -->
+      <!-- Dropzone / Image Preview Area -->
       @if (!isImageUploaded) {
       <div class="w-full h-full min-h-[500px] flex items-center justify-center">
         <div
           class="dropzone w-full h-full flex flex-col items-center justify-center p-8 rounded-lg text-center transition-colors"
-          [ngClass]="{ dragging: isDragging }"
-        >
-          <svg
-            class="w-16 h-16 text-slate-400 mb-4"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-            />
+          [ngClass]="{ dragging: isDragging }">
+          <svg class="w-16 h-16 text-slate-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
           </svg>
-          <p class="text-slate-500 font-semibold mb-2">
-            Drag & Drop your image here
-          </p>
+          <p class="text-slate-500 font-semibold mb-2">Drag & Drop your image here</p>
           <p class="text-slate-400 text-sm mb-4">or</p>
-          <button
-            (click)="triggerFileInput()"
-            [disabled]="
-              !cloudName || !uploadPreset || cloudName === 'YOUR_CLOUD_NAME'
-            "
-            class="bg-teal-500 text-white font-bold py-2 px-5 rounded-lg hover:bg-teal-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+          <button (click)="triggerFileInput()"
+            [disabled]="!cloudName || !uploadPreset || cloudName === 'YOUR_CLOUD_NAME'"
+            class="bg-teal-500 text-white font-bold py-2 px-5 rounded-lg hover:bg-teal-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             Select a File
           </button>
-          <input
-            type="file"
-            #fileInput
-            (change)="onFileSelected($event)"
-            accept="image/*"
-            class="hidden"
-          />
+          <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" class="hidden" />
         </div>
       </div>
       } @else {
-      <div
-        id="previewContainer"
-        class="relative w-[99%] overflow-hidden !rounded-b-lg "
-        [style.aspect-ratio]="
-          aspectRatioSelection === 'original'
-            ? originalImageAspectRatio
-            : aspectRatioSelection
-        "
-      >
-        @if (isLoading || messageText) {
+      <div id="previewContainer" class="relative w-[99%] overflow-hidden !rounded-b-lg"
+        [style.aspect-ratio]="aspectRatioSelection === 'original' ? originalImageAspectRatio : aspectRatioSelection">
+        @if (isLoading || isEffectLoading || messageText) {
         <div
-          class="absolute inset-0 z-40 flex flex-col items-center justify-center bg-white text-slate-700 p-8 text-center rounded-lg"
-        >
-          @if (isLoading) {
-          <div class="loader"></div>
-          } @if (messageText) {
-          <p class="mt-4 font-semibold">{{ messageText }}</p>
-          }
+          class="absolute w-full h-full left-0 -top-1 z-40  flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm text-slate-700 p-8 text-center rounded-b-lg">
+          @if (isLoading || isEffectLoading) { <div class="loader"></div> }
+          @if (messageText) { <p class="mt-4 font-semibold">{{ messageText }}</p> }
         </div>
         }
 
-        <img
-          id="backgroundImage"
-          [src]="safeBackgroundImage!"
-          alt="Background"
-          class="absolute -top-1 left-0 w-full h-full object-cover !rounded-b-xl"
-          [style.filter]="
-            'brightness(' + brightness + '%) contrast(' + contrast + '%)'
-          "
-        />
-        <div
-          id="textOverlay"
-          class="absolute -top-1 left-0 w-full h-full pointer-events-none !rounded-b-xl"
-        >
-          <div
-            *ngFor="let layer of textLayers"
-            [textContent]="layer.text"
-            [style.position]="'absolute'"
-            [style.white-space]="'nowrap'"
-            [style.text-align]="layer.align"
-            [style.font-size.px]="layer.fontSize"
-            [style.color]="layer.color"
-            [style.font-family]="layer.fontFamily"
-            [style.opacity]="layer.opacity / 100"
-            [style.font-weight]="layer.isBold ? '900' : '400'"
-            [style.font-style]="layer.isItalic ? 'italic' : 'normal'"
-            [style.text-decoration]="layer.isUnderlined ? 'underline' : 'none'"
-            [style.left.%]="layer.hPos"
+        <img id="backgroundImage" [src]="safeBackgroundImage!" alt="Background"
+          class="absolute -top-1 left-0 w-full h-full object-cover !rounded-b-xl" [style.filter]="backgroundCssFilters"
+          (load)="onImageLoad()" (error)="onImageLoad()" />
+
+        <div id="textOverlay" class="absolute -top-1 left-0 w-full h-full pointer-events-none !rounded-b-xl">
+          <div *ngFor="let layer of textLayers" [textContent]="layer.text" [style.position]="'absolute'"
+            [style.white-space]="'nowrap'" [style.text-align]="layer.align" [style.font-size.px]="layer.fontSize"
+            [style.color]="layer.color" [style.font-family]="layer.fontFamily" [style.opacity]="layer.opacity / 100"
+            [style.font-weight]="layer.isBold ? '900' : '400'" [style.font-style]="layer.isItalic ? 'italic' : 'normal'"
+            [style.text-decoration]="layer.isUnderlined ? 'underline' : 'none'" [style.left.%]="layer.hPos"
             [style.top.%]="layer.vPos"
-            [style.transform]="
-              'translate(-50%, -50%) rotate(' + layer.rotation + 'deg)'
-            "
-          ></div>
+            [style.transform]="'translate(' + (layer.align === 'center' ? '-50%' : layer.align === 'right' ? '-100%' : '0%') + ', -50%) rotate(' + layer.rotation + 'deg)'">
+          </div>
         </div>
-        <img
-          id="foregroundImage"
-          [src]="safeForegroundImage!"
-          alt="Foreground"
+        <img id="foregroundImage" [src]="safeForegroundImage!" alt="Foreground"
           class="absolute -top-1 left-0 w-full h-full object-cover pointer-events-none !rounded-b-xl"
-        />
+          (load)="onImageLoad()" (error)="onImageLoad()" />
       </div>
       }
     </div>
 
-    <!-- UPDATED: Control panel uses flex width -->
+    <!-- Control Panel -->
     @if (isImageUploaded) {
-    <div
-      class="bg-white p-2 rounded-2xl h-fit shadow-lg border border-[#c8c8c8] flex flex-col lg:w-[30%]"
-    >
+    <div class="bg-white p-2.5 rounded-2xl h-fit border border-[#c8c8c8] flex flex-col lg:w-[30%]">
       <div>
         <div class="mb-3">
           <div class="flex rounded-lg border border-[#c8c8c8] p-0.5">
-            <button
-              (click)="activeTab = 'text'"
-              [ngClass]="{ active: activeTab === 'text' }"
-              class="tab-btn flex-1 p-1 text-[14px] font-semibold rounded-md"
-            >
-              Text
-            </button>
-            <button
-              (click)="activeTab = 'image'"
-              [ngClass]="{ active: activeTab === 'image' }"
-              class="tab-btn flex-1 p-1 text-[14px] font-semibold rounded-md"
-            >
-              Image
-            </button>
-            <button
-              (click)="activeTab = 'settings'"
-              [ngClass]="{ active: activeTab === 'settings' }"
-              class="tab-btn flex-1 p-1 text-[14px] font-semibold rounded-md"
-            >
-              Settings
-            </button>
+            <button (click)="activeTab = 'text'" [ngClass]="{ active: activeTab === 'text' }"
+              class="tab-btn flex-1 p-1.5 text-[14px] font-semibold rounded-md cursor-pointer">Text</button>
+            <button (click)="activeTab = 'image'" [ngClass]="{ active: activeTab === 'image' }"
+              class="tab-btn flex-1 p-1.5 text-[14px] font-semibold rounded-md cursor-pointer">Effects</button>
+            <button (click)="activeTab = 'settings'" [ngClass]="{ active: activeTab === 'settings' }"
+              class="tab-btn flex-1 p-1.5 text-[14px] font-semibold rounded-md cursor-pointer">Tools</button>
           </div>
         </div>
 
+        <!-- Text Tab -->
         <div id="textTab" *ngIf="activeTab === 'text'">
-          <button
-            (click)="addTextLayer()"
-            [disabled]="!isImageUploaded"
-            class="w-full bg-[#333] text-white text-[14px] font-semibold py-1.5 cursor-pointer px-4 rounded-lg hover:bg-[#444] transition-colors mb-2 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+          <button (click)="addTextLayer()" [disabled]="!isImageUploaded"
+            class="w-full bg-[#333] text-white text-[14px] font-semibold py-2 cursor-pointer px-4 rounded-lg hover:bg-[#444] transition-colors mb-2 disabled:opacity-50 disabled:cursor-not-allowed">
             Add New Text
           </button>
-          <div
-            id="textLayerList"
-            class="space-y-2 mb-4 max-h-40 overflow-y-auto"
-          >
-            <div
-              *ngFor="let layer of textLayers"
-              (click)="selectTextLayer(layer.id)"
-              class="layer-item flex items-center justify-between p-1.5 border border-[#c8c8c8] rounded-lg "              
-              [ngClass]="{ active: layer.id === activeLayerId }"
-            >
+          <div id="textLayerList" class="flex flex-col gap-y-2 mb-4 max-h-40 overflow-y-auto">
+            <div *ngFor="let layer of textLayers" (click)="selectTextLayer(layer.id)"
+              class="layer-item flex items-center justify-between p-1.5 border border-[#c8c8c8] rounded-lg"
+              [ngClass]="{ active: layer.id === activeLayerId }">
               <span class="truncate text-sm">{{ layer.text }}</span>
-              <button
-                (click)="deleteTextLayer(layer.id, $event)"
-                class="ml-2 hover:bg-[#F3F3F3] cursor-pointer rounded-lg"
-              >
-                <img src="delete.svg" alt="delete" class="w-4.5 h-4.5 " />
+              <button (click)="deleteTextLayer(layer.id, $event)"
+                class="ml-2 hover:bg-[#F3F3F3] cursor-pointer rounded-lg">
+                <img src="delete.svg" alt="delete" class="w-4.5 h-4.5" />
               </button>
             </div>
           </div>
           @if (activeLayer) {
-          <div class="space-y-6">
-            <!-- Text controls remain the same -->
+          <div class="flex flex-col gap-3">
             <div>
-              <label class="block text-sm font-medium text-[#666] mb-0.5"
-                >Layer Text</label
-              ><textarea
-                [(ngModel)]="activeLayer.text"
-                rows="2"
-                class="w-full bg-[#F7F7F7] border border-[#c8c8c8] rounded-lg px-3 py-2 text-[14px] text-[#333] focus:ring-none focus:border-[#333] focus:outline-none transition"
-              ></textarea>
+              <label class="block text-sm font-medium text-[#666] mb-0.5">Layer Text</label>
+              <textarea [(ngModel)]="activeLayer.text" rows="1"
+                class="w-full bg-[#F7F7F7] border border-[#c8c8c8] rounded-lg px-3 py-2 text-[14px] text-[#333] focus:ring-none focus:border-[#333] focus:outline-none transition"></textarea>
+            </div>
+            <div class="flex gap-2 control-btn-group">
+              <button (click)="activeLayer.align = 'left'" [ngClass]="{ active: activeLayer.align === 'left' }"
+                class="flex-1 p-1.5 font-medium text-xs border border-[#c8c8c8] rounded-lg cursor-pointer">Left</button>
+              <button (click)="activeLayer.align = 'center'" [ngClass]="{ active: activeLayer.align === 'center' }"
+                class="flex-1 p-1.5 font-medium text-xs border border-[#c8c8c8] rounded-lg cursor-pointer">Center</button>
+              <button (click)="activeLayer.align = 'right'" [ngClass]="{ active: activeLayer.align === 'right' }"
+                class="flex-1 p-1.5 font-medium text-xs border border-[#c8c8c8] rounded-lg cursor-pointer">Right</button>
+              <button (click)="activeLayer.isBold = !activeLayer.isBold" [ngClass]="{ active: activeLayer.isBold }"
+                class="flex-1 p-1.5 font-bold border border-[#c8c8c8] rounded-lg cursor-pointer">B</button>
+              <button (click)="activeLayer.isItalic = !activeLayer.isItalic"
+                [ngClass]="{ active: activeLayer.isItalic }"
+                class="flex-1 p-1.5 italic border border-[#c8c8c8] rounded-lg cursor-pointer">I</button>
+              <button (click)="activeLayer.isUnderlined = !activeLayer.isUnderlined"
+                [ngClass]="{ active: activeLayer.isUnderlined }"
+                class="flex-1 p-1.5 underline border border-[#c8c8c8] rounded-lg cursor-pointer">U</button>
             </div>
             <div>
-              <label class="block text-sm font-medium text-[#666] mb-0.5"
-                >Font Family</label
-              ><select
-                [(ngModel)]="activeLayer.fontFamily"
-                class="w-full bg-[#F7F7F7] border border-[#c8c8c8] rounded-lg px-3 py-2 text-[#333] focus:ring-none focus:border-[#333]  focus:outline-none transition"
-              >
-                <option value="'Inter', sans-serif">Inter</option>
-                <option value="'Playfair Display', serif">
-                  Playfair Display
+              <select [(ngModel)]="activeLayer.fontFamily"
+                class="w-full bg-[#F7F7F7] border border-[#c8c8c8] rounded-lg px-3 py-1.5 text-[14px] cursor-pointer text-[#333] focus:border-[#333] focus:outline-none transition">
+                <option *ngFor="let font of filteredFonts" [value]="font.value">
+                  <span class="!font-medium !text-[#555]">Font Family :</span> {{ font.name }}
                 </option>
-                <option value="'Roboto Mono', monospace">Roboto Mono</option>
+                <option *ngIf="filteredFonts.length === 0" disabled>No fonts found</option>
               </select>
             </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div
-                class="control-btn-group flex rounded-lg border border-slate-300"
-              >
-                <button
-                  (click)="activeLayer.align = 'left'"
-                  [ngClass]="{ active: activeLayer.align === 'left' }"
-                  class="flex-1 p-2 text-xs"
-                >
-                  Left</button
-                ><button
-                  (click)="activeLayer.align = 'center'"
-                  [ngClass]="{ active: activeLayer.align === 'center' }"
-                  class="flex-1 p-2 text-xs"
-                >
-                  Center</button
-                ><button
-                  (click)="activeLayer.align = 'right'"
-                  [ngClass]="{ active: activeLayer.align === 'right' }"
-                  class="flex-1 p-2 text-xs"
-                >
-                  Right
-                </button>
+            <div class="flex gap-2 w-full mt-1">
+              <div class="w-[50%]">
+                <label class="block text-sm font-medium text-[#666] mb-0.5">Font Size : <span>{{ activeLayer.fontSize
+                    }}</span>px</label>
+                <input type="number" min="10" max="500" [(ngModel)]="activeLayer.fontSize"
+                  class="w-full px-4 py-1.5 text-[14px] bg-[#F7F7F7] border border-[#c8c8c8] rounded-lg appearance-none cursor-pointer " />
               </div>
-              <div
-                class="control-btn-group flex rounded-lg border border-slate-300"
-              >
-                <button
-                  (click)="activeLayer.isBold = !activeLayer.isBold"
-                  [ngClass]="{ active: activeLayer.isBold }"
-                  class="flex-1 p-2 font-bold"
-                >
-                  B</button
-                ><button
-                  (click)="activeLayer.isItalic = !activeLayer.isItalic"
-                  [ngClass]="{ active: activeLayer.isItalic }"
-                  class="flex-1 p-2 italic"
-                >
-                  I</button
-                ><button
-                  (click)="activeLayer.isUnderlined = !activeLayer.isUnderlined"
-                  [ngClass]="{ active: activeLayer.isUnderlined }"
-                  class="flex-1 p-2 underline"
-                >
-                  U
-                </button>
+              <div class="w-[50%]">
+                <label class="block text-sm font-medium text-[#666] mb-0.5">Opacity : <span>{{ activeLayer.opacity
+                    }}</span>%</label>
+                <input type="number" min="0" max="100" [(ngModel)]="activeLayer.opacity"
+                  class="w-full px-4 py-1.5 text-[14px] bg-[#F7F7F7] border border-[#c8c8c8] rounded-lg appearance-none cursor-pointer " />
+              </div>
+            </div>
+            <div class="flex gap-2 w-full mt-1">
+              <div class="w-[50%]">
+                <label class="block text-sm font-medium text-[#666] mb-0.5">Vertical Pos : <span>{{ activeLayer.vPos
+                    }}</span>%</label>
+                <input type="number" min="0" max="100" [(ngModel)]="activeLayer.vPos"
+                  class="w-full px-4 py-1.5 text-[14px] bg-[#F7F7F7] border border-[#c8c8c8] rounded-lg appearance-none cursor-pointer " />
+              </div>
+              <div class="w-[50%]">
+                <label class="block text-sm font-medium text-[#666] mb-0.5">Horizontal Pos : <span>{{ activeLayer.hPos
+                    }}</span>%</label>
+                <input type="number" min="0" max="100" [(ngModel)]="activeLayer.hPos"
+                  class="w-full px-4 py-1.5 text-[14px] bg-[#F7F7F7] border border-[#c8c8c8] rounded-lg appearance-none cursor-pointer " />
               </div>
             </div>
             <div>
-              <label class="block text-sm font-medium text-slate-600 mb-2"
-                >Font Size: <span>{{ activeLayer.fontSize }}</span
-                >px</label
-              ><input
-                type="range"
-                min="10"
-                max="400"
-                [(ngModel)]="activeLayer.fontSize"
-                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
-              />
+              <label class="block text-sm font-medium text-[#666] ">Rotation : <span>{{ activeLayer.rotation
+                  }}</span>°</label>
+              <input type="range" min="-90" max="90" [(ngModel)]="activeLayer.rotation"
+                class="w-full h-1.5 bg-[#555] rounded-lg appearance-none cursor-pointer accent-[#222]" />
             </div>
-            <div>
-              <label class="block text-sm font-medium text-slate-600 mb-2"
-                >Opacity: <span>{{ activeLayer.opacity }}</span
-                >%</label
-              ><input
-                type="range"
-                min="0"
-                max="100"
-                [(ngModel)]="activeLayer.opacity"
-                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-slate-600 mb-2"
-                >Rotation: <span>{{ activeLayer.rotation }}</span
-                >°</label
-              ><input
-                type="range"
-                min="-45"
-                max="45"
-                [(ngModel)]="activeLayer.rotation"
-                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-slate-600 mb-2"
-                >Vertical Position: <span>{{ activeLayer.vPos }}</span
-                >%</label
-              ><input
-                type="range"
-                min="0"
-                max="100"
-                [(ngModel)]="activeLayer.vPos"
-                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-slate-600 mb-2"
-                >Horizontal Position: <span>{{ activeLayer.hPos }}</span
-                >%</label
-              ><input
-                type="range"
-                min="0"
-                max="100"
-                [(ngModel)]="activeLayer.hPos"
-                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
-              />
-            </div>
-            <div class="flex items-center justify-between pt-2">
-              <label class="text-sm font-medium text-slate-600"
-                >Text Color</label
-              ><input
-                type="color"
-                [(ngModel)]="activeLayer.color"
-                class="w-10 h-10 p-0 border-0 rounded-md cursor-pointer bg-white"
-              />
+            <div class="flex items-center justify-between pt-1">
+              <label class="text-sm font-medium text-[#666]">Text Color</label>
+              <input type="color" [(ngModel)]="activeLayer.color"
+                class="w-10 h-10 p-0 border-0 rounded-md cursor-pointer bg-white" />
             </div>
           </div>
           }
         </div>
 
-        <div id="imageTab" *ngIf="activeTab === 'image'" class="space-y-6">
+        <!-- Effects Tab -->
+        <div id="imageTab" *ngIf="activeTab === 'image'" class="flex flex-col gap-y-5">
           @if (isImageUploaded) {
-          <div class="space-y-6">
-            <div>
-              <label class="block text-sm font-medium text-slate-600 mb-2"
-                >Brightness: <span>{{ brightness }}</span
-                >%</label
-              >
-              <input
-                type="range"
-                min="0"
-                max="200"
-                [(ngModel)]="brightness"
-                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
-              />
+          <!-- Stylized Cloudinary Effects -->
+          <div>
+            <h3 class="text-[15px] font-medium text-[#333] mb-3">Stylized Effects (Background Only)</h3>
+            <div class="flex flex-col gap-3">
+              <!-- Effect Buttons -->
+              <div class="grid grid-cols-3 gap-2 control-btn-group">
+                @for (effect of allCloudinaryEffects; track effect.name) {
+                <button (click)="applyCloudinaryEffect(effect)"
+                  [ngClass]="{ active: effect.name === selectedEffect?.name }"
+                  class="p-2 font-medium text-xs border border-[#c8c8c8] rounded-lg cursor-pointer">
+                  {{ effect.name }}
+                </button>
+                }
+              </div>
+
+              <!-- Intensity Slider -->
+              @if (selectedEffect && selectedEffect.hasIntensity) {
+              <div>
+                <label class="block text-sm font-medium text-[#666]">Intensity: <span>{{ effectIntensity
+                    }}</span></label>
+                <input type="range" [min]="selectedEffect.min" [max]="selectedEffect.max" [(ngModel)]="effectIntensity"
+                  (ngModelChange)="onIntensityChange()"
+                  class="w-full h-1.5 bg-[#555] rounded-lg appearance-none cursor-pointer accent-[#222]" />
+              </div>
+              }
             </div>
-            <div>
-              <label class="block text-sm font-medium text-slate-600 mb-2"
-                >Contrast: <span>{{ contrast }}</span
-                >%</label
-              >
-              <input
-                type="range"
-                min="0"
-                max="200"
-                [(ngModel)]="contrast"
-                class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-500"
-              />
+          </div>
+          <!-- Fine-tune CSS Adjustments -->
+          <div>
+            <h3 class="text-[15px] font-medium text-[#333] mb-3">Fine-tune Adjustments (Background Only)</h3>
+            <div class="flex flex-col gap-4">
+              <div>
+                <label class="block text-sm font-medium text-[#666]">Brightness: <span>{{ brightness }}</span>%</label>
+                <input type="range" min="0" max="200" [(ngModel)]="brightness"
+                  class="w-full h-1.5 bg-[#555] rounded-lg appearance-none cursor-pointer accent-[#222]" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-[#666]">Contrast: <span>{{ contrast }}</span>%</label>
+                <input type="range" min="0" max="200" [(ngModel)]="contrast"
+                  class="w-full h-1.5 bg-[#555] rounded-lg appearance-none cursor-pointer accent-[#222]" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-[#666]">Blur: <span>{{ blur }}</span>px</label>
+                <input type="range" min="0" max="20" [(ngModel)]="blur"
+                  class="w-full h-1.5 bg-[#555] rounded-lg appearance-none cursor-pointer accent-[#222]" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-[#666]">HDR: <span>{{ hdr }}</span>%</label>
+                <input type="range" min="0" max="100" [(ngModel)]="hdr"
+                  class="w-full h-1.5 bg-[#555] rounded-lg appearance-none cursor-pointer accent-[#222]" />
+              </div>
             </div>
-            <div class="pt-4">
-              <button
-                (click)="discardImage()"
-                class="w-full bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-600 transition-colors"
-              >
-                Discard Image
-              </button>
-            </div>
+          </div>
+          <!-- Reset Button -->
+          <div class="pt-4">
+            <button (click)="resetEffects()"
+              class="w-full bg-red-500 text-white text-[14px] font-bold py-2 px-4 rounded-lg hover:bg-red-600 cursor-pointer transition-colors">
+              Reset All Effects
+            </button>
           </div>
           } @else {
-          <p class="text-slate-500 text-center">
-            Upload an image to see image options.
-          </p>
+          <p class="text-slate-500 text-center">Upload an image to see effect options.</p>
           }
         </div>
 
-        <div
-          id="settingsTab"
-          *ngIf="activeTab === 'settings'"
-          class="space-y-6"
-        >
-          <div>
-            <label class="block text-sm font-medium text-slate-600 mb-2"
-              >Aspect Ratio</label
-            >
-            <select
-              [(ngModel)]="aspectRatioSelection"
-              class="w-full bg-slate-100 border border-slate-300 rounded-lg px-3 py-2 text-slate-800 focus:ring-2 focus:ring-teal-500 focus:outline-none transition"
-            >
-              <option value="original">Original</option>
-              <option value="1/1">1:1 (Square)</option>
-              <option value="4/3">4:3</option>
-              <option value="16/9">16:9</option>
-            </select>
-          </div>
-          <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
-            <h3 class="font-bold text-blue-800">Cloudinary Credentials</h3>
-            <p class="text-sm text-blue-700 mt-1">
-              Your Cloud Name and Upload Preset are configured in the project's
-              environment file.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="mt-auto ">
-            <div class="w-full" #downloadDropdownTab>
-              <button
-                (click)="isDropdownTabOpen = !isDropdownTabOpen"
-                class="w-full bg-[#333] cursor-pointer flex items-center justify-center text-[14px] text-white font-bold py-1.5 px-4 rounded-lg hover:bg-[#444]  "
-                type="button"
-              >
-                Download Image
-                <svg
-                  class="w-2.5 h-2.5 ms-3"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m1 1 4 4 4-4"
-                  />
+        <!-- Settings Tab -->
+        <div id="settingsTab" *ngIf="activeTab === 'settings'" class="space-y-6">
+          <div class="mb-15">
+            <label class="block text-sm font-medium text-slate-600 mb-2">Aspect Ratio</label>
+            <div #aspectRatioDropdown>
+              <button (click)="isAspectRatioDropdownOpen = !isAspectRatioDropdownOpen"
+                class="w-full bg-[#333] cursor-pointer flex items-center justify-between text-[14px] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#444]">
+                <span>{{ currentAspectRatioName }}</span>
+                <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
                 </svg>
               </button>
-
-              <!-- Dropdown menu -->
-              <div
-                [class.hidden]="!isDropdownTabOpen"
-                class=" mt-2 bg-white border border-[#c8c8c8] rounded-lg shadow-sm w-full"
-              >
-                <ul class="text-sm text-[#666]">
-                  <li>
-                    <button
-                      (click)="
-                        downloadFormat = 'jpg';
-                        downloadImage();
-                        isDropdownTabOpen = false
-                      "
-                      class="w-full text-center px-4 py-2 hover:bg-[#f7f7f7] cursor-pointer border-b border-[#c8c8c8] rounded-t-lg"
-                    >
-                      JPG
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      (click)="
-                        downloadFormat = 'png';
-                        downloadImage();
-                        isDropdownTabOpen = false
-                      "
-                      class="w-full text-center px-4 py-2 hover:bg-[#f6f6f6] cursor-pointer rounded-b-lg"
-                    >
-                      PNG
+              <div [class.hidden]="!isAspectRatioDropdownOpen"
+                class="mt-2 bg-white border border-[#c8c8c8] rounded-lg shadow-sm w-full">
+                <ul class="text-[#333]">
+                  <li *ngFor="let ratio of aspectRatios; first as isFirst; last as isLast">
+                    <button (click)="selectAspectRatio(ratio.value)" [ngClass]="{
+                        'rounded-t-lg': isFirst,
+                        'rounded-b-lg': isLast,
+                        'border-b': !isLast
+                      }"
+                      class="w-full text-left px-4 text-[14px] py-2 hover:bg-[#f7f7f7] cursor-pointer border-[#c8c8c8]">
+                      {{ ratio.name }}
                     </button>
                   </li>
                 </ul>
               </div>
             </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="mt-2">
+        <div class="w-full" #downloadDropdownTab>
+          <button (click)="isDropdownTabOpen = !isDropdownTabOpen"
+            class="w-full bg-[#333] cursor-pointer flex items-center justify-center text-[14px] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#444]"
+            type="button">
+            Download Image
+            <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 4 4 4-4" />
+            </svg>
+          </button>
+          <div [class.hidden]="!isDropdownTabOpen"
+            class="mt-2 bg-white border border-[#c8c8c8] rounded-lg shadow-sm w-full">
+            <ul class="text-sm text-[#666]">
+              <li>
+                <button (click)="downloadFormat = 'jpg'; downloadImage(); isDropdownTabOpen = false"
+                  class="w-full text-center px-4 py-2 hover:bg-[#f7f7f7] cursor-pointer border-b border-[#c8c8c8] rounded-t-lg">JPG</button>
+              </li>
+              <li>
+                <button (click)="downloadFormat = 'png'; downloadImage(); isDropdownTabOpen = false"
+                  class="w-full text-center px-4 py-2 hover:bg-[#f6f6f6] cursor-pointer rounded-b-lg">PNG</button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     }
   </div>
 
-  <div
-    id="how-to-use"
-    class="w-[80%] mx-auto mt-[100px] mb-[50px] border border-gray-200 p-8 rounded-2xl"
-  >
+  <div id="how-to-use" class="w-[80%] mx-auto mt-[100px] mb-[50px] border border-gray-200 p-8 rounded-2xl">
     <div class="text-center mb-4 mt-6">
-      <h2
-        class="w-full mx-auto text-center text-3xl md:text-5xl font-black tracking-tight leading-tight text-[#444]"
-      >
+      <h2 class="w-full mx-auto text-center text-3xl md:text-5xl font-black tracking-tight leading-tight text-[#444]">
         Edit Your Image in
-        <span
-          class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-900"
-          >4 Simple Steps</span
-        >
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-900">4 Simple Steps</span>
       </h2>
     </div>
 
     <div class="flex justify-between mx-57 relative mb-20">
       <div
-        class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-4 h-4 rounded-full z-10"
-      >
+        class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-4 h-4 rounded-full z-10">
         <div class="w-2 h-2 bg-white rounded-full"></div>
       </div>
       <div
-        class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-4 h-4 rounded-full z-10"
-      >
+        class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-4 h-4 rounded-full z-10">
         <div class="w-2 h-2 bg-white rounded-full"></div>
       </div>
       <div
-        class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-4 h-4 rounded-full z-10"
-      >
+        class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-4 h-4 rounded-full z-10">
         <div class="w-2 h-2 bg-white rounded-full"></div>
       </div>
       <div
-        class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-4 h-4 rounded-full z-10"
-      >
+        class="text-xl flex items-center justify-center font-extrabold text-white bg-purple-700 w-4 h-4 rounded-full z-10">
         <div class="w-2 h-2 bg-white rounded-full"></div>
       </div>
 
-      <div
-        class="py-[1.5px] rounded-full bg-purple-700 w-full absolute z-1 top-1.5"
-      ></div>
+      <div class="py-[1.5px] rounded-full bg-purple-700 w-full absolute z-1 top-1.5"></div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
       @for (step of steps; track step.title) {
       <div
-        class="p-6 py-8 bg-white shadow-sm rounded-2xl border border-gray-100 flex flex-col items-center text-center transition hover:shadow-lg"
-      >
-        <img
-          [src]="step.Image"
-          alt="Step {{ step.Image }}"
-          class="w-12 h-12 mb-8"
-        />
+        class="p-6 py-8 bg-white shadow-sm rounded-2xl border border-gray-100 flex flex-col items-center text-center transition hover:shadow-lg">
+        <img [src]="step.Image" alt="Step {{ step.Image }}" class="w-12 h-12 mb-8" />
         <!-- Title -->
         <h3 class="font-bold text-lg text-gray-700">
           {{ step.title }}
@@ -661,26 +425,15 @@
   </div>
 </div>
 
+
+
 <!-- Scroll to top button -->
 @if (showScrollTop) {
-<button
-  (click)="scrollToTop()"
+<button (click)="scrollToTop()"
   class="fixed bottom-8 right-8 hover:mb-1 cursor-pointer p-3 bg-blue-500 hover:bg-purple-600 text-white rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none z-50"
-  aria-label="Scroll to top"
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="h-5 w-5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="3"
-      d="M5 10l7-7m0 0l7 7m-7-7v18"
-    />
+  aria-label="Scroll to top">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18" />
   </svg>
 </button>
 }
