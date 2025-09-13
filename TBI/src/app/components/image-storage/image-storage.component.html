@@ -31,7 +31,7 @@
 
       <!-- Search Card -->
       <div class="bg-white border-b border-[#c8c8c8] pb-3 mb-6 flex items-end justify-between transition-all">
-        <h2 class="text-xl font-extrabold text-[#333] tracking-wider">Image Gallery</h2>
+        <h2 class="text-2xl font-bold text-[#333] tracking-wide">Image Gallery</h2>
         <div class="flex gap-2 w-[40%]">
           <input type="text" [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" placeholder="Search by name or tag..."
             class="w-full px-4 py-2 bg-gray-50 border text-[15px] border-[#c8c8c8] rounded-lg focus:ring-none focus:outline-none focus:border-[#333] transition-colors text-gray-900 placeholder-gray-400">
@@ -47,20 +47,20 @@
       </div>
 
     </div>
-
+    @if(!isLoading){
     <!-- Right Column: Image Gallery -->
     <div class=" bg-white mt-10">
 
       <div *ngIf="images.length > 0; else noImages" class="flex flex-wrap gap-4">
-        <div *ngFor="let image of images" (click)="openImageViewer(image)"
-          class="group relative p-2 overflow-hidden bg-white shadow-sm rounded-2xl border border-gray-100 transition-all transform hover:shadow-xl hover:-translate-y-1 cursor-pointer">
+        <div *ngFor="let image of images"
+          class="group relative p-2 overflow-hidden bg-white shadow-sm rounded-2xl border border-gray-100 transition-all transform hover:shadow-xl hover:-translate-y-1 ">
           <img [src]="image.imageData" [alt]="image.description"
             class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110 rounded-lg">
 
           <div class="absolute inset-0 hover:bg-black/60 transition-all duration-300 flex flex-col justify-between p-3">
             <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <!-- VIEW BUTTON -->
-              <button (click)="$event.stopPropagation(); openImageViewer(image)" title="View"
+              <!-- <button (click)="$event.stopPropagation(); openImageViewer(image)" title="View"
                 class="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg">
@@ -70,9 +70,9 @@
                     d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
                   </path>
                 </svg>
-              </button>
+              </button> -->
               <button (click)="$event.stopPropagation(); downloadImage(image)" title="Download"
-                class="p-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors">
+                class="p-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors cursor-pointer">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -80,7 +80,7 @@
                 </svg>
               </button>
               <button (click)="deleteImage(image._id, $event)" title="Delete"
-                class="p-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors">
+                class="p-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors cursor-pointer">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -112,6 +112,11 @@
         </div>
       </ng-template>
     </div>
+    }@else {
+    <div class="flex justify-center items-center h-64">
+      <div class="loader"></div>
+      <p class="ml-4 text-gray-600">Loading images...</p>
+    </div>}
   </div>
 </div>
 

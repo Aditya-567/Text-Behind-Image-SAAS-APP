@@ -13,6 +13,7 @@ export class ImageStorageComponent implements OnInit {
   images: any[] = [];
   searchTerm: string = '';
   viewingImage: any | null = null; // --- NEW: To hold the image for the modal
+  isLoading: boolean = false; // --- NEW: To manage loading state
 
   constructor(private imageService: ImageStorageService) {}
 
@@ -21,12 +22,17 @@ export class ImageStorageComponent implements OnInit {
   }
 
   loadImages(): void {
+    this.isLoading = true; // --- NEW: Set loading state to true
     this.imageService.getImages().subscribe(
       (data) => {
         this.images = data;
         console.log('Images loaded successfully');
+        this.isLoading = false; // --- NEW: Set loading state to false
       },
-      (error) => console.error('Error loading images:', error)
+      (error) => {
+        console.error('Error loading images:', error);
+        this.isLoading = false; // --- NEW: Set loading state to false
+      }
     );
   }
 
