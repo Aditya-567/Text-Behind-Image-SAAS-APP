@@ -12,9 +12,7 @@ export class ImageStorageComponent implements OnInit {
   imageDescription: string = '';
   images: any[] = [];
   searchTerm: string = '';
-
-  // Base URL to construct the image source path
-  readonly imageBaseUrl = 'http://localhost:3000/';
+  viewingImage: any | null = null; // --- NEW: To hold the image for the modal
 
   constructor(private imageService: ImageStorageService) {}
 
@@ -26,7 +24,7 @@ export class ImageStorageComponent implements OnInit {
     this.imageService.getImages().subscribe(
       (data) => {
         this.images = data;
-        console.log('Images loaded successfully', this.images);
+        console.log('Images loaded successfully');
       },
       (error) => console.error('Error loading images:', error)
     );
@@ -49,8 +47,13 @@ export class ImageStorageComponent implements OnInit {
     this.imageService.uploadImage(formData).subscribe(
       (response) => {
         console.log('File uploaded successfully', response);
-        this.imageDescription = ''; // Clear description
-        this.loadImages(); // Refresh the list of images
+        // Clear the file input visually after upload
+        const fileInput = document.getElementById('file-upload') as HTMLInputElement;
+        if(fileInput) fileInput.value = "";
+
+        this.selectedFile = null;
+        this.imageDescription = '';
+        this.loadImages();
       },
       (error) => console.error('Error uploading file:', error)
     );
@@ -58,15 +61,47 @@ export class ImageStorageComponent implements OnInit {
 
   onSearch(): void {
     if (!this.searchTerm.trim()) {
-      this.loadImages(); // If search is empty, load all images
+      this.loadImages();
       return;
     }
     this.imageService.searchImages(this.searchTerm).subscribe(
       (data) => {
         this.images = data;
-        console.log('Search successful', this.images);
       },
       (error) => console.error('Error searching images:', error)
     );
   }
+
+  downloadImage(image: any): void {
+    const link = document.createElement('a');
+    link.href = image.imageData;
+    link.download = image.originalName || 'download.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  deleteImage(imageId: string, event: MouseEvent): void {
+    event.stopPropagation(); // Prevent the modal from opening when clicking delete
+    if (confirm('Are you sure you want to delete this image?')) {
+      this.imageService.deleteImage(imageId).subscribe(
+        () => {
+          console.log('Image deleted successfully');
+          this.images = this.images.filter(img => img._id !== imageId);
+        },
+        (error) => console.error('Error deleting image:', error)
+      );
+    }
+  }
+
+  // --- NEW ---
+  openImageViewer(image: any): void {
+    this.viewingImage = image;
+  }
+
+  // --- NEW ---
+  closeImageViewer(): void {
+    this.viewingImage = null;
+  }
 }
+

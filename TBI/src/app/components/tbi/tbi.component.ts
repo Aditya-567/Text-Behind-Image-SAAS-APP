@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { environment } from '../../../environments/environment';
+import { ImageStorageService } from '../../services/image-storage.service';
+import { ToasterService } from '../../services/toaster.service';
 
 export interface GoogleFont {
   name: string;
@@ -98,7 +100,8 @@ export class TbiComponent implements OnInit {
   selectedEffect: CloudinaryEffect | null = null;
   effectIntensity = 100;
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer, 
+    private imageService: ImageStorageService, private toast: ToasterService) {
     window.addEventListener('scroll', () => {
       this.showScrollTop = window.scrollY > 400;
     });
@@ -455,6 +458,101 @@ export class TbiComponent implements OnInit {
     };
     bgImg.src = this.backgroundImageUrl;
   }
+
+
+//upload the image
+
+  saveImage(): void {
+    // 1. Create a canvas, just like in the download function
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx || !this.backgroundImageUrl) {
+      console.error('Canvas or background image not available.');
+      return;
+    }
+
+    // This logic is copied from your downloadImage() function
+    const bgImg = new Image();
+    bgImg.crossOrigin = 'anonymous';
+    bgImg.onload = () => {
+      const previewEl = document.getElementById('previewContainer');
+      if (!previewEl) return;
+
+      const aspectRatio = previewEl.clientWidth / previewEl.clientHeight;
+      canvas.width = bgImg.naturalWidth;
+      canvas.height = bgImg.naturalWidth / aspectRatio;
+      ctx.filter = this.backgroundCssFilters;
+      ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+      ctx.filter = 'none';
+
+      // Draw text layers
+      this.textLayers.forEach((layer) => {
+        const scale = canvas.width / previewEl.clientWidth;
+        ctx.font = `${layer.isItalic ? 'italic ' : ''}${layer.isBold ? '900 ' : '400 '}${layer.fontSize * scale}px ${layer.fontFamily}`;
+        ctx.fillStyle = layer.color;
+        ctx.globalAlpha = layer.opacity / 100;
+        ctx.textAlign = layer.align;
+        const xPos = canvas.width * (layer.hPos / 100);
+        const yPos = canvas.height * (layer.vPos / 100);
+        ctx.save();
+        ctx.translate(xPos, yPos);
+        ctx.rotate((layer.rotation * Math.PI) / 180);
+        const lines = layer.text.split('\n');
+        const lineHeight = layer.fontSize * 1.2 * scale;
+        lines.forEach((line, index) => {
+          ctx.fillText(line, 0, index * lineHeight + (lineHeight / 4));
+        });
+        ctx.restore();
+      });
+
+      // Draw foreground image
+      const fgImg = new Image();
+      fgImg.crossOrigin = 'anonymous';
+      fgImg.onload = () => {
+        ctx.globalAlpha = 1;
+        ctx.drawImage(fgImg, 0, 0, canvas.width, canvas.height);
+
+        // 2. Convert the final canvas to a Blob
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            console.error('Failed to create blob from canvas.');
+            return;
+          }
+
+          // 3. Use the Blob to upload the image via your service
+          const formData = new FormData();
+          // Append the blob as a file with the user-defined filename
+          formData.append('image', blob, `${this.fileName || 'Cool-TBI'}.png`);
+          formData.append('description', 'Created with the TBI tool'); // Or any other description
+
+          console.log('Uploading final image...');
+          // This assumes you have an 'imageService' injected
+          
+          this.imageService.uploadImage(formData).subscribe({
+            next: (response) => {
+              this.toast.show('Image uploaded successfully!', 'success');
+              console.log('File uploaded successfully', response);
+              // Add any success message for the user
+            },
+            error: (error) => {
+              this.toast.show('Error uploading file:', 'error');
+              console.error('Error uploading file:', error);
+            }
+          });
+          
+        }, 'image/png', 1.0); // Use PNG for high quality
+      };
+      // Make sure to handle the case where there is no foreground image
+      if (this.foregroundImageUrl) {
+        fgImg.src = this.foregroundImageUrl;
+      } else {
+        // If there's no foreground, trigger the blob conversion directly
+        fgImg.onload(new Event('load'));
+      }
+    };
+    bgImg.src = this.backgroundImageUrl;
+  }
+
 
   //ui
   steps = [
