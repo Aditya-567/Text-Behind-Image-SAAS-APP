@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../../login/auth-service.service';
 import { ImageStorageService } from '../../services/image-storage.service';
+import { LoginPopupService } from '../../services/login-pop-up.service';
 import { ToasterService } from '../../services/toaster.service';
 
 export interface GoogleFont {
@@ -43,6 +45,10 @@ export interface CloudinaryEffect {
   styleUrl: './tbi.component.scss',
 })
 export class TbiComponent implements OnInit {
+//login check 
+  showLoginPopup = false;
+
+
   // Element References
   @ViewChild('fileInput') fileInput!: ElementRef;
   @ViewChild('downloadDropdown') downloadDropdown!: ElementRef;
@@ -101,7 +107,7 @@ export class TbiComponent implements OnInit {
   effectIntensity = 100;
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer, 
-    private imageService: ImageStorageService, private toast: ToasterService) {
+    private imageService: ImageStorageService, private toast: ToasterService, private authService: AuthService, public loginPopupService: LoginPopupService) {
     window.addEventListener('scroll', () => {
       this.showScrollTop = window.scrollY > 400;
     });
@@ -114,6 +120,26 @@ export class TbiComponent implements OnInit {
   ngOnInit(): void {
     this.loadGoogleFonts();
     this.loadCloudinaryEffects();
+  }
+
+  //login check
+    isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+
+  closeLoginPopup() {
+    this.showLoginPopup = false;
+  }
+
+  navigateToLogin() {
+    this.showLoginPopup = false;
+    this.loginPopupService.open(false);
+  }
+
+  navigateToRegister() {
+    this.showLoginPopup = false;
+    this.loginPopupService.open(true);
   }
 
   // --- GETTERS ---
@@ -256,6 +282,11 @@ export class TbiComponent implements OnInit {
   onDragOver(event: DragEvent): void { event.preventDefault(); event.stopPropagation(); if (!this.isImageUploaded) this.isDragging = true; }
   onDragLeave(event: DragEvent): void { event.preventDefault(); event.stopPropagation(); this.isDragging = false; }
   onDrop(event: DragEvent): void {
+    if(!this.isLoggedIn()) {
+      this.showLoginPopup = true;
+      this.isDragging = false;
+      return;
+    }
     event.preventDefault();
     event.stopPropagation();
     this.isDragging = false;
@@ -266,8 +297,15 @@ export class TbiComponent implements OnInit {
   }
 
   onFileSelected(event: Event): void {
+
+
+    if(!this.isLoggedIn()) {
+      this.showLoginPopup = true;
+    }
+    else {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) this.processFile(file);
+    }
   }
 
   private processFile(file: File): void {
@@ -324,7 +362,12 @@ export class TbiComponent implements OnInit {
   }
 
   triggerFileInput(): void {
-    this.fileInput.nativeElement.click();
+    if(!this.isLoggedIn()) {
+      this.showLoginPopup = true;
+    }
+    else{
+      this.fileInput.nativeElement.click();
+    }
   }
 
   discardImage(): void {
@@ -580,6 +623,29 @@ export class TbiComponent implements OnInit {
       Image: 'download-h.svg',
       title: 'Download',
       description: 'Export in high quality format',
+    },
+  ];
+
+    featureCardsSecond = [
+    {
+      icon: 'social.svg',
+      title: 'Enhance Profile Picture',
+    },
+    {
+      icon: 'pic.svg',
+      title: 'Edit Images Anywhere',
+    },
+    {
+      icon: 'aistart.svg',
+      title: 'AI-Powered Image Enhancement',
+    },
+    {
+      icon: 'ui.svg',
+      title: 'Simple, intuitive, and fast editing experience.',
+    },
+    {
+      icon: 'pay.svg',
+      title: 'Secure & Reliable Payments',
     },
   ];
 

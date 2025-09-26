@@ -1,18 +1,10 @@
-<div
-  *ngIf="showPopup()"
-  class="fixed inset-0 bg-white/40 z-50 flex items-center justify-center"
-  (click)="closePopup()"
->
+<div *ngIf="showPopup()" class="fixed inset-0 bg-black/20 z-50 flex items-center justify-center" (click)="closePopup()">
   <!-- Popup -->
-  <div
-    class="relative bg-white rounded-2xl box-shadow w-[480px] max-w-[90%] p-8"
-    (click)="$event.stopPropagation()"
-  >
+  <div class="relative bg-white rounded-2xl shadow-lg border border-gray-200 w-[480px] max-w-[90%] p-8 "
+    (click)="$event.stopPropagation()">
     <!-- Close -->
-    <button
-      (click)="closePopup()"
-      class="absolute top-4 right-4 rounded-full bg-gray-50 p-2 hover:bg-gray-200 cursor-pointer"
-    >
+    <button (click)="closePopup()"
+      class="absolute top-4 right-4 rounded-full bg-gray-50 p-2 hover:bg-gray-200 cursor-pointer">
       <img src="cross.svg" alt="close" class="w-5 h-5" />
     </button>
 
@@ -37,42 +29,34 @@
     <!-- Title -->
     <h2 class="text-2xl font-bold text-[#444] mb-0.5 text-center">
       {{
-        isForgotPassword
-          ? "Reset Password"
-          : isSignUp
-          ? "Just Create Account"
-          : "Welcome Back Editor"
+      isForgotPassword
+      ? "Reset Password"
+      : isSignUp
+      ? "Just Create Account"
+      : "Welcome Back Editor"
       }}
     </h2>
     <p class="text-gray-500 text-sm mb-6 text-center">
       {{
-        isForgotPassword
-          ? "Enter your email address and we will send you reset instructions."
-          : isSignUp
-          ? "Join TBI Studio and unlock all features!"
-          : "Sign in to unlock all features and benefits of TBI Studio"
+      isForgotPassword
+      ? "Enter your email address and we will send you reset instructions."
+      : isSignUp
+      ? "Join TBI Studio and unlock all features!"
+      : "Sign in to unlock all features and benefits of TBI Studio"
       }}
     </p>
 
     <!-- Third Party Login (hide in forgot password mode) -->
     <div *ngIf="!isForgotPassword" class="flex flex-col gap-3 w-full mb-5">
-      <button
-        (click)="googleSignIn($event)"
-        class="cursor-pointer flex items-center justify-center gap-3 w-full py-2 px-6 border border-gray-300 rounded-lg hover:bg-gray-100 transition"
-      >
+      <button (click)="googleSignIn($event)"
+        class="cursor-pointer flex items-center justify-center gap-3 w-full py-2 px-6 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
         <img src="google.svg" alt="Google" class="h-5" />
-        <span class="text-sm text-gray-700 font-medium"
-          >Continue with Google</span
-        >
+        <span class="text-sm text-gray-700 font-medium">Continue with Google</span>
       </button>
-      <button
-        (click)="githubSignIn($event)"
-        class="cursor-pointer flex items-center justify-center gap-3 w-full py-2 px-6 border border-gray-300 rounded-lg hover:bg-gray-100 transition"
-      >
+      <button (click)="githubSignIn($event)"
+        class="cursor-pointer flex items-center justify-center gap-3 w-full py-2 px-6 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
         <img src="github2.svg" alt="GitHub" class="h-5" />
-        <span class="text-sm text-gray-700 font-medium"
-          >Continue with GitHub</span
-        >
+        <span class="text-sm text-gray-700 font-medium">Continue with GitHub</span>
       </button>
     </div>
 
@@ -84,82 +68,44 @@
     </div>
 
     <!-- Normal Form -->
-    <form
-      *ngIf="!isForgotPassword"
-      (submit)="isSignUp ? signUpWithEmail($event) : signInWithEmail($event)"
-      class="flex flex-col gap-3"
-    >
-      <input
-        *ngIf="isSignUp"
-        [(ngModel)]="displayName"
-        name="displayName"
-        type="text"
-        placeholder="Full Name"
-        class="w-full px-4 py-2 border border-gray-300 text-[#333] rounded-lg focus:outline-none focus:ring-none focus:border-purple-500"
-      />
+    <form *ngIf="!isForgotPassword" (submit)="isSignUp ? signUpWithEmail($event) : signInWithEmail($event)"
+      class="flex flex-col gap-3">
+      <input *ngIf="isSignUp" [(ngModel)]="displayName" name="displayName" type="text" placeholder="Full Name"
+        class="w-full px-4 py-2 border border-gray-300 text-[#333] rounded-lg focus:outline-none focus:ring-none focus:border-purple-500" />
 
-      <input
-        [(ngModel)]="email"
-        name="email"
-        type="email"
-        placeholder="Email"
-        class="w-full px-4 py-2 border border-gray-300 text-[#333] rounded-lg focus:outline-none focus:ring-none focus:border-purple-500"
-      />
+      <input [(ngModel)]="email" name="email" type="email" placeholder="Email"
+        class="w-full px-4 py-2 border border-gray-300 text-[#333] rounded-lg focus:outline-none focus:ring-none focus:border-purple-500" />
 
-      <input
-        [(ngModel)]="password"
-        name="password"
-        type="password"
-        placeholder="Password"
-        class="w-full px-4 py-2 border border-gray-300 text-[#333] rounded-lg focus:outline-none focus:ring-none focus:border-purple-500"
-      />
+      <input [(ngModel)]="password" name="password" type="password" placeholder="Password"
+        class="w-full px-4 py-2 border border-gray-300 text-[#333] rounded-lg focus:outline-none focus:ring-none focus:border-purple-500" />
 
       <!-- Forgot Password -->
       <div *ngIf="!isSignUp" class="text-right -mt-1">
-        <button
-          (click)="isForgotPassword = true"
-          type="button"
-          class="text-sm text-blue-600 hover:underline cursor-pointer"
-        >
+        <button (click)="isForgotPassword = true" type="button"
+          class="text-sm text-blue-600 hover:underline cursor-pointer">
           Forgot password?
         </button>
       </div>
 
       <!-- Submit -->
-      <button
-        type="submit"
-        class="mt-2 w-full py-3 fill-button transition-transform transform hover:scale-[1.03] active:scale-[0.97]"
-      >
+      <button type="submit"
+        class="mt-2 w-full py-3 fill-button transition-transform transform hover:scale-[1.03] active:scale-[0.97]">
         {{ isSignUp ? "Create Account" : "Sign In" }}
       </button>
     </form>
 
     <!-- Forgot Password Form -->
-    <form
-      *ngIf="isForgotPassword"
-      (submit)="resetPassword($event)"
-      class="flex flex-col gap-3"
-    >
-      <input
-        [(ngModel)]="resetEmail"
-        name="resetEmail"
-        type="email"
-        placeholder="Enter your email"
-        class="w-full px-4 py-2 border border-gray-300 text-[#333] rounded-lg focus:outline-none focus:ring-none focus:border-purple-500"
-      />
+    <form *ngIf="isForgotPassword" (submit)="resetPassword($event)" class="flex flex-col gap-3">
+      <input [(ngModel)]="resetEmail" name="resetEmail" type="email" placeholder="Enter your email"
+        class="w-full px-4 py-2 border border-gray-300 text-[#333] rounded-lg focus:outline-none focus:ring-none focus:border-purple-500" />
 
-      <button
-        type="submit"
-        class="mt-2 w-full py-3 fill-button transition-transform transform hover:scale-[1.03] active:scale-[0.97]"
-      >
+      <button type="submit"
+        class="mt-2 w-full py-3 fill-button transition-transform transform hover:scale-[1.03] active:scale-[0.97]">
         Send Reset Link
       </button>
 
-      <button
-        type="button"
-        (click)="isForgotPassword = false"
-        class="text-sm text-gray-600 hover:text-blue-600 hover:underline text-center mt-2 cursor-pointer"
-      >
+      <button type="button" (click)="isForgotPassword = false"
+        class="text-sm text-gray-600 hover:text-blue-600 hover:underline text-center mt-2 cursor-pointer">
         Back to Sign In
       </button>
     </form>
@@ -167,10 +113,7 @@
     <!-- Switch (hide in forgot password mode) -->
     <p *ngIf="!isForgotPassword" class="text-sm text-[#333] mt-6 text-center">
       {{ isSignUp ? "Already have an account?" : "Don't have an account?" }}
-      <button
-        (click)="toggleForm()"
-        class="text-purple-600 font-semibold hover:underline cursor-pointer ml-1"
-      >
+      <button (click)="toggleForm()" class="text-purple-600 font-semibold hover:underline cursor-pointer ml-1">
         {{ isSignUp ? "Sign In" : "Create Account" }}
       </button>
     </p>

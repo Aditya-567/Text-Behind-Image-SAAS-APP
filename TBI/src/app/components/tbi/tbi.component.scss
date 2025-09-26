@@ -67,3 +67,22 @@
   background-image: radial-gradient(gray 20%, transparent 2%);
   background-size: 4px 4px; /* Adjust spacing here */
 }
+
+.scroll-track-left {
+  display: flex;
+  width: max-content;
+  animation: scrollRight 35s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  animation-timing-function: linear;
+  backface-visibility: hidden;
+}
+
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
